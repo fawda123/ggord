@@ -1,10 +1,22 @@
 Package: ggord
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1
-Date: 2015-05-09
-Author: Your name goes here
-Maintainer: person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
-LazyData: TRUE
+Title: Ordination Plots with ggplot2
+Version:  0.1.9000
+Date: 2015-05-10
+Author: Marcus W. Beck [aut, cre]
+Maintainer: Marcus W. Beck <mbafs2012@gmail.com>
+Description: Create ordination plots with ggplot2.  Available plots include biplots and
+  screeplots with methods for pcord and mca objects.
+BugReports: https://github.com/fawda123/ggord/issues
+License: CC0
+LazyData: true
+Depends:
+    R (>= 3.1.1),
+    ggplot2,
+    grid
+Suggests:
+    MASS,
+    FactoMineR
+Authors@R: person(given = "Marcus W.", family = "Beck",
+    role = c("aut","cre"),
+    email = "mbafs2012@gmail.com")

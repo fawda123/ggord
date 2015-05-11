@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title></title>
+
+<script src="README_files/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="README_files/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="README_files/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="README_files/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="README_files/bootstrap-3.3.1/shim/respond.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="README_files/highlight/default.css"
+      type="text/css" />
+<script src="README_files/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+
+
+
+<div id="ggord" class="section level2">
+<h2>ggord</h2>
+<div id="marcus-w.-beck-mbafs2012gmail.com" class="section level4">
+<h4><em>Marcus W. Beck, <a href="mailto:mbafs2012@gmail.com">mbafs2012@gmail.com</a></em></h4>
+<p><a href="https://travis-ci.org/fawda123/ggord"><img src="https://travis-ci.org/fawda123/ggord.png?branch=master" alt="Travis-CI Build Status" /></a></p>
+<p>A simple package for creating ordination plots with ggplot2. Install the package as follows:</p>
+<pre class="r"><code>install.packages(devtools)
+library(devtools)
+install_github(&#39;fawda123/ggord&#39;)
+library(ggord)</code></pre>
+<p>Examples of ordination plots for pcord (principal components) and MCA (multiple correspondence analysis) are shown below.</p>
+<pre class="r"><code># pca with the iris data set
+ord &lt;- prcomp(iris[, 1:4])
+
+ggord(ord, iris$Species)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-1.png" /></p>
+<pre class="r"><code># mca with the farms dataset
+library(FactoMineR)
+library(MASS)
+
+mod &lt;- MCA(farms, graph = FALSE)
+ggord(mod)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-2.png" /></p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

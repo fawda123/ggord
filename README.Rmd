@@ -1,13 +1,16 @@
 ---
-Title:
 output:
-  md_document:
-    variant: markdown_github
+  html_document:
+    keep_md: yes
+    toc: no
+    self_contained: no
 ---
 
 ## ggord
 
 #### *Marcus W. Beck, mbafs2012@gmail.com*
+
+[![Travis-CI Build Status](https://travis-ci.org/fawda123/ggord.png?branch=master)](https://travis-ci.org/fawda123/ggord)
 
 A simple package for creating ordination plots with ggplot2.  Install the package as follows:
 
@@ -18,4 +21,22 @@ install_github('fawda123/ggord')
 library(ggord)
 ```
 
-The package is currently under development, examples forthcoming.
+Examples of ordination plots for pcord (principal components) and MCA (multiple correspondence analysis) are shown below.
+
+```{r echo = FALSE, message = FALSE}
+devtools::load_all('C:/Documents/ggord')
+```
+```{r fig.height = 6, fig.width = 6}
+# pca with the iris data set
+ord <- prcomp(iris[, 1:4])
+
+ggord(ord, iris$Species)
+
+# mca with the farms dataset
+library(FactoMineR)
+library(MASS)
+
+mod <- MCA(farms, graph = FALSE)
+ggord(mod)
+```
+
