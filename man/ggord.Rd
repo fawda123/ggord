@@ -3,19 +3,28 @@
 \name{ggord}
 \alias{ggord}
 \alias{ggord.MCA}
+\alias{ggord.PCA}
 \alias{ggord.default}
+\alias{ggord.metaMDS}
 \alias{ggord.prcomp}
+\alias{ggord.princomp}
 \title{Ordination plots with ggplot2}
 \usage{
 ggord(...)
 
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), arrow = 0.4,
-  ext = 1.5, size = 4, txt = 6, xlims = NULL, ylims = NULL,
+  ext = 1.2, size = 4, txt = 6, xlims = NULL, ylims = NULL,
   var_sub = NULL, ...)
+
+\method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
 \method{ggord}{MCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
 \method{ggord}{prcomp}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
+
+\method{ggord}{princomp}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
+
+\method{ggord}{metaMDS}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 }
 \arguments{
 \item{...}{arguments passed to or from other methods}
@@ -51,17 +60,44 @@ A \code{\link[ggplot2]{ggplot}} object that can be further modified
 Create an ordination biplot using ggplot2 including options for selecting axes, group color aesthetics, and selection of variables to plot.
 }
 \examples{
-# pca with the iris data set
+# principal components analysis with the iris data set
+# prcomp
 ord <- prcomp(iris[, 1:4])
+
+p <- ggord(ord, iris$Species)
+p
+
+p + scale_colour_manual('Species', values = c('purple', 'orange', 'blue'))
+p + theme_classic()
+p + theme(legend.position = 'top')
+p + scale_x_continuous(limits = c(-2, 2))
+
+# principal components analysis with the iris dataset
+# princomp
+ord <- princomp(iris[, 1:4])
 
 ggord(ord, iris$Species)
 
-# mca with farms data set
+# principal components analysis with the iris dataset
+# PCA
 library(FactoMineR)
+
+ord <- PCA(iris[, 1:4], graph = FALSE)
+
+ggord(ord, iris$Species)
+
+# multiple correspondence analysis with farms data set
 library(MASS)
 ord <- MCA(farms, graph = FALSE)
 
 ggord(ord)
+
+# nonmetric multidimensional scaling with the iris dataset
+# metaMDS
+library(vegan)
+ord <- metaMDS(iris[, 1:4])
+
+ggord(ord, iris$Species)
 }
 \seealso{
 \code{\link[ggplot2]{ggplot}}

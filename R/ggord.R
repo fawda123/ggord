@@ -26,17 +26,45 @@
 #'
 #' @examples
 #'
-#' # pca with the iris data set
+#' # principal components analysis with the iris data set
+#' # prcomp
 #' ord <- prcomp(iris[, 1:4])
+#'
+#' p <- ggord(ord, iris$Species)
+#' p
+#'
+#' p + scale_colour_manual('Species', values = c('purple', 'orange', 'blue'))
+#' p + theme_classic()
+#' p + theme(legend.position = 'top')
+#' p + scale_x_continuous(limits = c(-2, 2))
+#'
+#' # principal components analysis with the iris dataset
+#' # princomp
+#' ord <- princomp(iris[, 1:4])
 #'
 #' ggord(ord, iris$Species)
 #'
-#' # mca with farms data set
+#' # principal components analysis with the iris dataset
+#' # PCA
 #' library(FactoMineR)
+#'
+#' ord <- PCA(iris[, 1:4], graph = FALSE)
+#'
+#' ggord(ord, iris$Species)
+#'
+#' # multiple correspondence analysis with farms data set
 #' library(MASS)
 #' ord <- MCA(farms, graph = FALSE)
 #'
 #' ggord(ord)
+#'
+#' # nonmetric multidimensional scaling with the iris dataset
+#' # metaMDS
+#' library(vegan)
+#' ord <- metaMDS(iris[, 1:4])
+#'
+#' ggord(ord, iris$Species)
+#'
 ggord <- function(...) UseMethod('ggord')
 
 #' @rdname ggord
@@ -45,7 +73,7 @@ ggord <- function(...) UseMethod('ggord')
 #'
 #' @method ggord default
 ggord.default <- function(obs, vecs, axes = c('1', '2'),
-                      arrow = 0.4, ext = 1.5, size = 4, txt = 6, xlims = NULL,
+                      arrow = 0.4, ext = 1.2, size = 4, txt = 6, xlims = NULL,
                       ylims = NULL, var_sub = NULL, ...){
 
   # tweaks to vecs for plotting
@@ -67,10 +95,12 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'),
   ## plots
 
   # individual points
-  p <- ggplot(obs, aes_string(x = axes[1], y = axes[2])) +
+  nms <- names(obs)[1:2]
+  names(obs)[1:2] <- c('one', 'two')
+  p <- ggplot(obs, aes_string(x = 'one', y = 'two')) +
     geom_point(size = size) +
-    scale_x_continuous(limits = xlims) +
-    scale_y_continuous(limits = ylims) +
+    scale_x_continuous(name = nms[1], limits = xlims) +
+    scale_y_continuous(name = nms[2], limits = ylims) +
     theme_bw()
 
   if(!is.null(obs$Groups))
@@ -93,6 +123,28 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'),
 
 }
 
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord PCA
+ggord.PCA <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  exp_var <- ord_in$eig[as.numeric(axes), 'percentage of variance']
+  axes <- paste0('Dim.', axes)
+  obs <- data.frame(ord_in$ind$coord)
+  obs <- obs[, names(obs) %in% axes]
+  obs$Groups <- grp_in
+  vecs <- data.frame(ord_in$var$coord)
+  vecs <- vecs[, names(vecs) %in% axes]
+  axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs, axes, ...)
+
+}
+
 
 #' @rdname ggord
 #'
@@ -102,12 +154,15 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'),
 ggord.MCA <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
   # data to plot
+  exp_var <- ord_in$eig[as.numeric(axes), 'percentage of variance']
   axes <- paste0('Dim.', axes)
   obs <- data.frame(ord_in$ind$coord)
   obs <- obs[, names(obs) %in% axes]
   obs$Groups <- grp_in
   vecs <- data.frame(ord_in$var$coord)
   vecs <- vecs[, names(vecs) %in% axes]
+  axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
 
   ggord.default(obs, vecs, axes, ...)
 
@@ -125,6 +180,55 @@ ggord.prcomp <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
   obs <- data.frame(ord_in$x[, axes])
   obs$Groups <- grp_in
   vecs <- data.frame(ord_in$rotation[, axes])
+  exp_var <- 100 * summary(ord_in)$importance[2, ][axes]
+  axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs, axes, ...)
+
+}
+
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord princomp
+ggord.princomp <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  axes <- paste0('Comp.', axes)
+  obs <- data.frame(ord_in$scores[, axes])
+  obs$Groups <- grp_in
+  vecs <- loadings(ord_in)
+  dims <- dim(vecs)
+  rownms <- row.names(loadings(ord_in))
+  colnms <- colnames(loadings(ord_in))
+  vecs <- matrix(vecs, nrow = dims[1], ncol = dims[2])
+  vecs <- data.frame(vecs, row.names = rownms)
+  names(vecs) <- colnms
+  vecs <- vecs[, axes]
+  exp_var <- 100 * (ord_in$sdev^2)/sum(ord_in$sdev^2)
+  exp_var <- exp_var[axes]
+  axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs, axes, ...)
+
+}
+
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord metaMDS
+ggord.metaMDS <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  axes <- paste0('MDS', axes)
+  obs <- data.frame(ord_in$points[, axes])
+  obs$Groups <- grp_in
+  vecs <- data.frame(ord_in$species[, axes])
+
 
   ggord.default(obs, vecs, axes, ...)
 

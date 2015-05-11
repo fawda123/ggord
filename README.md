@@ -15,12 +15,12 @@ install_github('fawda123/ggord')
 library(ggord)
 ```
 
-Examples of ordination plots for pcord (principal components) and MCA (multiple correspondence analysis) are shown below.
+Examples of ordination plots for pcord (principal components), MCA (multiple correspondence analysis), and metaMDS (nonmetric multidimensional scaling) are shown below.  Additional methods not shown are also available for princomp and PCA.
 
 
 
 ```r
-# pca with the iris data set
+# principal components analysis with the iris data set
 ord <- prcomp(iris[, 1:4])
 
 ggord(ord, iris$Species)
@@ -29,13 +29,24 @@ ggord(ord, iris$Species)
 ![](README_files/figure-html/unnamed-chunk-3-1.png) 
 
 ```r
-# mca with the farms dataset
+# multiple correspondence analysis with farms data set
 library(FactoMineR)
 library(MASS)
+ord <- MCA(farms, graph = FALSE)
 
-mod <- MCA(farms, graph = FALSE)
-ggord(mod)
+ggord(ord)
 ```
 
 ![](README_files/figure-html/unnamed-chunk-3-2.png) 
+
+```r
+# nonmetric multidimensional scaling with the iris dataset
+# metaMDS
+library(vegan)
+ord <- metaMDS(iris[, 1:4])
+
+ggord(ord, iris$Species)
+```
+
+![](README_files/figure-html/unnamed-chunk-3-3.png) 
 

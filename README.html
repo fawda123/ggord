@@ -73,19 +73,26 @@ img {
 library(devtools)
 install_github(&#39;fawda123/ggord&#39;)
 library(ggord)</code></pre>
-<p>Examples of ordination plots for pcord (principal components) and MCA (multiple correspondence analysis) are shown below.</p>
-<pre class="r"><code># pca with the iris data set
+<p>Examples of ordination plots for pcord (principal components), MCA (multiple correspondence analysis), and metaMDS (nonmetric multidimensional scaling) are shown below. Additional methods not shown are also available for princomp and PCA.</p>
+<pre class="r"><code># principal components analysis with the iris data set
 ord &lt;- prcomp(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-1.png" /></p>
-<pre class="r"><code># mca with the farms dataset
+<pre class="r"><code># multiple correspondence analysis with farms data set
 library(FactoMineR)
 library(MASS)
+ord &lt;- MCA(farms, graph = FALSE)
 
-mod &lt;- MCA(farms, graph = FALSE)
-ggord(mod)</code></pre>
+ggord(ord)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-2.png" /></p>
+<pre class="r"><code># nonmetric multidimensional scaling with the iris dataset
+# metaMDS
+library(vegan)
+ord &lt;- metaMDS(iris[, 1:4])
+
+ggord(ord, iris$Species)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-3.png" /></p>
 </div>
 </div>
 

@@ -15,8 +15,9 @@ Depends:
     ggplot2,
     grid
 Suggests:
+    FactoMineR,
     MASS,
-    FactoMineR
+    vegan
 Authors@R: person(given = "Marcus W.", family = "Beck",
     role = c("aut","cre"),
     email = "mbafs2012@gmail.com")
