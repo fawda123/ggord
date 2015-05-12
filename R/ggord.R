@@ -52,6 +52,14 @@
 #'
 #' ggord(ord, iris$Species)
 #'
+#' # principal components analysis with the iris dataset
+#' # dudi.pca
+#' libary(ade4)
+#'
+#' ord <- dudi.pca(iris[, 1:4], scannf = FALSE)
+#'
+#' ggord(ord, iris$Species)
+#'
 #' # multiple correspondence analysis with farms data set
 #' library(MASS)
 #' ord <- MCA(farms, graph = FALSE)
@@ -70,6 +78,7 @@
 #' ord <- lda(Species ~ ., iris, prior = rep(1, 3)/3)
 #'
 #' ggord(ord, iris$Species)
+#'
 ggord <- function(...) UseMethod('ggord')
 
 #' @rdname ggord
@@ -252,6 +261,27 @@ ggord.lda <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
   obs <- data.frame(predict(ord_in)$x[, axes])
   obs$Groups <- grp_in
   vecs <- data.frame(ord_in$scaling[, axes])
+  axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs, axes, ...)
+
+}
+
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord pca
+ggord.pca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  exp_var <- 100 * ord_in$eig^2 / sum(ord_in$eig^2)
+  exp_var <- exp_var[as.numeric(axes)]
+  obs <- data.frame(ord_in$li[, paste0('Axis', axes)])
+  obs$Groups <- grp_in
+  vecs <- data.frame(ord_in$c1[, paste0('CS', axes)])
+  axes <- paste0('Axis', axes)
   axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
   names(obs)[1:2] <- axes
 
