@@ -65,6 +65,11 @@
 #'
 #' ggord(ord, iris$Species)
 #'
+#' # linear discriminant analysis
+#' # example from lda in MASS package
+#' ord <- lda(Species ~ ., iris, prior = rep(1, 3)/3)
+#'
+#' ggord(ord, iris$Species)
 ggord <- function(...) UseMethod('ggord')
 
 #' @rdname ggord
@@ -229,6 +234,26 @@ ggord.metaMDS <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
   obs$Groups <- grp_in
   vecs <- data.frame(ord_in$species[, axes])
 
+  ggord.default(obs, vecs, axes, ...)
+
+}
+
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord lda
+ggord.lda <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  exp_var <- 100 * ord_in$svd^2 / sum(ord_in$svd^2)
+  exp_var <- exp_var[as.numeric(axes)]
+  axes <- paste0('LD', axes)
+  obs <- data.frame(predict(ord_in)$x[, axes])
+  obs$Groups <- grp_in
+  vecs <- data.frame(ord_in$scaling[, axes])
+  axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
 
   ggord.default(obs, vecs, axes, ...)
 
