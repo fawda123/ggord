@@ -56,15 +56,24 @@
 #' # dudi.pca
 #' libary(ade4)
 #'
-#' ord <- dudi.pca(iris[, 1:4], scannf = FALSE)
+#' ord <- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
 #'
 #' ggord(ord, iris$Species)
 #'
-#' # multiple correspondence analysis with farms data set
-#' library(MASS)
-#' ord <- MCA(farms, graph = FALSE)
+#' # multiple correspondence analysis with the tea dataset
+#' # MCA
+#' data(tea)
+#' tea <- tea[, c('Tea', 'sugar', 'price', 'age_Q', 'sex')]
+#' ord <- MCA(tea[, -1], graph = FALSE)
 #'
-#' ggord(ord)
+#' ggord(ord, tea$Tea)
+#'
+#' # multiple correspondence analysis with the tea dataset
+#' # mca
+#' library(MASS)
+#' ord <- mca(tea[, -1])
+#'
+#' ggord(ord, tea$Tea)
 #'
 #' # nonmetric multidimensional scaling with the iris dataset
 #' # metaMDS
@@ -159,7 +168,6 @@ ggord.PCA <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
 }
 
-
 #' @rdname ggord
 #'
 #' @export
@@ -175,6 +183,27 @@ ggord.MCA <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
   obs$Groups <- grp_in
   vecs <- data.frame(ord_in$var$coord)
   vecs <- vecs[, names(vecs) %in% axes]
+  axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs, axes, ...)
+
+}
+
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord mca
+ggord.mca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  exp_var <- ord_in$eig[as.numeric(axes), 'percentage of variance']
+  obs <- data.frame(ord_in$rs[, as.numeric(axes)])
+  obs$Groups <- grp_in
+  vecs <- data.frame(ord_in$cs[, as.numeric(axes)])
+  exp_var <- 100 * ord_in$d^2/sum(ord_in$d^2)
+  exp_var <- exp_var[as.numeric(axes)]
   axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
   names(obs)[1:2] <- axes
 
