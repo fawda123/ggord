@@ -54,7 +54,7 @@
 #'
 #' # principal components analysis with the iris dataset
 #' # dudi.pca
-#' libary(ade4)
+#' library(ade4)
 #'
 #' ord <- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
 #'

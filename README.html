@@ -75,24 +75,72 @@ install_github(&#39;fawda123/ggord&#39;)
 library(ggord)</code></pre>
 <p>Examples of ordination plots for pcord (principal components), MCA (multiple correspondence analysis), and metaMDS (nonmetric multidimensional scaling) are shown below. Additional methods not shown are also available for princomp and PCA.</p>
 <pre class="r"><code># principal components analysis with the iris data set
+# prcomp
 ord &lt;- prcomp(iris[, 1:4])
 
-ggord(ord, iris$Species)</code></pre>
+p &lt;- ggord(ord, iris$Species)
+p</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-1.png" /></p>
-<pre class="r"><code># multiple correspondence analysis with farms data set
-library(FactoMineR)
-library(MASS)
-ord &lt;- MCA(farms, graph = FALSE)
-
-ggord(ord)</code></pre>
+<pre class="r"><code>p + scale_colour_manual(&#39;Species&#39;, values = c(&#39;purple&#39;, &#39;orange&#39;, &#39;blue&#39;))</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-2.png" /></p>
+<pre class="r"><code>p + theme_classic()</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-3.png" /></p>
+<pre class="r"><code>p + theme(legend.position = &#39;top&#39;)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-4.png" /></p>
+<pre class="r"><code>p + scale_x_continuous(limits = c(-2, 2))</code></pre>
+<pre><code>## Warning: Removed 75 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 75 rows containing missing values (geom_point).</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-5.png" /></p>
+<pre class="r"><code># principal components analysis with the iris dataset
+# princomp
+ord &lt;- princomp(iris[, 1:4])
+
+ggord(ord, iris$Species)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-6.png" /></p>
+<pre class="r"><code># principal components analysis with the iris dataset
+# PCA
+library(FactoMineR)
+
+ord &lt;- PCA(iris[, 1:4], graph = FALSE)
+
+ggord(ord, iris$Species)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-7.png" /></p>
+<pre class="r"><code># principal components analysis with the iris dataset
+# dudi.pca
+library(ade4)
+
+ord &lt;- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
+
+ggord(ord, iris$Species)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-8.png" /></p>
+<pre class="r"><code># multiple correspondence analysis with the tea dataset
+# MCA
+data(tea)
+tea &lt;- tea[, c(&#39;Tea&#39;, &#39;sugar&#39;, &#39;price&#39;, &#39;age_Q&#39;, &#39;sex&#39;)]
+ord &lt;- MCA(tea[, -1], graph = FALSE)
+
+ggord(ord, tea$Tea)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-9.png" /></p>
+<pre class="r"><code># multiple correspondence analysis with the tea dataset
+# mca
+library(MASS)
+ord &lt;- mca(tea[, -1])
+
+ggord(ord, tea$Tea)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-10.png" /></p>
 <pre class="r"><code># nonmetric multidimensional scaling with the iris dataset
 # metaMDS
 library(vegan)
 ord &lt;- metaMDS(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-3.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-11.png" /></p>
+<pre class="r"><code># linear discriminant analysis
+# example from lda in MASS package
+ord &lt;- lda(Species ~ ., iris, prior = rep(1, 3)/3)
+
+ggord(ord, iris$Species)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-12.png" /></p>
 </div>
 </div>
 

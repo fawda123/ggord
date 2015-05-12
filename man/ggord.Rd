@@ -5,7 +5,10 @@
 \alias{ggord.MCA}
 \alias{ggord.PCA}
 \alias{ggord.default}
+\alias{ggord.lda}
+\alias{ggord.mca}
 \alias{ggord.metaMDS}
+\alias{ggord.pca}
 \alias{ggord.prcomp}
 \alias{ggord.princomp}
 \title{Ordination plots with ggplot2}
@@ -20,11 +23,17 @@ ggord(...)
 
 \method{ggord}{MCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
+\method{ggord}{mca}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
+
 \method{ggord}{prcomp}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
 \method{ggord}{princomp}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
 \method{ggord}{metaMDS}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
+
+\method{ggord}{lda}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
+
+\method{ggord}{pca}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 }
 \arguments{
 \item{...}{arguments passed to or from other methods}
@@ -86,16 +95,39 @@ ord <- PCA(iris[, 1:4], graph = FALSE)
 
 ggord(ord, iris$Species)
 
-# multiple correspondence analysis with farms data set
-library(MASS)
-ord <- MCA(farms, graph = FALSE)
+# principal components analysis with the iris dataset
+# dudi.pca
+library(ade4)
 
-ggord(ord)
+ord <- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
+
+ggord(ord, iris$Species)
+
+# multiple correspondence analysis with the tea dataset
+# MCA
+data(tea)
+tea <- tea[, c('Tea', 'sugar', 'price', 'age_Q', 'sex')]
+ord <- MCA(tea[, -1], graph = FALSE)
+
+ggord(ord, tea$Tea)
+
+# multiple correspondence analysis with the tea dataset
+# mca
+library(MASS)
+ord <- mca(tea[, -1])
+
+ggord(ord, tea$Tea)
 
 # nonmetric multidimensional scaling with the iris dataset
 # metaMDS
 library(vegan)
 ord <- metaMDS(iris[, 1:4])
+
+ggord(ord, iris$Species)
+
+# linear discriminant analysis
+# example from lda in MASS package
+ord <- lda(Species ~ ., iris, prior = rep(1, 3)/3)
 
 ggord(ord, iris$Species)
 }
