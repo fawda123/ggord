@@ -64,6 +64,7 @@
 #' # MCA
 #' data(tea)
 #' tea <- tea[, c('Tea', 'sugar', 'price', 'age_Q', 'sex')]
+#'
 #' ord <- MCA(tea[, -1], graph = FALSE)
 #'
 #' ggord(ord, tea$Tea)
@@ -71,7 +72,14 @@
 #' # multiple correspondence analysis with the tea dataset
 #' # mca
 #' library(MASS)
+#'
 #' ord <- mca(tea[, -1])
+#'
+#' ggord(ord, tea$Tea)
+#'
+#' # multiple correspondence analysis with the tea dataset
+#' # acm
+#' ord <- dudi.acm(tea[, -1], scannf = FALSE)
 #'
 #' ggord(ord, tea$Tea)
 #'
@@ -85,6 +93,19 @@
 #' # linear discriminant analysis
 #' # example from lda in MASS package
 #' ord <- lda(Species ~ ., iris, prior = rep(1, 3)/3)
+#'
+#' ggord(ord, iris$Species)
+#'
+#' # correspondence analysis
+#' # dudi.coa
+#' ord <- dudi.coa(iris[, 1:4], scannf = FALSE, nf = 4)
+#'
+#' ggord(ord, iris$Species)
+#'
+#' # correspondence analysis
+#' # ca
+#' library(ca)
+#' ord <- ca(iris[, 1:4])
 #'
 #' ggord(ord, iris$Species)
 #'
@@ -215,6 +236,27 @@ ggord.mca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 #'
 #' @export
 #'
+#' @method ggord acm
+ggord.acm <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  exp_var <- 100 * ord_in$eig^2 / sum(ord_in$eig^2)
+  exp_var <- exp_var[as.numeric(axes)]
+  obs <- data.frame(ord_in$li[, paste0('Axis', axes)])
+  obs$Groups <- grp_in
+  vecs <- data.frame(ord_in$co[, paste0('Comp', axes)])
+  axes <- paste0('Axis', axes)
+  axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs, axes, ...)
+
+}
+
+#' @rdname ggord
+#'
+#' @export
+#'
 #' @method ggord prcomp
 ggord.prcomp <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
@@ -309,7 +351,7 @@ ggord.pca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
   exp_var <- exp_var[as.numeric(axes)]
   obs <- data.frame(ord_in$li[, paste0('Axis', axes)])
   obs$Groups <- grp_in
-  vecs <- data.frame(ord_in$c1[, paste0('CS', axes)])
+  vecs <- data.frame(ord_in$co[, paste0('Comp', axes)])
   axes <- paste0('Axis', axes)
   axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
   names(obs)[1:2] <- axes
@@ -318,3 +360,44 @@ ggord.pca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
 }
 
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord coa
+ggord.coa <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  exp_var <- 100 * ord_in$eig^2 / sum(ord_in$eig^2)
+  exp_var <- exp_var[as.numeric(axes)]
+  obs <- data.frame(ord_in$li[, paste0('Axis', axes)])
+  obs$Groups <- grp_in
+  vecs <- data.frame(ord_in$co[, paste0('Comp', axes)])
+  axes <- paste0('Axis', axes)
+  axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs, axes, ...)
+
+}
+
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord ca
+ggord.ca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  exp_var <- 100 * ord_in$sv^2 / sum(ord_in$sv^2)
+  exp_var <- exp_var[as.numeric(axes)]
+  axes <- paste0('Dim', axes)
+  obs <- data.frame(ord_in$rowcoord[, axes])
+  obs$Groups <- grp_in
+  vecs <- data.frame(ord_in$colcoord[, axes])
+  axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs, axes, ...)
+
+}

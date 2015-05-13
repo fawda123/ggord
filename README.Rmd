@@ -12,7 +12,7 @@ output:
 
 [![Travis-CI Build Status](https://travis-ci.org/fawda123/ggord.png?branch=master)](https://travis-ci.org/fawda123/ggord)
 
-A simple package for creating ordination plots with ggplot2.  Install the package as follows:
+A simple package for creating ordination plots with ggplot2 (aka reinventing the wheel, see [this](https://github.com/vqv/ggbiplot) and [this](https://github.com/kassambara/factoextra)).  Install the package as follows:
 
 ```{r, eval = FALSE}
 install.packages(devtools)
@@ -21,10 +21,10 @@ install_github('fawda123/ggord')
 library(ggord)
 ```
 
-Examples of ordination plots for pcord (principal components), MCA (multiple correspondence analysis), and metaMDS (nonmetric multidimensional scaling) are shown below.  Additional methods not shown are also available for princomp and PCA.
-
-```{r echo = FALSE, message = FALSE}
+The following shows some examples of creating biplots using the methods available with ggord.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
+```{r, echo = FALSE, message = F}
 devtools::load_all('C:/Documents/ggord')
+methods('ggord')
 ```
 ```{r fig.height = 6, fig.width = 6, message = FALSE, results = 'hide'}
 # principal components analysis with the iris data set
@@ -65,6 +65,7 @@ ggord(ord, iris$Species)
 # MCA
 data(tea)
 tea <- tea[, c('Tea', 'sugar', 'price', 'age_Q', 'sex')]
+
 ord <- MCA(tea[, -1], graph = FALSE)
 
 ggord(ord, tea$Tea)
@@ -72,7 +73,14 @@ ggord(ord, tea$Tea)
 # multiple correspondence analysis with the tea dataset
 # mca
 library(MASS)
+
 ord <- mca(tea[, -1])
+
+ggord(ord, tea$Tea)
+
+# multiple correspondence analysis with the tea dataset
+# acm
+ord <- dudi.acm(tea[, -1], scannf = FALSE)
 
 ggord(ord, tea$Tea)
 
@@ -86,6 +94,19 @@ ggord(ord, iris$Species)
 # linear discriminant analysis
 # example from lda in MASS package
 ord <- lda(Species ~ ., iris, prior = rep(1, 3)/3)
+
+ggord(ord, iris$Species)
+
+# correspondence analysis
+# dudi.coa
+ord <- dudi.coa(iris[, 1:4], scannf = FALSE, nf = 4)
+
+ggord(ord, iris$Species)
+
+# correspondence analysis
+# ca
+library(ca)
+ord <- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)
 ```

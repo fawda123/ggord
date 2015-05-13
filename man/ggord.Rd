@@ -4,6 +4,9 @@
 \alias{ggord}
 \alias{ggord.MCA}
 \alias{ggord.PCA}
+\alias{ggord.acm}
+\alias{ggord.ca}
+\alias{ggord.coa}
 \alias{ggord.default}
 \alias{ggord.lda}
 \alias{ggord.mca}
@@ -25,6 +28,8 @@ ggord(...)
 
 \method{ggord}{mca}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
+\method{ggord}{acm}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
+
 \method{ggord}{prcomp}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
 \method{ggord}{princomp}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
@@ -34,6 +39,10 @@ ggord(...)
 \method{ggord}{lda}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
 \method{ggord}{pca}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
+
+\method{ggord}{coa}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
+
+\method{ggord}{ca}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 }
 \arguments{
 \item{...}{arguments passed to or from other methods}
@@ -107,6 +116,7 @@ ggord(ord, iris$Species)
 # MCA
 data(tea)
 tea <- tea[, c('Tea', 'sugar', 'price', 'age_Q', 'sex')]
+
 ord <- MCA(tea[, -1], graph = FALSE)
 
 ggord(ord, tea$Tea)
@@ -114,7 +124,14 @@ ggord(ord, tea$Tea)
 # multiple correspondence analysis with the tea dataset
 # mca
 library(MASS)
+
 ord <- mca(tea[, -1])
+
+ggord(ord, tea$Tea)
+
+# multiple correspondence analysis with the tea dataset
+# acm
+ord <- dudi.acm(tea[, -1], scannf = FALSE)
 
 ggord(ord, tea$Tea)
 
@@ -128,6 +145,19 @@ ggord(ord, iris$Species)
 # linear discriminant analysis
 # example from lda in MASS package
 ord <- lda(Species ~ ., iris, prior = rep(1, 3)/3)
+
+ggord(ord, iris$Species)
+
+# correspondence analysis
+# dudi.coa
+ord <- dudi.coa(iris[, 1:4], scannf = FALSE, nf = 4)
+
+ggord(ord, iris$Species)
+
+# correspondence analysis
+# ca
+library(ca)
+ord <- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)
 }

@@ -5,7 +5,7 @@
 
 [![Travis-CI Build Status](https://travis-ci.org/fawda123/ggord.png?branch=master)](https://travis-ci.org/fawda123/ggord)
 
-A simple package for creating ordination plots with ggplot2.  Install the package as follows:
+A simple package for creating ordination plots with ggplot2 (aka reinventing the wheel, see [this](https://github.com/vqv/ggbiplot) and [this](https://github.com/kassambara/factoextra)).  Install the package as follows:
 
 
 ```r
@@ -15,9 +15,13 @@ install_github('fawda123/ggord')
 library(ggord)
 ```
 
-Examples of ordination plots for pcord (principal components), MCA (multiple correspondence analysis), and metaMDS (nonmetric multidimensional scaling) are shown below.  Additional methods not shown are also available for princomp and PCA.
+The following shows some examples of creating biplots using the methods available with ggord.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
 
-
+```
+##  [1] ggord.acm      ggord.ca       ggord.coa      ggord.default 
+##  [5] ggord.lda      ggord.mca      ggord.MCA      ggord.metaMDS 
+##  [9] ggord.pca      ggord.PCA      ggord.prcomp   ggord.princomp
+```
 
 ```r
 # principal components analysis with the iris data set
@@ -101,6 +105,7 @@ ggord(ord, iris$Species)
 # MCA
 data(tea)
 tea <- tea[, c('Tea', 'sugar', 'price', 'age_Q', 'sex')]
+
 ord <- MCA(tea[, -1], graph = FALSE)
 
 ggord(ord, tea$Tea)
@@ -112,12 +117,23 @@ ggord(ord, tea$Tea)
 # multiple correspondence analysis with the tea dataset
 # mca
 library(MASS)
+
 ord <- mca(tea[, -1])
 
 ggord(ord, tea$Tea)
 ```
 
 ![](README_files/figure-html/unnamed-chunk-3-10.png) 
+
+```r
+# multiple correspondence analysis with the tea dataset
+# acm
+ord <- dudi.acm(tea[, -1], scannf = FALSE)
+
+ggord(ord, tea$Tea)
+```
+
+![](README_files/figure-html/unnamed-chunk-3-11.png) 
 
 ```r
 # nonmetric multidimensional scaling with the iris dataset
@@ -128,7 +144,7 @@ ord <- metaMDS(iris[, 1:4])
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-11.png) 
+![](README_files/figure-html/unnamed-chunk-3-12.png) 
 
 ```r
 # linear discriminant analysis
@@ -138,5 +154,26 @@ ord <- lda(Species ~ ., iris, prior = rep(1, 3)/3)
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-12.png) 
+![](README_files/figure-html/unnamed-chunk-3-13.png) 
+
+```r
+# correspondence analysis
+# dudi.coa
+ord <- dudi.coa(iris[, 1:4], scannf = FALSE, nf = 4)
+
+ggord(ord, iris$Species)
+```
+
+![](README_files/figure-html/unnamed-chunk-3-14.png) 
+
+```r
+# correspondence analysis
+# ca
+library(ca)
+ord <- ca(iris[, 1:4])
+
+ggord(ord, iris$Species)
+```
+
+![](README_files/figure-html/unnamed-chunk-3-15.png) 
 
