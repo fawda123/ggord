@@ -53,7 +53,7 @@ ggord(...)
 
 \item{axes}{chr string indicating which axes to plot}
 
-\item{ellipse}{logical if confidence ellipses are shown for each group, method from \code{\link[ggbiplot]{ggbiplot}} function}
+\item{ellipse}{logical if confidence ellipses are shown for each group, method from the ggbiplot package}
 
 \item{ellipse_pro}{numeric indicating confidence value for the ellipses}
 
