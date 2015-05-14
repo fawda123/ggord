@@ -22,11 +22,11 @@ library(ggord)
 ```
 
 The following shows some examples of creating biplots using the methods available with ggord.  These methods were developed independently from the [ggbiplot](https://github.com/vqv/ggbiplot) and [factoextra](https://github.com/kassambara/factoextra) packages, though the biplots are practically identical.  I made liberal use of the ellipses feature from ggbiplot, so credit is given where credit is due.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
-```{r, echo = FALSE, message = F}
+```{r, echo = FALSE, message = F, warning = F}
 devtools::load_all()
 methods('ggord')
 ```
-```{r fig.height = 6, fig.width = 6, message = FALSE, results = 'hide'}
+```{r fig.height = 6, fig.width = 6, message = FALSE, warning = F, results = 'hide'}
 # principal components analysis with the iris data set
 # prcomp
 ord <- prcomp(iris[, 1:4])
