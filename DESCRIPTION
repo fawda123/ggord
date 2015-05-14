@@ -14,7 +14,8 @@ LazyData: true
 Depends:
     R (>= 3.1.1),
     ggplot2,
-    grid
+    grid,
+    plyr
 Suggests:
     ade4,
     ca,

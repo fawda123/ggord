@@ -7,6 +7,8 @@
 #' @param obs matrix or data frame of axis scores for each observation
 #' @param vecs matrix or data frame of axis scores for each variable
 #' @param axes chr string indicating which axes to plot
+#' @param ellipse logical if confidence ellipses are shown for each group, method from the ggbiplot package
+#' @param ellipse_pro numeric indicating confidence value for the ellipses
 #' @param arrow numeric indicating length of the arrow heads on the vectors
 #' @param ext numeric indicating scalar distance of the labels from the arrow ends
 #' @param size numeric indicating size of the observatoin points
@@ -18,7 +20,7 @@
 #'
 #' @export
 #'
-#' @import ggplot2 grid
+#' @import ggplot2 grid plyr
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified
 #'
@@ -116,9 +118,10 @@ ggord <- function(...) UseMethod('ggord')
 #' @export
 #'
 #' @method ggord default
-ggord.default <- function(obs, vecs, axes = c('1', '2'),
-                      arrow = 0.4, ext = 1.2, size = 4, txt = 6, xlims = NULL,
-                      ylims = NULL, var_sub = NULL, ...){
+ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
+                      ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, size = 4,
+                      txt = 4, xlims = NULL, ylims = NULL,
+                      var_sub = NULL, ...){
 
   # tweaks to vecs for plotting
   # create vecs label  from vecs for labels
@@ -149,6 +152,27 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'),
 
   if(!is.null(obs$Groups))
     p <- p + geom_point(aes_string(colour = 'Groups'), size = size)
+
+  # concentration ellipse if there are groups, from ggbiplot
+  if(!is.null(obs$Groups) & ellipse) {
+
+    theta <- c(seq(-pi, pi, length = 50), seq(pi, -pi, length = 50))
+    circle <- cbind(cos(theta), sin(theta))
+
+    ell <- ddply(obs, 'Groups', function(x) {
+      if(nrow(x) <= 2) {
+        return(NULL)
+      }
+      sigma <- var(cbind(x$one, x$two))
+      mu <- c(mean(x$one), mean(x$two))
+      ed <- sqrt(qchisq(ellipse_pro, df = 2))
+      data.frame(sweep(circle %*% chol(sigma) * ed, 2, mu, FUN = '+'))
+    })
+    names(ell)[2:3] <- c('one', 'two')
+
+    p <- p + geom_path(data = ell, aes(color = Groups, group = Groups))
+
+  }
 
   # add vectors
   if(!is.null(arrow))

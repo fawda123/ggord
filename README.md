@@ -15,7 +15,7 @@ install_github('fawda123/ggord')
 library(ggord)
 ```
 
-The following shows some examples of creating biplots using the methods available with ggord.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
+The following shows some examples of creating biplots using the methods available with ggord.  These methods were developed independently from the [ggbiplot](https://github.com/vqv/ggbiplot) and [factoextra](https://github.com/kassambara/factoextra), though the biplots are practically identical.  I made liberal use of the ellipses feature from ggbiplot, so credit is given where credit is due.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
 
 ```
 ##  [1] ggord.acm      ggord.ca       ggord.coa      ggord.default 
@@ -80,7 +80,13 @@ ggord(ord, iris$Species)
 # principal components analysis with the iris dataset
 # PCA
 library(FactoMineR)
+```
 
+```
+## Warning: package 'FactoMineR' was built under R version 3.1.3
+```
+
+```r
 ord <- PCA(iris[, 1:4], graph = FALSE)
 
 ggord(ord, iris$Species)
@@ -92,7 +98,13 @@ ggord(ord, iris$Species)
 # principal components analysis with the iris dataset
 # dudi.pca
 library(ade4)
+```
 
+```
+## Warning: package 'ade4' was built under R version 3.1.3
+```
+
+```r
 ord <- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
 
 ggord(ord, iris$Species)
@@ -139,6 +151,13 @@ ggord(ord, tea$Tea)
 # nonmetric multidimensional scaling with the iris dataset
 # metaMDS
 library(vegan)
+```
+
+```
+## Warning: package 'vegan' was built under R version 3.1.3
+```
+
+```r
 ord <- metaMDS(iris[, 1:4])
 
 ggord(ord, iris$Species)
@@ -170,6 +189,13 @@ ggord(ord, iris$Species)
 # correspondence analysis
 # ca
 library(ca)
+```
+
+```
+## Warning: package 'ca' was built under R version 3.1.3
+```
+
+```r
 ord <- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)

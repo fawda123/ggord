@@ -73,7 +73,7 @@ img {
 library(devtools)
 install_github(&#39;fawda123/ggord&#39;)
 library(ggord)</code></pre>
-<p>The following shows some examples of creating biplots using the methods available with ggord. Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, and linear discriminant analysis. Available methods are as follows:</p>
+<p>The following shows some examples of creating biplots using the methods available with ggord. These methods were developed independently from the <a href="https://github.com/vqv/ggbiplot">ggbiplot</a> and <a href="https://github.com/kassambara/factoextra">factoextra</a>, though the biplots are practically identical. I made liberal use of the ellipses feature from ggbiplot, so credit is given where credit is due. Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis. Available methods are as follows:</p>
 <pre><code>##  [1] ggord.acm      ggord.ca       ggord.coa      ggord.default 
 ##  [5] ggord.lda      ggord.mca      ggord.MCA      ggord.metaMDS 
 ##  [9] ggord.pca      ggord.PCA      ggord.prcomp   ggord.princomp</code></pre>
@@ -102,17 +102,17 @@ ggord(ord, iris$Species)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-6.png" /></p>
 <pre class="r"><code># principal components analysis with the iris dataset
 # PCA
-library(FactoMineR)
-
-ord &lt;- PCA(iris[, 1:4], graph = FALSE)
+library(FactoMineR)</code></pre>
+<pre><code>## Warning: package &#39;FactoMineR&#39; was built under R version 3.1.3</code></pre>
+<pre class="r"><code>ord &lt;- PCA(iris[, 1:4], graph = FALSE)
 
 ggord(ord, iris$Species)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-7.png" /></p>
 <pre class="r"><code># principal components analysis with the iris dataset
 # dudi.pca
-library(ade4)
-
-ord &lt;- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
+library(ade4)</code></pre>
+<pre><code>## Warning: package &#39;ade4&#39; was built under R version 3.1.3</code></pre>
+<pre class="r"><code>ord &lt;- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
 
 ggord(ord, iris$Species)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-8.png" /></p>
@@ -141,8 +141,9 @@ ggord(ord, tea$Tea)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-11.png" /></p>
 <pre class="r"><code># nonmetric multidimensional scaling with the iris dataset
 # metaMDS
-library(vegan)
-ord &lt;- metaMDS(iris[, 1:4])
+library(vegan)</code></pre>
+<pre><code>## Warning: package &#39;vegan&#39; was built under R version 3.1.3</code></pre>
+<pre class="r"><code>ord &lt;- metaMDS(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-12.png" /></p>
@@ -160,8 +161,9 @@ ggord(ord, iris$Species)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-14.png" /></p>
 <pre class="r"><code># correspondence analysis
 # ca
-library(ca)
-ord &lt;- ca(iris[, 1:4])
+library(ca)</code></pre>
+<pre><code>## Warning: package &#39;ca&#39; was built under R version 3.1.3</code></pre>
+<pre class="r"><code>ord &lt;- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-15.png" /></p>

@@ -18,9 +18,9 @@
 \usage{
 ggord(...)
 
-\method{ggord}{default}(obs, vecs, axes = c("1", "2"), arrow = 0.4,
-  ext = 1.2, size = 4, txt = 6, xlims = NULL, ylims = NULL,
-  var_sub = NULL, ...)
+\method{ggord}{default}(obs, vecs, axes = c("1", "2"), ellipse = TRUE,
+  ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, size = 4, txt = 4,
+  xlims = NULL, ylims = NULL, var_sub = NULL, ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -52,6 +52,10 @@ ggord(...)
 \item{vecs}{matrix or data frame of axis scores for each variable}
 
 \item{axes}{chr string indicating which axes to plot}
+
+\item{ellipse}{logical if confidence ellipses are shown for each group, method from \code{\link[ggbiplot]{ggbiplot}} function}
+
+\item{ellipse_pro}{numeric indicating confidence value for the ellipses}
 
 \item{arrow}{numeric indicating length of the arrow heads on the vectors}
 
