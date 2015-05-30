@@ -20,7 +20,7 @@ ggord(...)
 
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), ellipse = TRUE,
   ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, size = 4, txt = 4,
-  xlims = NULL, ylims = NULL, var_sub = NULL, ...)
+  xlims = NULL, ylims = NULL, var_sub = NULL, coord_fix = TRUE, ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -70,6 +70,8 @@ ggord(...)
 \item{ylims}{two numeric values indicating y-axis limits}
 
 \item{var_sub}{chr string indcating which labels to show.  Regular expression matching is used.}
+
+\item{coord_fix}{logical indicating fixed, equal scaling for axes}
 
 \item{ord_in}{input ordination object}
 

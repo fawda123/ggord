@@ -26,7 +26,7 @@ The following shows some examples of creating biplots using the methods availabl
 devtools::load_all()
 methods('ggord')
 ```
-```{r fig.height = 6, fig.width = 6, message = FALSE, warning = F, results = 'hide'}
+```{r fig.height = 7, fig.width = 7, message = FALSE, warning = F, results = 'hide'}
 # principal components analysis with the iris data set
 # prcomp
 ord <- prcomp(iris[, 1:4])

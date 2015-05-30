@@ -16,6 +16,7 @@
 #' @param xlims two numeric values indicating x-axis limits
 #' @param ylims two numeric values indicating y-axis limits
 #' @param var_sub chr string indcating which labels to show.  Regular expression matching is used.
+#' @param coord_fix logical indicating fixed, equal scaling for axes
 #' @param ... arguments passed to or from other methods
 #'
 #' @export
@@ -121,7 +122,7 @@ ggord <- function(...) UseMethod('ggord')
 ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
                       ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, size = 4,
                       txt = 4, xlims = NULL, ylims = NULL,
-                      var_sub = NULL, ...){
+                      var_sub = NULL, coord_fix = TRUE, ...){
 
   # tweaks to vecs for plotting
   # create vecs label  from vecs for labels
@@ -149,6 +150,9 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
     scale_x_continuous(name = nms[1], limits = xlims) +
     scale_y_continuous(name = nms[2], limits = ylims) +
     theme_bw()
+
+  if(coord_fix)
+    p <- p + coord_fixed()
 
   if(!is.null(obs$Groups))
     p <- p + geom_point(aes_string(colour = 'Groups'), size = size)
