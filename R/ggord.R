@@ -11,7 +11,8 @@
 #' @param ellipse_pro numeric indicating confidence value for the ellipses
 #' @param arrow numeric indicating length of the arrow heads on the vectors
 #' @param ext numeric indicating scalar distance of the labels from the arrow ends
-#' @param size numeric indicating size of the observatoin points
+#' @param vec_ext numeric indicating a scalar extension for the ordination vectors
+#' @param size numeric indicating size of the observation points
 #' @param txt numeric indicating size of the text labels for the vectors
 #' @param xlims two numeric values indicating x-axis limits
 #' @param ylims two numeric values indicating y-axis limits
@@ -120,9 +121,12 @@ ggord <- function(...) UseMethod('ggord')
 #'
 #' @method ggord default
 ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
-                      ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, size = 4,
-                      txt = 4, xlims = NULL, ylims = NULL,
+                      ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1,
+                      size = 4, txt = 4, xlims = NULL, ylims = NULL,
                       var_sub = NULL, coord_fix = TRUE, ...){
+
+  # extend vectors by scale
+  vecs <- vecs * vec_ext
 
   # tweaks to vecs for plotting
   # create vecs label  from vecs for labels

@@ -21,6 +21,7 @@ The following shows some examples of creating biplots using the methods availabl
 ##  [1] ggord.acm      ggord.ca       ggord.coa      ggord.default 
 ##  [5] ggord.lda      ggord.mca      ggord.MCA      ggord.metaMDS 
 ##  [9] ggord.pca      ggord.PCA      ggord.prcomp   ggord.princomp
+## see '?methods' for accessing help and source code
 ```
 
 ```r
