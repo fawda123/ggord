@@ -37,7 +37,6 @@ p
 p + scale_colour_manual('Species', values = c('purple', 'orange', 'blue'))
 p + theme_classic()
 p + theme(legend.position = 'top')
-p + scale_x_continuous(limits = c(-2, 2))
 
 # principal components analysis with the iris dataset
 # princomp

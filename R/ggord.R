@@ -12,6 +12,7 @@
 #' @param arrow numeric indicating length of the arrow heads on the vectors
 #' @param ext numeric indicating scalar distance of the labels from the arrow ends
 #' @param vec_ext numeric indicating a scalar extension for the ordination vectors
+#' @param vec_lab chr string of optional labels for vectors, defaults to names from input data
 #' @param size numeric indicating size of the observation points
 #' @param txt numeric indicating size of the text labels for the vectors
 #' @param xlims two numeric values indicating x-axis limits
@@ -122,7 +123,7 @@ ggord <- function(...) UseMethod('ggord')
 #' @method ggord default
 ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
                       ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1,
-                      size = 4, txt = 4, xlims = NULL, ylims = NULL,
+                      vec_lab = NULL, size = 4, txt = 4, xlims = NULL, ylims = NULL,
                       var_sub = NULL, coord_fix = TRUE, ...){
 
   # extend vectors by scale
@@ -132,7 +133,8 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
   # create vecs label  from vecs for labels
   names(vecs) <- c('one', 'two')
   vecs_lab <- ext * vecs
-  vecs_lab$labs <- row.names(vecs_lab)
+  if(is.null(vec_lab)) vecs_lab$labs <- row.names(vecs_lab)
+  else vecs_lab$labs <- vec_lab
   vecs$lab <- row.names(vecs)
 
   # remove vectors for easier viz

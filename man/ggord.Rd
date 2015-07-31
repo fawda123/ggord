@@ -19,9 +19,9 @@
 ggord(...)
 
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), ellipse = TRUE,
-  ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1, size = 4,
-  txt = 4, xlims = NULL, ylims = NULL, var_sub = NULL,
-  coord_fix = TRUE, ...)
+  ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1,
+  vec_lab = NULL, size = 4, txt = 4, xlims = NULL, ylims = NULL,
+  var_sub = NULL, coord_fix = TRUE, ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -63,6 +63,8 @@ ggord(...)
 \item{ext}{numeric indicating scalar distance of the labels from the arrow ends}
 
 \item{vec_ext}{numeric indicating a scalar extension for the ordination vectors}
+
+\item{vec_lab}{chr string of optional labels for vectors, defaults to names from input data}
 
 \item{size}{numeric indicating size of the observation points}
 
