@@ -64,7 +64,7 @@ ggord(...)
 
 \item{vec_ext}{numeric indicating a scalar extension for the ordination vectors}
 
-\item{vec_lab}{chr string of optional labels for vectors, defaults to names from input data}
+\item{vec_lab}{list of optional labels for vectors, defaults to names from input data.  The input list must be named using the existing variables in the input data.  Each element of the list will have the desired name change.}
 
 \item{size}{numeric indicating size of the observation points}
 
@@ -100,6 +100,12 @@ p + scale_colour_manual('Species', values = c('purple', 'orange', 'blue'))
 p + theme_classic()
 p + theme(legend.position = 'top')
 p + scale_x_continuous(limits = c(-2, 2))
+
+# change the vector labels with vec_lab
+new_lab <- list(Sepal.Length = 'SL', Sepal.Width = 'SW', Petal.Width = 'PW',
+ Petal.Length = 'PL')
+p <- ggord(ord, iris$Species, vec_lab = new_lab)
+p
 
 # principal components analysis with the iris dataset
 # princomp
