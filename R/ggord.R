@@ -12,7 +12,7 @@
 #' @param arrow numeric indicating length of the arrow heads on the vectors
 #' @param ext numeric indicating scalar distance of the labels from the arrow ends
 #' @param vec_ext numeric indicating a scalar extension for the ordination vectors
-#' @param vec_lab chr string of optional labels for vectors, defaults to names from input data
+#' @param vec_lab list of optional labels for vectors, defaults to names from input data.  The input list must be named using the existing variables in the input data.  Each element of the list will have the desired name change.
 #' @param size numeric indicating size of the observation points
 #' @param txt numeric indicating size of the text labels for the vectors
 #' @param xlims two numeric values indicating x-axis limits
@@ -42,6 +42,12 @@
 #' p + theme_classic()
 #' p + theme(legend.position = 'top')
 #' p + scale_x_continuous(limits = c(-2, 2))
+#'
+#' # change the vector labels with vec_lab
+#' new_lab <- list(Sepal.Length = 'SL', Sepal.Width = 'SW', Petal.Width = 'PW',
+#'  Petal.Length = 'PL')
+#' p <- ggord(ord, iris$Species, vec_lab = new_lab)
+#' p
 #'
 #' # principal components analysis with the iris dataset
 #' # princomp
@@ -134,7 +140,9 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
   names(vecs) <- c('one', 'two')
   vecs_lab <- ext * vecs
   if(is.null(vec_lab)) vecs_lab$labs <- row.names(vecs_lab)
-  else vecs_lab$labs <- vec_lab
+  else{
+    vecs_lab$labs <- unlist(vec_lab[row.names(vecs_lab)])
+  }
   vecs$lab <- row.names(vecs)
 
   # remove vectors for easier viz

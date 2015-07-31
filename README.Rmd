@@ -38,6 +38,12 @@ p + scale_colour_manual('Species', values = c('purple', 'orange', 'blue'))
 p + theme_classic()
 p + theme(legend.position = 'top')
 
+# change the vector labels with vec_lab
+new_lab <- list(Sepal.Length = 'SL', Sepal.Width = 'SW', Petal.Width = 'PW',
+  Petal.Length = 'PL')
+p <- ggord(ord, iris$Species, vec_lab = new_lab)
+p
+
 # principal components analysis with the iris dataset
 # princomp
 ord <- princomp(iris[, 1:4])
