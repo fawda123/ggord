@@ -141,7 +141,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
   vecs_lab <- ext * vecs
   if(is.null(vec_lab)) vecs_lab$labs <- row.names(vecs_lab)
   else{
-    vecs_lab$labs <- unlist(vec_lab[row.names(vecs_lab)])
+    vecs_lab$labs <- vec_lab[row.names(vecs_lab)]
   }
   vecs$lab <- row.names(vecs)
 
@@ -202,8 +202,9 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
 
   # add labels
   if(!is.null(txt))
-    p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two', label = 'labs'),
-                       size = txt)
+    p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two'),
+      label = unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))),
+      size = txt, parse = TRUE)
 
   return(p)
 
