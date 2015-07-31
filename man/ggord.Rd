@@ -21,7 +21,7 @@ ggord(...)
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), ellipse = TRUE,
   ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1,
   vec_lab = NULL, size = 4, txt = 4, xlims = NULL, ylims = NULL,
-  var_sub = NULL, coord_fix = TRUE, ...)
+  var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -78,6 +78,8 @@ ggord(...)
 
 \item{coord_fix}{logical indicating fixed, equal scaling for axes}
 
+\item{parse}{logical indicating if optional vector labels are expressions to parse with \code{\link[ggplot2]{geom_text}}}
+
 \item{ord_in}{input ordination object}
 
 \item{grp_in}{vector of grouping objects for the biplot, must have the same number of observations as the original matrix used for the ordination}
@@ -99,7 +101,6 @@ p
 p + scale_colour_manual('Species', values = c('purple', 'orange', 'blue'))
 p + theme_classic()
 p + theme(legend.position = 'top')
-p + scale_x_continuous(limits = c(-2, 2))
 
 # change the vector labels with vec_lab
 new_lab <- list(Sepal.Length = 'SL', Sepal.Width = 'SW', Petal.Width = 'PW',

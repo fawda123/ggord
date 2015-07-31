@@ -19,6 +19,7 @@
 #' @param ylims two numeric values indicating y-axis limits
 #' @param var_sub chr string indcating which labels to show.  Regular expression matching is used.
 #' @param coord_fix logical indicating fixed, equal scaling for axes
+#' @param parse logical indicating if optional vector labels are expressions to parse with \code{\link[ggplot2]{geom_text}}
 #' @param ... arguments passed to or from other methods
 #'
 #' @export
@@ -41,7 +42,6 @@
 #' p + scale_colour_manual('Species', values = c('purple', 'orange', 'blue'))
 #' p + theme_classic()
 #' p + theme(legend.position = 'top')
-#' p + scale_x_continuous(limits = c(-2, 2))
 #'
 #' # change the vector labels with vec_lab
 #' new_lab <- list(Sepal.Length = 'SL', Sepal.Width = 'SW', Petal.Width = 'PW',
@@ -130,7 +130,7 @@ ggord <- function(...) UseMethod('ggord')
 ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
                       ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1,
                       vec_lab = NULL, size = 4, txt = 4, xlims = NULL, ylims = NULL,
-                      var_sub = NULL, coord_fix = TRUE, ...){
+                      var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...){
 
   # extend vectors by scale
   vecs <- vecs * vec_ext
@@ -204,7 +204,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
   if(!is.null(txt))
     p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two'),
       label = unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))),
-      size = txt, parse = TRUE)
+      size = txt, parse = parse)
 
   return(p)
 
