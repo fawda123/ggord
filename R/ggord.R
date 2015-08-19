@@ -390,11 +390,20 @@ ggord.lda <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 ggord.pca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
   # data to plot
-  exp_var <- 100 * ord_in$eig^2 / sum(ord_in$eig^2)
+  exp_var <- 100 * ord_in$eig / sum(ord_in$eig)
   exp_var <- exp_var[as.numeric(axes)]
-  obs <- data.frame(ord_in$li[, paste0('Axis', axes)])
+  ax_nms <- paste0('Axis', axes)
+  obs <- data.frame(ord_in$li[, ax_nms])
   obs$Groups <- grp_in
-  vecs <- data.frame(ord_in$co[, paste0('Comp', axes)])
+
+  # vector locations, uses scaling from factoextra
+  vc_nms <- paste0('Comp', axes)
+  vecs <- data.frame(ord_in$co[, vc_nms])
+  r <- min((max(obs[, ax_nms[1]]) - min(obs[, ax_nms[1]])/(max(vecs[, vc_nms[1]]) -
+    min(vecs[, vc_nms[1]]))), (max(obs[, ax_nms[2]]) - min(obs[, ax_nms[2]])/(max(vecs[,
+    vc_nms[2]]) - min(vecs[, vc_nms[2]]))))
+  vecs[, vc_nms] <- vecs[, vc_nms] * r * 0.7
+
   axes <- paste0('Axis', axes)
   axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
   names(obs)[1:2] <- axes
