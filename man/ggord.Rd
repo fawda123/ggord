@@ -91,6 +91,8 @@ A \code{\link[ggplot2]{ggplot}} object that can be further modified
 Create an ordination biplot using ggplot2 including options for selecting axes, group color aesthetics, and selection of variables to plot.
 }
 \examples{
+library(ggplot2)
+
 # principal components analysis with the iris data set
 # prcomp
 ord <- prcomp(iris[, 1:4])

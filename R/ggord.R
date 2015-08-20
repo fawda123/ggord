@@ -32,6 +32,8 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#'
 #' # principal components analysis with the iris data set
 #' # prcomp
 #' ord <- prcomp(iris[, 1:4])
@@ -188,7 +190,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
     })
     names(ell)[2:3] <- c('one', 'two')
 
-    p <- p + geom_path(data = ell, aes(color = Groups, group = Groups))
+    p <- p + geom_path(data = ell, aes_string(color = 'Groups', group = 'Groups'))
 
   }
 
@@ -420,7 +422,7 @@ ggord.pca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 ggord.coa <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
   # data to plot
-  exp_var <- 100 * ord_in$eig^2 / sum(ord_in$eig^2)
+  exp_var <- 100 * ord_in$eig / sum(ord_in$eig)
   exp_var <- exp_var[as.numeric(axes)]
   obs <- data.frame(ord_in$li[, paste0('Axis', axes)])
   obs$Groups <- grp_in
@@ -440,13 +442,23 @@ ggord.coa <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 #' @method ggord ca
 ggord.ca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
-  # data to plot
-  exp_var <- 100 * ord_in$sv^2 / sum(ord_in$sv^2)
+  # axis contribution
+  exp_var <- with(ord_in, 100 * sv^2/sum(sv^2))
   exp_var <- exp_var[as.numeric(axes)]
+
+  # data to plot
+  sv <- ord_in$sv[as.numeric(axes)]
+  colmass <- ord_in$colmass[as.numeric(axes)]
   axes <- paste0('Dim', axes)
-  obs <- data.frame(ord_in$rowcoord[, axes])
+  obs <- ord_in$rowcoord[, axes]
+
+  # scale the observations and vectors correctly
+  obs <- as.data.frame(t(apply(obs, 1, "*", sv)))
   obs$Groups <- grp_in
-  vecs <- data.frame(ord_in$colcoord[, axes])
+  vecs <- ord_in$colcoord[, axes]
+  vecs <- as.data.frame(t(apply(vecs, 1, "*", sv)))
+
+  # make a nice label for the axes
   axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
   names(obs)[1:2] <- axes
 
