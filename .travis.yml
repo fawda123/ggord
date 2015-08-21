@@ -2,7 +2,7 @@
 
 language: r
 warnings_are_errors: true
-sudo: required
+sudo: false
 
 before_install:
   - "export DISPLAY=:99.0"
