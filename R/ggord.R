@@ -75,7 +75,7 @@
 #'
 #' # multiple correspondence analysis with the tea dataset
 #' # MCA
-#' data(tea)
+#' data(tea, package = 'FactoMineR')
 #' tea <- tea[, c('Tea', 'sugar', 'price', 'age_Q', 'sex')]
 #'
 #' ord <- MCA(tea[, -1], graph = FALSE)
@@ -264,11 +264,10 @@ ggord.MCA <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 ggord.mca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
   # data to plot
-  exp_var <- ord_in$eig[as.numeric(axes), 'percentage of variance']
   obs <- data.frame(ord_in$rs[, as.numeric(axes)])
   obs$Groups <- grp_in
   vecs <- data.frame(ord_in$cs[, as.numeric(axes)])
-  exp_var <- 100 * ord_in$d^2/sum(ord_in$d^2)
+  exp_var <-  100 * ord_in$d/(ord_in$p - 1)
   exp_var <- exp_var[as.numeric(axes)]
   axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
   names(obs)[1:2] <- axes
@@ -285,7 +284,7 @@ ggord.mca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 ggord.acm <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
   # data to plot
-  exp_var <- 100 * ord_in$eig^2 / sum(ord_in$eig^2)
+  exp_var <- 100 * ord_in$eig / sum(ord_in$eig)
   exp_var <- exp_var[as.numeric(axes)]
   obs <- data.frame(ord_in$li[, paste0('Axis', axes)])
   obs$Groups <- grp_in

@@ -134,7 +134,7 @@ ggord(ord, iris$Species)
 
 # multiple correspondence analysis with the tea dataset
 # MCA
-data(tea)
+data(tea, package = 'FactoMineR')
 tea <- tea[, c('Tea', 'sugar', 'price', 'age_Q', 'sex')]
 
 ord <- MCA(tea[, -1], graph = FALSE)

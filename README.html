@@ -121,7 +121,7 @@ ggord(ord, iris$Species)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-8.png" /></p>
 <pre class="r"><code># multiple correspondence analysis with the tea dataset
 # MCA
-data(tea)
+data(tea, package = &#39;FactoMineR&#39;)
 tea &lt;- tea[, c(&#39;Tea&#39;, &#39;sugar&#39;, &#39;price&#39;, &#39;age_Q&#39;, &#39;sex&#39;)]
 
 ord &lt;- MCA(tea[, -1], graph = FALSE)
