@@ -36,6 +36,7 @@ p
 ![](README_files/figure-html/unnamed-chunk-3-1.png) 
 
 ```r
+library(ggplot2)
 p + scale_colour_manual('Species', values = c('purple', 'orange', 'blue'))
 ```
 
