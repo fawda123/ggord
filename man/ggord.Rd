@@ -58,7 +58,7 @@ ggord(...)
 
 \item{ellipse_pro}{numeric indicating confidence value for the ellipses}
 
-\item{arrow}{numeric indicating length of the arrow heads on the vectors}
+\item{arrow}{numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows}
 
 \item{ext}{numeric indicating scalar distance of the labels from the arrow ends}
 
@@ -68,7 +68,7 @@ ggord(...)
 
 \item{size}{numeric indicating size of the observation points}
 
-\item{txt}{numeric indicating size of the text labels for the vectors}
+\item{txt}{numeric indicating size of the text labels for the vectors, use \code{NULL} to suppress labels}
 
 \item{xlims}{two numeric values indicating x-axis limits}
 

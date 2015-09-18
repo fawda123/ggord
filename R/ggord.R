@@ -9,12 +9,12 @@
 #' @param axes chr string indicating which axes to plot
 #' @param ellipse logical if confidence ellipses are shown for each group, method from the ggbiplot package
 #' @param ellipse_pro numeric indicating confidence value for the ellipses
-#' @param arrow numeric indicating length of the arrow heads on the vectors
+#' @param arrow numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows
 #' @param ext numeric indicating scalar distance of the labels from the arrow ends
 #' @param vec_ext numeric indicating a scalar extension for the ordination vectors
 #' @param vec_lab list of optional labels for vectors, defaults to names from input data.  The input list must be named using the existing variables in the input data.  Each element of the list will have the desired name change.
 #' @param size numeric indicating size of the observation points
-#' @param txt numeric indicating size of the text labels for the vectors
+#' @param txt numeric indicating size of the text labels for the vectors, use \code{NULL} to suppress labels
 #' @param xlims two numeric values indicating x-axis limits
 #' @param ylims two numeric values indicating y-axis limits
 #' @param var_sub chr string indcating which labels to show.  Regular expression matching is used.
