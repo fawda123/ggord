@@ -9,7 +9,7 @@ A simple package for creating ordination plots with ggplot2 (aka reinventing the
 
 
 ```r
-install.packages(devtools)
+install.packages('devtools')
 library(devtools)
 install_github('fawda123/ggord')
 library(ggord)

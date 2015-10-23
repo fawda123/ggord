@@ -15,7 +15,7 @@ output:
 A simple package for creating ordination plots with ggplot2 (aka reinventing the wheel, see [this](https://github.com/vqv/ggbiplot) and [this](https://github.com/kassambara/factoextra)).  Install the package as follows:
 
 ```{r, eval = FALSE}
-install.packages(devtools)
+install.packages('devtools')
 library(devtools)
 install_github('fawda123/ggord')
 library(ggord)
