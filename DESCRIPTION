@@ -1,8 +1,8 @@
 Package: ggord
 Type: Package
 Title: Ordination Plots with ggplot2
-Version:  0.7.9000
-Date: 2015-08-21
+Version:  0.8.9000
+Date: 2015-11-20
 Author: Marcus W. Beck [aut, cre]
 Maintainer: Marcus W. Beck <mbafs2012@gmail.com>
 Description: Create ordination biplots with ggplot2.  Multiple methods are available including
