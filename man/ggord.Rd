@@ -20,8 +20,8 @@ ggord(...)
 
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), ellipse = TRUE,
   ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1,
-  vec_lab = NULL, size = 4, txt = 4, xlims = NULL, ylims = NULL,
-  var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...)
+  vec_lab = NULL, size = 4, txt = 4, alpha = 1, xlims = NULL,
+  ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -69,6 +69,8 @@ ggord(...)
 \item{size}{numeric indicating size of the observation points}
 
 \item{txt}{numeric indicating size of the text labels for the vectors, use \code{NULL} to suppress labels}
+
+\item{alpha}{numeric transparency of points and ellipses from 0 to 1}
 
 \item{xlims}{two numeric values indicating x-axis limits}
 

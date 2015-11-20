@@ -15,6 +15,7 @@
 #' @param vec_lab list of optional labels for vectors, defaults to names from input data.  The input list must be named using the existing variables in the input data.  Each element of the list will have the desired name change.
 #' @param size numeric indicating size of the observation points
 #' @param txt numeric indicating size of the text labels for the vectors, use \code{NULL} to suppress labels
+#' @param alpha numeric transparency of points and ellipses from 0 to 1
 #' @param xlims two numeric values indicating x-axis limits
 #' @param ylims two numeric values indicating y-axis limits
 #' @param var_sub chr string indcating which labels to show.  Regular expression matching is used.
@@ -131,8 +132,8 @@ ggord <- function(...) UseMethod('ggord')
 #' @method ggord default
 ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
                       ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1,
-                      vec_lab = NULL, size = 4, txt = 4, xlims = NULL, ylims = NULL,
-                      var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...){
+                      vec_lab = NULL, size = 4, txt = 4, alpha = 1, xlims = NULL,
+                      ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...){
 
   # extend vectors by scale
   vecs <- vecs * vec_ext
@@ -162,7 +163,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
   nms <- names(obs)[1:2]
   names(obs)[1:2] <- c('one', 'two')
   p <- ggplot(obs, aes_string(x = 'one', y = 'two')) +
-    geom_point(size = size) +
+    geom_point(size = size, alpha = alpha) +
     scale_x_continuous(name = nms[1], limits = xlims) +
     scale_y_continuous(name = nms[2], limits = ylims) +
     theme_bw()
@@ -171,7 +172,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
     p <- p + coord_fixed()
 
   if(!is.null(obs$Groups))
-    p <- p + geom_point(aes_string(colour = 'Groups'), size = size)
+    p <- p + geom_point(aes_string(colour = 'Groups'), size = size, alpha = alpha)
 
   # concentration ellipse if there are groups, from ggbiplot
   if(!is.null(obs$Groups) & ellipse) {
@@ -190,7 +191,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
     })
     names(ell)[2:3] <- c('one', 'two')
 
-    p <- p + geom_path(data = ell, aes_string(color = 'Groups', group = 'Groups'))
+    p <- p + geom_path(data = ell, aes_string(color = 'Groups', group = 'Groups'), alpha = alpha)
 
   }
 
