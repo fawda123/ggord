@@ -77,6 +77,7 @@ library(ggord)</code></pre>
 <pre><code>##  [1] ggord.acm      ggord.ca       ggord.coa      ggord.default 
 ##  [5] ggord.lda      ggord.mca      ggord.MCA      ggord.metaMDS 
 ##  [9] ggord.pca      ggord.PCA      ggord.prcomp   ggord.princomp
+## [13] ggord.rda     
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <pre class="r"><code># principal components analysis with the iris data set
 # prcomp
@@ -169,6 +170,12 @@ ord &lt;- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-15.png" /></p>
+<pre class="r"><code># rda triplot
+data(varespec)
+data(varechem)
+ord &lt;- rda(varespec, varechem)
+ggord(ord)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-16.png" /></p>
 </div>
 </div>
 

@@ -7,6 +7,7 @@
 #' @param obs matrix or data frame of axis scores for each observation
 #' @param vecs matrix or data frame of axis scores for each variable
 #' @param axes chr string indicating which axes to plot
+#' @param addpts optional matrix or data.frame of additional points if constrained ordination is used (e.g., species locations in cca, rda)
 #' @param ellipse logical if confidence ellipses are shown for each group, method from the ggbiplot package
 #' @param ellipse_pro numeric indicating confidence value for the ellipses
 #' @param arrow numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows
@@ -14,6 +15,9 @@
 #' @param vec_ext numeric indicating a scalar extension for the ordination vectors
 #' @param vec_lab list of optional labels for vectors, defaults to names from input data.  The input list must be named using the existing variables in the input data.  Each element of the list will have the desired name change.
 #' @param size numeric indicating size of the observation points
+#' @param addsize numeric indicating size of the species points if addpts is not \code{NULL}
+#' @param addcol numeric indicating color of the species points if addpts is not \code{NULL}
+#' @param addpch numeric indicating point type of the species points if addpts is not \code{NULL}
 #' @param txt numeric indicating size of the text labels for the vectors, use \code{NULL} to suppress labels
 #' @param alpha numeric transparency of points and ellipses from 0 to 1
 #' @param xlims two numeric values indicating x-axis limits
@@ -25,7 +29,7 @@
 #'
 #' @export
 #'
-#' @import ggplot2 grid plyr
+#' @import ggplot2 plyr
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified
 #'
@@ -123,6 +127,12 @@
 #'
 #' ggord(ord, iris$Species)
 #'
+#' # rda triplot
+#' data(varespec)
+#' data(varechem)
+#' ord <- rda(varespec, varechem)
+#'
+#' ggord(ord)
 ggord <- function(...) UseMethod('ggord')
 
 #' @rdname ggord
@@ -130,10 +140,11 @@ ggord <- function(...) UseMethod('ggord')
 #' @export
 #'
 #' @method ggord default
-ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
+ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, ellipse = TRUE,
                       ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1,
-                      vec_lab = NULL, size = 4, txt = 4, alpha = 1, xlims = NULL,
-                      ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...){
+                      vec_lab = NULL, size = 4, addsize = size/2, addcol = 'blue', addpch = 19,
+                      txt = 4, alpha = 1, xlims = NULL, ylims = NULL, var_sub = NULL,
+                      coord_fix = TRUE, parse = FALSE, ...){
 
   # extend vectors by scale
   vecs <- vecs * vec_ext
@@ -142,7 +153,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
   # create vecs label  from vecs for labels
   names(vecs) <- c('one', 'two')
   vecs_lab <- ext * vecs
-  if(is.null(vec_lab)) vecs_lab$labs <- row.names(vecs_lab)
+  if(is.null(vec_lab)) vecs_lab$labs <- as.character(row.names(vecs_lab))
   else{
     vecs_lab$labs <- vec_lab[row.names(vecs_lab)]
   }
@@ -167,6 +178,17 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
     scale_x_continuous(name = nms[1], limits = xlims) +
     scale_y_continuous(name = nms[2], limits = ylims) +
     theme_bw()
+
+  # add species scores if addpts not null, for triplot
+  if(!is.null(addpts)){
+
+    nms <- names(addpts)[1:2]
+    names(addpts)[1:2] <- c('one', 'two')
+    p <- p +
+      geom_point(data = addpts, aes_string(x = 'one', y = 'two'),
+        size = addsize, col = addcol, alpha = alpha, shape = addpch)
+
+  }
 
   if(coord_fix)
     p <- p + coord_fixed()
@@ -200,7 +222,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), ellipse = TRUE,
     p <- p + geom_segment(
       data = vecs,
       aes_string(x = 0, y = 0, xend = 'one', yend = 'two'),
-      arrow = arrow(length = unit(arrow, "cm"))
+      arrow = grid::arrow(length = grid::unit(arrow, "cm"))
     )
 
   # add labels
@@ -463,5 +485,25 @@ ggord.ca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
   names(obs)[1:2] <- axes
 
   ggord.default(obs, vecs, axes, ...)
+
+}
+
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord rda
+ggord.rda <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  axes <- paste0('RDA', axes)
+  obs <- data.frame(ord_in$CCA$wa[, axes])
+  obs$Groups <- grp_in
+  addpts <- data.frame(ord_in$CCA$v[, axes])
+
+  # vectors for constraining matrix
+  constr <- data.frame(ord_in$CCA$biplot[, axes])
+
+  ggord.default(obs, vecs = constr, axes, addpts = addpts, ...)
 
 }

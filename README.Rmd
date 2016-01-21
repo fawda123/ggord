@@ -115,5 +115,11 @@ library(ca)
 ord <- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)
+
+# rda triplot
+data(varespec)
+data(varechem)
+ord <- rda(varespec, varechem)
+ggord(ord)
 ```
 

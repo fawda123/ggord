@@ -1,13 +1,14 @@
 Package: ggord
 Type: Package
 Title: Ordination Plots with ggplot2
-Version:  0.8.9000
-Date: 2015-11-20
+Version: 0.9.9000
+Date: 2016-01-21
 Author: Marcus W. Beck [aut, cre]
 Maintainer: Marcus W. Beck <mbafs2012@gmail.com>
-Description: Create ordination biplots with ggplot2.  Multiple methods are available including
-    principal components analysis, correspondence analysis, nonmetric multidimensional scaling,
-    multiple correspondence analysis, and linear discriminant analysis.
+Description: Create ordination biplots with ggplot2. Multiple methods are
+    available including principal components analysis, correspondence analysis,
+    nonmetric multidimensional scaling, multiple correspondence analysis, and linear
+    discriminant analysis.
 BugReports: https://github.com/fawda123/ggord/issues
 License: CC0
 LazyData: true
@@ -26,3 +27,4 @@ Suggests:
 Authors@R: person(given = "Marcus W.", family = "Beck",
     role = c("aut","cre"),
     email = "mbafs2012@gmail.com")
+RoxygenNote: 5.0.1

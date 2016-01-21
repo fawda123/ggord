@@ -21,6 +21,7 @@ The following shows some examples of creating biplots using the methods availabl
 ##  [1] ggord.acm      ggord.ca       ggord.coa      ggord.default 
 ##  [5] ggord.lda      ggord.mca      ggord.MCA      ggord.metaMDS 
 ##  [9] ggord.pca      ggord.PCA      ggord.prcomp   ggord.princomp
+## [13] ggord.rda     
 ## see '?methods' for accessing help and source code
 ```
 
@@ -174,4 +175,14 @@ ggord(ord, iris$Species)
 ```
 
 ![](README_files/figure-html/unnamed-chunk-3-15.png) 
+
+```r
+# rda triplot
+data(varespec)
+data(varechem)
+ord <- rda(varespec, varechem)
+ggord(ord)
+```
+
+![](README_files/figure-html/unnamed-chunk-3-16.png) 
 
