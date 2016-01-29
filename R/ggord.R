@@ -174,14 +174,24 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab =
   # individual points
   nms <- names(obs)[1:2]
   names(obs)[1:2] <- c('one', 'two')
+  obs$lab <- row.names(obs)
   p <- ggplot(obs, aes_string(x = 'one', y = 'two')) +
     scale_x_continuous(name = nms[1], limits = xlims) +
     scale_y_continuous(name = nms[2], limits = ylims) +
     theme_bw()
-  
-  # observations as points or text
-  if(obslab) p <- p + geom_text(label = row.names(obs), size = size, alpha = alpha)
-  else p <- p + geom_point(size = size, alpha = alpha)
+
+  # observations as points or text, colour if groups provided
+  if(obslab){
+    if(!is.null(obs$Groups))
+      p <- p + geom_text(aes_string(colour = 'Groups', label = 'lab')) # size = size, alpha = alpha)
+    else
+      p <- p + geom_text(label = row.names(obs), size = size, alpha = alpha)
+  } else {
+    if(!is.null(obs$Groups))
+      p <- p + geom_point(aes_string(colour = 'Groups'), size = size, alpha = alpha)
+    else
+      p <- p + geom_point(size = size, alpha = alpha)
+  }
 
   # add species scores if addpts not null, for triplot
   if(!is.null(addpts)){
@@ -194,11 +204,9 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab =
 
   }
 
+  # fixed coordiantes if TRUE
   if(coord_fix)
     p <- p + coord_fixed()
-
-  if(!is.null(obs$Groups))
-    p <- p + geom_point(aes_string(colour = 'Groups'), size = size, alpha = alpha)
 
   # concentration ellipse if there are groups, from ggbiplot
   if(!is.null(obs$Groups) & ellipse) {

@@ -45,6 +45,10 @@ new_lab <- list(Sepal.Length = 'SL', Sepal.Width = 'SW', Petal.Width = 'PW',
 p <- ggord(ord, iris$Species, vec_lab = new_lab)
 p
 
+# observations as labels from row names
+p <- ggord(ord, iris$Species, obslab = TRUE)
+p
+
 # principal components analysis with the iris dataset
 # princomp
 ord <- princomp(iris[, 1:4])

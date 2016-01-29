@@ -99,12 +99,16 @@ new_lab &lt;- list(Sepal.Length = &#39;SL&#39;, Sepal.Width = &#39;SW&#39;, Peta
 p &lt;- ggord(ord, iris$Species, vec_lab = new_lab)
 p</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-5.png" /></p>
+<pre class="r"><code># observations as labels from row names
+p &lt;- ggord(ord, iris$Species, obslab = TRUE)
+p</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-6.png" /></p>
 <pre class="r"><code># principal components analysis with the iris dataset
 # princomp
 ord &lt;- princomp(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-6.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-7.png" /></p>
 <pre class="r"><code># principal components analysis with the iris dataset
 # PCA
 library(FactoMineR)
@@ -112,7 +116,7 @@ library(FactoMineR)
 ord &lt;- PCA(iris[, 1:4], graph = FALSE)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-7.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-8.png" /></p>
 <pre class="r"><code># principal components analysis with the iris dataset
 # dudi.pca
 library(ade4)
@@ -120,7 +124,7 @@ library(ade4)
 ord &lt;- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-8.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-9.png" /></p>
 <pre class="r"><code># multiple correspondence analysis with the tea dataset
 # MCA
 data(tea, package = &#39;FactoMineR&#39;)
@@ -129,7 +133,7 @@ tea &lt;- tea[, c(&#39;Tea&#39;, &#39;sugar&#39;, &#39;price&#39;, &#39;age_Q&#3
 ord &lt;- MCA(tea[, -1], graph = FALSE)
 
 ggord(ord, tea$Tea)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-9.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-10.png" /></p>
 <pre class="r"><code># multiple correspondence analysis with the tea dataset
 # mca
 library(MASS)
@@ -137,45 +141,45 @@ library(MASS)
 ord &lt;- mca(tea[, -1])
 
 ggord(ord, tea$Tea)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-10.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-11.png" /></p>
 <pre class="r"><code># multiple correspondence analysis with the tea dataset
 # acm
 ord &lt;- dudi.acm(tea[, -1], scannf = FALSE)
 
 ggord(ord, tea$Tea)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-11.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-12.png" /></p>
 <pre class="r"><code># nonmetric multidimensional scaling with the iris dataset
 # metaMDS
 library(vegan)
 ord &lt;- metaMDS(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-12.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-13.png" /></p>
 <pre class="r"><code># linear discriminant analysis
 # example from lda in MASS package
 ord &lt;- lda(Species ~ ., iris, prior = rep(1, 3)/3)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-13.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-14.png" /></p>
 <pre class="r"><code># correspondence analysis
 # dudi.coa
 ord &lt;- dudi.coa(iris[, 1:4], scannf = FALSE, nf = 4)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-14.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-15.png" /></p>
 <pre class="r"><code># correspondence analysis
 # ca
 library(ca)
 ord &lt;- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-15.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-16.png" /></p>
 <pre class="r"><code># rda triplot
 data(varespec)
 data(varechem)
 ord &lt;- rda(varespec, varechem)
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-16.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-17.png" /></p>
 </div>
 </div>
 
