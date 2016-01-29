@@ -183,7 +183,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab =
   # observations as points or text, colour if groups provided
   if(obslab){
     if(!is.null(obs$Groups))
-      p <- p + geom_text(aes_string(colour = 'Groups', label = 'lab')) # size = size, alpha = alpha)
+      p <- p + geom_text(aes_string(colour = 'Groups', label = 'lab'), size = size, alpha = alpha)
     else
       p <- p + geom_text(label = row.names(obs), size = size, alpha = alpha)
   } else {
