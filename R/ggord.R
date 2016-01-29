@@ -8,6 +8,7 @@
 #' @param vecs matrix or data frame of axis scores for each variable
 #' @param axes chr string indicating which axes to plot
 #' @param addpts optional matrix or data.frame of additional points if constrained ordination is used (e.g., species locations in cca, rda)
+#' @param obslab logical if the row names for the observations in \code{obs} are plotted rather than points
 #' @param ellipse logical if confidence ellipses are shown for each group, method from the ggbiplot package
 #' @param ellipse_pro numeric indicating confidence value for the ellipses
 #' @param arrow numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows
@@ -140,8 +141,8 @@ ggord <- function(...) UseMethod('ggord')
 #' @export
 #'
 #' @method ggord default
-ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, ellipse = TRUE,
-                      ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1,
+ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab = FALSE,
+                      ellipse = TRUE, ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1,
                       vec_lab = NULL, size = 4, addsize = size/2, addcol = 'blue', addpch = 19,
                       txt = 4, alpha = 1, xlims = NULL, ylims = NULL, var_sub = NULL,
                       coord_fix = TRUE, parse = FALSE, ...){
@@ -174,10 +175,13 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, ellipse 
   nms <- names(obs)[1:2]
   names(obs)[1:2] <- c('one', 'two')
   p <- ggplot(obs, aes_string(x = 'one', y = 'two')) +
-    geom_point(size = size, alpha = alpha) +
     scale_x_continuous(name = nms[1], limits = xlims) +
     scale_y_continuous(name = nms[2], limits = ylims) +
     theme_bw()
+  
+  # observations as points or text
+  if(obslab) p <- p + geom_text(label = row.names(obs), size = size, alpha = alpha)
+  else p <- p + geom_point(size = size, alpha = alpha)
 
   # add species scores if addpts not null, for triplot
   if(!is.null(addpts)){

@@ -20,8 +20,8 @@
 ggord(...)
 
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), addpts = NULL,
-  ellipse = TRUE, ellipse_pro = 0.95, arrow = 0.4, ext = 1.2,
-  vec_ext = 1, vec_lab = NULL, size = 4, addsize = size/2,
+  obslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, arrow = 0.4,
+  ext = 1.2, vec_ext = 1, vec_lab = NULL, size = 4, addsize = size/2,
   addcol = "blue", addpch = 19, txt = 4, alpha = 1, xlims = NULL,
   ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...)
 
@@ -59,6 +59,8 @@ ggord(...)
 \item{axes}{chr string indicating which axes to plot}
 
 \item{addpts}{optional matrix or data.frame of additional points if constrained ordination is used (e.g., species locations in cca, rda)}
+
+\item{obslab}{logical if the row names for the observations in \code{obs} are plotted rather than points}
 
 \item{ellipse}{logical if confidence ellipses are shown for each group, method from the ggbiplot package}
 
