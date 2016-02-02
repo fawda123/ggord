@@ -9,6 +9,7 @@
 #' @param axes chr string indicating which axes to plot
 #' @param addpts optional matrix or data.frame of additional points if constrained ordination is used (e.g., species locations in cca, rda)
 #' @param obslab logical if the row names for the observations in \code{obs} are plotted rather than points
+#' @param ptslab logical if the row names for the additional points (\code{addpts}) in constrained ordination are plotted as text
 #' @param ellipse logical if confidence ellipses are shown for each group, method from the ggbiplot package
 #' @param ellipse_pro numeric indicating confidence value for the ellipses
 #' @param arrow numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows
@@ -25,8 +26,9 @@
 #' @param ylims two numeric values indicating y-axis limits
 #' @param var_sub chr string indcating which labels to show.  Regular expression matching is used.
 #' @param coord_fix logical indicating fixed, equal scaling for axes
-#' @param parse logical indicating if optional vector labels are expressions to parse with \code{\link[ggplot2]{geom_text}}
 #' @param ... arguments passed to or from other methods
+#'
+#' @details Explained variance of axes for triplots are constrained values.
 #'
 #' @export
 #'
@@ -128,12 +130,27 @@
 #'
 #' ggord(ord, iris$Species)
 #'
-#' # rda triplot
+#' ######
+#' # triplots
+#'
+#' # redundancy analysis
+#' # rda from vegan
 #' data(varespec)
 #' data(varechem)
 #' ord <- rda(varespec, varechem)
 #'
 #' ggord(ord)
+#'
+#' # canonical correspondence analysis
+#' # cca from vegan
+#' ord <- cca(varespec, varechem)
+#'
+#' ggord(ord)
+#'
+#' # species points as text
+#' # suppress site points
+#' ggord(ord, ptslab = TRUE, size = NA, addsize = 5)
+#'
 ggord <- function(...) UseMethod('ggord')
 
 #' @rdname ggord
@@ -142,10 +159,10 @@ ggord <- function(...) UseMethod('ggord')
 #'
 #' @method ggord default
 ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab = FALSE,
-                      ellipse = TRUE, ellipse_pro = 0.95, arrow = 0.4, ext = 1.2, vec_ext = 1,
-                      vec_lab = NULL, size = 4, addsize = size/2, addcol = 'blue', addpch = 19,
-                      txt = 4, alpha = 1, xlims = NULL, ylims = NULL, var_sub = NULL,
-                      coord_fix = TRUE, parse = FALSE, ...){
+                      ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, arrow = 0.4, ext = 1.2,
+                      vec_ext = 1, vec_lab = NULL, size = 4, addsize = size/2, addcol = 'blue',
+                      addpch = 19, txt = 4, alpha = 1, xlims = NULL, ylims = NULL, var_sub = NULL,
+                      coord_fix = TRUE, ...){
 
   # extend vectors by scale
   vecs <- vecs * vec_ext
@@ -196,12 +213,20 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab =
   # add species scores if addpts not null, for triplot
   if(!is.null(addpts)){
 
+    addpts$lab <- paste0('italic(', row.names(addpts), ')')
     nms <- names(addpts)[1:2]
     names(addpts)[1:2] <- c('one', 'two')
-    p <- p +
-      geom_point(data = addpts, aes_string(x = 'one', y = 'two'),
-        size = addsize, col = addcol, alpha = alpha, shape = addpch)
 
+    # pts as text labels if TRUE
+    if(ptslab){
+      p <- p +
+        geom_text(data = addpts, aes_string(x = 'one', y = 'two', label = 'lab'),
+          size = addsize, col = addcol, alpha = alpha, parse = TRUE)
+    } else {
+      p <- p +
+        geom_point(data = addpts, aes_string(x = 'one', y = 'two'),
+          size = addsize, col = addcol, alpha = alpha, shape = addpch)
+    }
   }
 
   # fixed coordiantes if TRUE
@@ -241,7 +266,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab =
   if(!is.null(txt))
     p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two'),
       label = unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))),
-      size = txt, parse = parse)
+      size = txt)
 
   return(p)
 
@@ -515,6 +540,40 @@ ggord.rda <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
   # vectors for constraining matrix
   constr <- data.frame(ord_in$CCA$biplot[, axes])
+
+  # explained variance of constrained axes
+  exp_var <- summary(ord_in)$concont$importance[2, axes]
+
+  # make a nice label for the axes
+  axes <- paste0(axes, ' (', round(100 * exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs = constr, axes, addpts = addpts, ...)
+
+}
+
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord cca
+ggord.cca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  axes <- paste0('CCA', axes)
+  obs <- data.frame(ord_in$CCA$wa[, axes])
+  obs$Groups <- grp_in
+  addpts <- data.frame(ord_in$CCA$v[, axes])
+
+  # vectors for constraining matrix
+  constr <- data.frame(ord_in$CCA$biplot[, axes])
+
+  # explained variance of constrained axes
+  exp_var <- summary(ord_in)$concont$importance[2, axes]
+
+  # make a nice label for the axes
+  axes <- paste0(axes, ' (', round(100 * exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
 
   ggord.default(obs, vecs = constr, axes, addpts = addpts, ...)
 

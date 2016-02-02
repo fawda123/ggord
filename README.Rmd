@@ -120,10 +120,25 @@ ord <- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)
 
-# rda triplot
+######
+# triplots
+
+# redundancy analysis
+# rda from vegan
 data(varespec)
 data(varechem)
 ord <- rda(varespec, varechem)
+
 ggord(ord)
+
+# canonical correspondence analysis
+# cca from vegan
+ord <- cca(varespec, varechem)
+
+ggord(ord)
+
+# species points as text
+# suppress site points
+ggord(ord, ptslab = TRUE, size = NA, addsize = 5)
 ```
 

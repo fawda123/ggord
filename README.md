@@ -18,10 +18,10 @@ library(ggord)
 The following shows some examples of creating biplots using the methods available with ggord.  These methods were developed independently from the [ggbiplot](https://github.com/vqv/ggbiplot) and [factoextra](https://github.com/kassambara/factoextra) packages, though the biplots are practically identical.  I made liberal use of the ellipses feature from ggbiplot, so credit is given where credit is due.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
 
 ```
-##  [1] ggord.acm      ggord.ca       ggord.coa      ggord.default 
-##  [5] ggord.lda      ggord.mca      ggord.MCA      ggord.metaMDS 
-##  [9] ggord.pca      ggord.PCA      ggord.prcomp   ggord.princomp
-## [13] ggord.rda     
+##  [1] ggord.acm      ggord.ca       ggord.cca      ggord.coa     
+##  [5] ggord.default  ggord.lda      ggord.mca      ggord.MCA     
+##  [9] ggord.metaMDS  ggord.pca      ggord.PCA      ggord.prcomp  
+## [13] ggord.princomp ggord.rda     
 ## see '?methods' for accessing help and source code
 ```
 
@@ -185,12 +185,35 @@ ggord(ord, iris$Species)
 ![](README_files/figure-html/unnamed-chunk-3-16.png) 
 
 ```r
-# rda triplot
+######
+# triplots
+
+# redundancy analysis
+# rda from vegan
 data(varespec)
 data(varechem)
 ord <- rda(varespec, varechem)
+
 ggord(ord)
 ```
 
 ![](README_files/figure-html/unnamed-chunk-3-17.png) 
+
+```r
+# canonical correspondence analysis
+# cca from vegan
+ord <- cca(varespec, varechem)
+
+ggord(ord)
+```
+
+![](README_files/figure-html/unnamed-chunk-3-18.png) 
+
+```r
+# species points as text
+# suppress site points
+ggord(ord, ptslab = TRUE, size = NA, addsize = 5)
+```
+
+![](README_files/figure-html/unnamed-chunk-3-19.png) 
 

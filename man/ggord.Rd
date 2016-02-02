@@ -6,6 +6,7 @@
 \alias{ggord.PCA}
 \alias{ggord.acm}
 \alias{ggord.ca}
+\alias{ggord.cca}
 \alias{ggord.coa}
 \alias{ggord.default}
 \alias{ggord.lda}
@@ -20,10 +21,10 @@
 ggord(...)
 
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), addpts = NULL,
-  obslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, arrow = 0.4,
-  ext = 1.2, vec_ext = 1, vec_lab = NULL, size = 4, addsize = size/2,
-  addcol = "blue", addpch = 19, txt = 4, alpha = 1, xlims = NULL,
-  ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...)
+  obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95,
+  arrow = 0.4, ext = 1.2, vec_ext = 1, vec_lab = NULL, size = 4,
+  addsize = size/2, addcol = "blue", addpch = 19, txt = 4, alpha = 1,
+  xlims = NULL, ylims = NULL, var_sub = NULL, coord_fix = TRUE, ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -48,6 +49,8 @@ ggord(...)
 \method{ggord}{ca}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
 \method{ggord}{rda}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
+
+\method{ggord}{cca}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 }
 \arguments{
 \item{...}{arguments passed to or from other methods}
@@ -61,6 +64,8 @@ ggord(...)
 \item{addpts}{optional matrix or data.frame of additional points if constrained ordination is used (e.g., species locations in cca, rda)}
 
 \item{obslab}{logical if the row names for the observations in \code{obs} are plotted rather than points}
+
+\item{ptslab}{logical if the row names for the additional points (\code{addpts}) in constrained ordination are plotted as text}
 
 \item{ellipse}{logical if confidence ellipses are shown for each group, method from the ggbiplot package}
 
@@ -94,8 +99,6 @@ ggord(...)
 
 \item{coord_fix}{logical indicating fixed, equal scaling for axes}
 
-\item{parse}{logical indicating if optional vector labels are expressions to parse with \code{\link[ggplot2]{geom_text}}}
-
 \item{ord_in}{input ordination object}
 
 \item{grp_in}{vector of grouping objects for the biplot, must have the same number of observations as the original matrix used for the ordination}
@@ -105,6 +108,9 @@ A \code{\link[ggplot2]{ggplot}} object that can be further modified
 }
 \description{
 Create an ordination biplot using ggplot2 including options for selecting axes, group color aesthetics, and selection of variables to plot.
+}
+\details{
+Explained variance of axes for triplots are constrained values.
 }
 \examples{
 
@@ -198,12 +204,27 @@ ord <- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)
 
-# rda triplot
+######
+# triplots
+
+# redundancy analysis
+# rda from vegan
 data(varespec)
 data(varechem)
 ord <- rda(varespec, varechem)
 
 ggord(ord)
+
+# canonical correspondence analysis
+# cca from vegan
+ord <- cca(varespec, varechem)
+
+ggord(ord)
+
+# species points as text
+# suppress site points
+ggord(ord, ptslab = TRUE, size = NA, addsize = 5)
+
 }
 \seealso{
 \code{\link[ggplot2]{ggplot}}
