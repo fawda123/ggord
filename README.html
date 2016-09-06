@@ -10,14 +10,15 @@
 
 
 
+
 <title></title>
 
-<script src="README_files/jquery-1.11.0/jquery.min.js"></script>
+<script src="README_files/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="README_files/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="README_files/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="README_files/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="README_files/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="README_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="README_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="README_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="README_files/bootstrap-3.3.5/shim/respond.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -39,6 +40,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 
 
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
 </head>
 
 <body>
@@ -53,14 +82,42 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
 <div class="container-fluid main-container">
 
+<!-- tabsets -->
+<script src="README_files/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
 
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
 
 
 <div id="ggord" class="section level2">
@@ -85,30 +142,32 @@ ord &lt;- prcomp(iris[, 1:4])
 
 p &lt;- ggord(ord, iris$Species)
 p</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-1.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-1.png" /><!-- --></p>
 <pre class="r"><code>library(ggplot2)
-p + scale_colour_manual(&#39;Species&#39;, values = c(&#39;purple&#39;, &#39;orange&#39;, &#39;blue&#39;))</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-2.png" /></p>
+p + scale_colour_manual(&#39;Groups&#39;, values = c(&#39;purple&#39;, &#39;orange&#39;, &#39;blue&#39;))</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-2.png" /><!-- --></p>
+<pre class="r"><code>p + scale_shape_manual(&#39;Groups&#39;, values = c(1, 2, 3))</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-3.png" /><!-- --></p>
 <pre class="r"><code>p + theme_classic()</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-3.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-4.png" /><!-- --></p>
 <pre class="r"><code>p + theme(legend.position = &#39;top&#39;)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-4.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-5.png" /><!-- --></p>
 <pre class="r"><code># change the vector labels with vec_lab
 new_lab &lt;- list(Sepal.Length = &#39;SL&#39;, Sepal.Width = &#39;SW&#39;, Petal.Width = &#39;PW&#39;,
   Petal.Length = &#39;PL&#39;)
 p &lt;- ggord(ord, iris$Species, vec_lab = new_lab)
 p</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-5.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-6.png" /><!-- --></p>
 <pre class="r"><code># observations as labels from row names
 p &lt;- ggord(ord, iris$Species, obslab = TRUE)
 p</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-6.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-7.png" /><!-- --></p>
 <pre class="r"><code># principal components analysis with the iris dataset
 # princomp
 ord &lt;- princomp(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-7.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-8.png" /><!-- --></p>
 <pre class="r"><code># principal components analysis with the iris dataset
 # PCA
 library(FactoMineR)
@@ -116,7 +175,7 @@ library(FactoMineR)
 ord &lt;- PCA(iris[, 1:4], graph = FALSE)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-8.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-9.png" /><!-- --></p>
 <pre class="r"><code># principal components analysis with the iris dataset
 # dudi.pca
 library(ade4)
@@ -124,7 +183,7 @@ library(ade4)
 ord &lt;- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-9.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-10.png" /><!-- --></p>
 <pre class="r"><code># multiple correspondence analysis with the tea dataset
 # MCA
 data(tea, package = &#39;FactoMineR&#39;)
@@ -133,7 +192,7 @@ tea &lt;- tea[, c(&#39;Tea&#39;, &#39;sugar&#39;, &#39;price&#39;, &#39;age_Q&#3
 ord &lt;- MCA(tea[, -1], graph = FALSE)
 
 ggord(ord, tea$Tea)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-10.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-11.png" /><!-- --></p>
 <pre class="r"><code># multiple correspondence analysis with the tea dataset
 # mca
 library(MASS)
@@ -141,39 +200,39 @@ library(MASS)
 ord &lt;- mca(tea[, -1])
 
 ggord(ord, tea$Tea)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-11.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-12.png" /><!-- --></p>
 <pre class="r"><code># multiple correspondence analysis with the tea dataset
 # acm
 ord &lt;- dudi.acm(tea[, -1], scannf = FALSE)
 
 ggord(ord, tea$Tea)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-12.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-13.png" /><!-- --></p>
 <pre class="r"><code># nonmetric multidimensional scaling with the iris dataset
 # metaMDS
 library(vegan)
 ord &lt;- metaMDS(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-13.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-14.png" /><!-- --></p>
 <pre class="r"><code># linear discriminant analysis
 # example from lda in MASS package
 ord &lt;- lda(Species ~ ., iris, prior = rep(1, 3)/3)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-14.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-15.png" /><!-- --></p>
 <pre class="r"><code># correspondence analysis
 # dudi.coa
 ord &lt;- dudi.coa(iris[, 1:4], scannf = FALSE, nf = 4)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-15.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-16.png" /><!-- --></p>
 <pre class="r"><code># correspondence analysis
 # ca
 library(ca)
 ord &lt;- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-16.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-17.png" /><!-- --></p>
 <pre class="r"><code>######
 # triplots
 
@@ -184,19 +243,21 @@ data(varechem)
 ord &lt;- rda(varespec, varechem)
 
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-17.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-18.png" /><!-- --></p>
 <pre class="r"><code># canonical correspondence analysis
 # cca from vegan
 ord &lt;- cca(varespec, varechem)
 
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-18.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-19.png" /><!-- --></p>
 <pre class="r"><code># species points as text
 # suppress site points
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-19.png" /></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-20.png" /><!-- --></p>
 </div>
 </div>
+
+
 
 
 </div>
