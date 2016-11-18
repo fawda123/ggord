@@ -579,3 +579,28 @@ ggord.cca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
   ggord.default(obs, vecs = constr, axes, addpts = addpts, ...)
 
 }
+
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord dpcoa
+ggord.dpcoa <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # ord_in$dls = coordinates of the species
+  # ord_in$li  = coordinates of the communities
+  # ord_in$c1  = scores of principal axes of the species
+
+  # data to plot
+  exp_var <- 100 * ord_in$eig / sum(ord_in$eig)
+  exp_var <- exp_var[as.numeric(axes)]
+  obs <- data.frame(ord_in$li[, paste0('Axis', axes)])
+  obs$Groups <- grp_in
+  vecs <- data.frame(ord_in$dls[, paste0('CS', axes)])
+  axes <- paste0('Axis', axes)
+  axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs, axes, ...)
+
+}
