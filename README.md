@@ -19,9 +19,9 @@ The following shows some examples of creating biplots using the methods availabl
 
 ```
 ##  [1] ggord.acm      ggord.ca       ggord.cca      ggord.coa     
-##  [5] ggord.default  ggord.lda      ggord.mca      ggord.MCA     
-##  [9] ggord.metaMDS  ggord.pca      ggord.PCA      ggord.prcomp  
-## [13] ggord.princomp ggord.rda     
+##  [5] ggord.default  ggord.dpcoa    ggord.lda      ggord.mca     
+##  [9] ggord.MCA      ggord.metaMDS  ggord.pca      ggord.PCA     
+## [13] ggord.prcomp   ggord.princomp ggord.rda     
 ## see '?methods' for accessing help and source code
 ```
 
@@ -191,6 +191,20 @@ ggord(ord, iris$Species)
 ![](README_files/figure-html/unnamed-chunk-3-17.png)<!-- -->
 
 ```r
+# double principle coordinate analysis (DPCoA)
+# dpcoa
+library(ade4)
+data(ecomor)
+grp <- rep(c("Bu", "Ca", "Ch", "Pr"), each = 4)    # sample groups
+dtaxo <- dist.taxo(ecomor$taxo)                    # taxonomic distance between species
+ord <- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
+ 
+ggord(ord, grp_in = grp, ellipse = F, arrow = 0.2, txt = 3)
+```
+
+![](README_files/figure-html/unnamed-chunk-3-18.png)<!-- -->
+
+```r
 ######
 # triplots
 
@@ -203,7 +217,7 @@ ord <- rda(varespec, varechem)
 ggord(ord)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-18.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-19.png)<!-- -->
 
 ```r
 # canonical correspondence analysis
@@ -213,7 +227,7 @@ ord <- cca(varespec, varechem)
 ggord(ord)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-19.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-20.png)<!-- -->
 
 ```r
 # species points as text
@@ -221,5 +235,5 @@ ggord(ord)
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-20.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-21.png)<!-- -->
 

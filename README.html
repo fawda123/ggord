@@ -95,10 +95,11 @@ button.code-folding-btn:focus {
 </style>
 
 
+
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="README_files/navigation-1.0/tabsets.js"></script>
+<script src="README_files/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -132,9 +133,9 @@ install_github(&#39;fawda123/ggord&#39;)
 library(ggord)</code></pre>
 <p>The following shows some examples of creating biplots using the methods available with ggord. These methods were developed independently from the <a href="https://github.com/vqv/ggbiplot">ggbiplot</a> and <a href="https://github.com/kassambara/factoextra">factoextra</a> packages, though the biplots are practically identical. I made liberal use of the ellipses feature from ggbiplot, so credit is given where credit is due. Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis. Available methods are as follows:</p>
 <pre><code>##  [1] ggord.acm      ggord.ca       ggord.cca      ggord.coa     
-##  [5] ggord.default  ggord.lda      ggord.mca      ggord.MCA     
-##  [9] ggord.metaMDS  ggord.pca      ggord.PCA      ggord.prcomp  
-## [13] ggord.princomp ggord.rda     
+##  [5] ggord.default  ggord.dpcoa    ggord.lda      ggord.mca     
+##  [9] ggord.MCA      ggord.metaMDS  ggord.pca      ggord.PCA     
+## [13] ggord.prcomp   ggord.princomp ggord.rda     
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <pre class="r"><code># principal components analysis with the iris data set
 # prcomp
@@ -233,6 +234,16 @@ ord &lt;- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-17.png" /><!-- --></p>
+<pre class="r"><code># double principle coordinate analysis (DPCoA)
+# dpcoa
+library(ade4)
+data(ecomor)
+grp &lt;- rep(c(&quot;Bu&quot;, &quot;Ca&quot;, &quot;Ch&quot;, &quot;Pr&quot;), each = 4)    # sample groups
+dtaxo &lt;- dist.taxo(ecomor$taxo)                    # taxonomic distance between species
+ord &lt;- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
+ 
+ggord(ord, grp_in = grp, ellipse = F, arrow = 0.2, txt = 3)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-18.png" /><!-- --></p>
 <pre class="r"><code>######
 # triplots
 
@@ -243,17 +254,17 @@ data(varechem)
 ord &lt;- rda(varespec, varechem)
 
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-18.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-19.png" /><!-- --></p>
 <pre class="r"><code># canonical correspondence analysis
 # cca from vegan
 ord &lt;- cca(varespec, varechem)
 
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-19.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-20.png" /><!-- --></p>
 <pre class="r"><code># species points as text
 # suppress site points
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-20.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-21.png" /><!-- --></p>
 </div>
 </div>
 
@@ -268,6 +279,7 @@ ggord(ord, ptslab = TRUE, size = NA, addsize = 5)</code></pre>
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 
