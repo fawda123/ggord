@@ -12,6 +12,7 @@
 #' @param ptslab logical if the row names for the additional points (\code{addpts}) in constrained ordination are plotted as text
 #' @param ellipse logical if confidence ellipses are shown for each group, method from the ggbiplot package
 #' @param ellipse_pro numeric indicating confidence value for the ellipses
+#' @param poly logical if confidence ellipses are filled polygons, otherwise they are shown as empty ellipses
 #' @param arrow numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows
 #' @param ext numeric indicating scalar distance of the labels from the arrow ends
 #' @param vec_ext numeric indicating a scalar extension for the ordination vectors
@@ -22,6 +23,7 @@
 #' @param addpch numeric indicating point type of the species points if addpts is not \code{NULL}
 #' @param txt numeric indicating size of the text labels for the vectors, use \code{NULL} to suppress labels
 #' @param alpha numeric transparency of points and ellipses from 0 to 1
+#' @param alpha_ell numeric transparency for confidence ellipses
 #' @param xlims two numeric values indicating x-axis limits
 #' @param ylims two numeric values indicating y-axis limits
 #' @param var_sub chr string indcating which labels to show.  Regular expression matching is used.
@@ -136,9 +138,9 @@
 #' grp <- rep(c("Bu", "Ca", "Ch", "Pr"), each = 4)    # sample groups
 #' dtaxo <- dist.taxo(ecomor$taxo)                    # taxonomic distance between species
 #' ord <- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
-#' 
+#'
 #' ggord(ord, grp_in = grp, ellipse = F, arrow = 0.2, txt = 3)
-#' 
+#'
 #' ######
 #' # triplots
 #'
@@ -168,9 +170,9 @@ ggord <- function(...) UseMethod('ggord')
 #'
 #' @method ggord default
 ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab = FALSE,
-                      ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, arrow = 0.4, ext = 1.2,
+                      ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE, arrow = 0.4, ext = 1.2,
                       vec_ext = 1, vec_lab = NULL, size = 4, addsize = size/2, addcol = 'blue',
-                      addpch = 19, txt = 4, alpha = 1, xlims = NULL, ylims = NULL, var_sub = NULL,
+                      addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL, var_sub = NULL,
                       coord_fix = TRUE, ...){
 
   # extend vectors by scale
@@ -246,21 +248,22 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab =
   # concentration ellipse if there are groups, from ggbiplot
   if(!is.null(obs$Groups) & ellipse) {
 
-    theta <- c(seq(-pi, pi, length = 50), seq(pi, -pi, length = 50))
-    circle <- cbind(cos(theta), sin(theta))
-
-    ell <- ddply(obs, 'Groups', function(x) {
-      if(nrow(x) <= 2) {
-        return(NULL)
-      }
-      sigma <- var(cbind(x$one, x$two))
-      mu <- c(mean(x$one), mean(x$two))
-      ed <- sqrt(qchisq(ellipse_pro, df = 2))
-      data.frame(sweep(circle %*% chol(sigma) * ed, 2, mu, FUN = '+'))
-    })
-    names(ell)[2:3] <- c('one', 'two')
-
-    p <- p + geom_path(data = ell, aes_string(color = 'Groups', group = 'Groups'), alpha = alpha)
+    if(poly){
+      p <- p + stat_ellipse(
+        aes_string(fill = 'Groups', colour = NULL, group = 'Groups'),
+        geom = 'polygon',
+        alpha = alpha_el,
+        type = 'norm',
+        level = ellipse_pro
+        )
+    } else {
+      p <- p + stat_ellipse(
+        aes_string(colour = 'Groups', group = 'Groups'),
+        alpha = alpha_el,
+        type = 'norm',
+        level = ellipse_pro
+        )
+    }
 
   }
 

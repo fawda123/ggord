@@ -9,6 +9,7 @@
 \alias{ggord.cca}
 \alias{ggord.coa}
 \alias{ggord.default}
+\alias{ggord.dpcoa}
 \alias{ggord.lda}
 \alias{ggord.mca}
 \alias{ggord.metaMDS}
@@ -22,9 +23,10 @@ ggord(...)
 
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), addpts = NULL,
   obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95,
-  arrow = 0.4, ext = 1.2, vec_ext = 1, vec_lab = NULL, size = 4,
-  addsize = size/2, addcol = "blue", addpch = 19, txt = 4, alpha = 1,
-  xlims = NULL, ylims = NULL, var_sub = NULL, coord_fix = TRUE, ...)
+  poly = TRUE, arrow = 0.4, ext = 1.2, vec_ext = 1, vec_lab = NULL,
+  size = 4, addsize = size/2, addcol = "blue", addpch = 19, txt = 4,
+  alpha = 1, alpha_el = alpha/2, xlims = NULL, ylims = NULL,
+  var_sub = NULL, coord_fix = TRUE, ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -51,6 +53,8 @@ ggord(...)
 \method{ggord}{rda}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
 \method{ggord}{cca}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
+
+\method{ggord}{dpcoa}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 }
 \arguments{
 \item{...}{arguments passed to or from other methods}
@@ -70,6 +74,8 @@ ggord(...)
 \item{ellipse}{logical if confidence ellipses are shown for each group, method from the ggbiplot package}
 
 \item{ellipse_pro}{numeric indicating confidence value for the ellipses}
+
+\item{poly}{logical if confidence ellipses are filled polygons, otherwise they are shown as empty ellipses}
 
 \item{arrow}{numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows}
 
@@ -102,6 +108,8 @@ ggord(...)
 \item{ord_in}{input ordination object}
 
 \item{grp_in}{vector of grouping objects for the biplot, must have the same number of observations as the original matrix used for the ordination}
+
+\item{alpha_ell}{numeric transparency for confidence ellipses}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object that can be further modified
@@ -203,6 +211,15 @@ library(ca)
 ord <- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)
+
+# double principle coordinate analysis (DPCoA)
+library(ade4)
+data(ecomor)
+grp <- rep(c("Bu", "Ca", "Ch", "Pr"), each = 4)    # sample groups
+dtaxo <- dist.taxo(ecomor$taxo)                    # taxonomic distance between species
+ord <- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
+
+ggord(ord, grp_in = grp, ellipse = F, arrow = 0.2, txt = 3)
 
 ######
 # triplots
