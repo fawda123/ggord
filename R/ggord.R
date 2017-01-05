@@ -23,7 +23,7 @@
 #' @param addpch numeric indicating point type of the species points if addpts is not \code{NULL}
 #' @param txt numeric indicating size of the text labels for the vectors, use \code{NULL} to suppress labels
 #' @param alpha numeric transparency of points and ellipses from 0 to 1
-#' @param alpha_ell numeric transparency for confidence ellipses
+#' @param alpha_el numeric transparency for confidence ellipses
 #' @param xlims two numeric values indicating x-axis limits
 #' @param ylims two numeric values indicating y-axis limits
 #' @param var_sub chr string indcating which labels to show.  Regular expression matching is used.

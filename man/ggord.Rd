@@ -25,7 +25,7 @@ ggord(...)
   obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95,
   poly = TRUE, arrow = 0.4, ext = 1.2, vec_ext = 1, vec_lab = NULL,
   size = 4, addsize = size/2, addcol = "blue", addpch = 19, txt = 4,
-  alpha = 1, alpha_el = alpha/2, xlims = NULL, ylims = NULL,
+  alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL,
   var_sub = NULL, coord_fix = TRUE, ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
@@ -97,6 +97,8 @@ ggord(...)
 
 \item{alpha}{numeric transparency of points and ellipses from 0 to 1}
 
+\item{alpha_el}{numeric transparency for confidence ellipses}
+
 \item{xlims}{two numeric values indicating x-axis limits}
 
 \item{ylims}{two numeric values indicating y-axis limits}
@@ -108,8 +110,6 @@ ggord(...)
 \item{ord_in}{input ordination object}
 
 \item{grp_in}{vector of grouping objects for the biplot, must have the same number of observations as the original matrix used for the ordination}
-
-\item{alpha_ell}{numeric transparency for confidence ellipses}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object that can be further modified
