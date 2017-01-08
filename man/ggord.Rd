@@ -219,7 +219,7 @@ grp <- rep(c("Bu", "Ca", "Ch", "Pr"), each = 4)    # sample groups
 dtaxo <- dist.taxo(ecomor$taxo)                    # taxonomic distance between species
 ord <- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
 
-ggord(ord, grp_in = grp, ellipse = F, arrow = 0.2, txt = 3)
+ggord(ord, grp_in = grp, ellipse = FALSE, arrow = 0.2, txt = 3)
 
 ######
 # triplots

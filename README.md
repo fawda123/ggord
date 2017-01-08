@@ -15,7 +15,7 @@ install_github('fawda123/ggord')
 library(ggord)
 ```
 
-The following shows some examples of creating biplots using the methods available with ggord.  These methods were developed independently from the [ggbiplot](https://github.com/vqv/ggbiplot) and [factoextra](https://github.com/kassambara/factoextra) packages, though the biplots are practically identical.  I made liberal use of the ellipses feature from ggbiplot, so credit is given where credit is due.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
+The following shows some examples of creating biplots using the methods available with ggord.  These methods were developed independently from the [ggbiplot](https://github.com/vqv/ggbiplot) and [factoextra](https://github.com/kassambara/factoextra) packages, though the biplots are practically identical.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
 
 ```
 ##  [1] ggord.acm      ggord.ca       ggord.cca      ggord.coa     
@@ -199,7 +199,7 @@ grp <- rep(c("Bu", "Ca", "Ch", "Pr"), each = 4)    # sample groups
 dtaxo <- dist.taxo(ecomor$taxo)                    # taxonomic distance between species
 ord <- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
  
-ggord(ord, grp_in = grp, ellipse = F, arrow = 0.2, txt = 3)
+ggord(ord, grp_in = grp, ellipse = FALSE, arrow = 0.2, txt = 3)
 ```
 
 ![](README_files/figure-html/unnamed-chunk-3-18.png)<!-- -->

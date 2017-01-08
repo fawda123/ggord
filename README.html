@@ -129,7 +129,7 @@ $(document).ready(function () {
 library(devtools)
 install_github(&#39;fawda123/ggord&#39;)
 library(ggord)</code></pre>
-<p>The following shows some examples of creating biplots using the methods available with ggord. These methods were developed independently from the <a href="https://github.com/vqv/ggbiplot">ggbiplot</a> and <a href="https://github.com/kassambara/factoextra">factoextra</a> packages, though the biplots are practically identical. I made liberal use of the ellipses feature from ggbiplot, so credit is given where credit is due. Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis. Available methods are as follows:</p>
+<p>The following shows some examples of creating biplots using the methods available with ggord. These methods were developed independently from the <a href="https://github.com/vqv/ggbiplot">ggbiplot</a> and <a href="https://github.com/kassambara/factoextra">factoextra</a> packages, though the biplots are practically identical. Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis. Available methods are as follows:</p>
 <pre><code>##  [1] ggord.acm      ggord.ca       ggord.cca      ggord.coa     
 ##  [5] ggord.default  ggord.dpcoa    ggord.lda      ggord.mca     
 ##  [9] ggord.MCA      ggord.metaMDS  ggord.pca      ggord.PCA     
@@ -240,7 +240,7 @@ grp &lt;- rep(c(&quot;Bu&quot;, &quot;Ca&quot;, &quot;Ch&quot;, &quot;Pr&quot;),
 dtaxo &lt;- dist.taxo(ecomor$taxo)                    # taxonomic distance between species
 ord &lt;- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
  
-ggord(ord, grp_in = grp, ellipse = F, arrow = 0.2, txt = 3)</code></pre>
+ggord(ord, grp_in = grp, ellipse = FALSE, arrow = 0.2, txt = 3)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-18.png" /><!-- --></p>
 <pre class="r"><code>######
 # triplots
