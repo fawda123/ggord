@@ -37,13 +37,14 @@ p
 ![](README_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 ```r
-library(ggplot2)
-p + scale_colour_manual('Groups', values = c('purple', 'orange', 'blue'))
+p <- ggord(ord, iris$Species, cols = c('purple', 'orange', 'blue'))
+p
 ```
 
 ![](README_files/figure-html/unnamed-chunk-3-2.png)<!-- -->
 
 ```r
+library(ggplot2)
 p + scale_shape_manual('Groups', values = c(1, 2, 3))
 ```
 

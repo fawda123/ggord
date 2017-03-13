@@ -142,10 +142,11 @@ ord &lt;- prcomp(iris[, 1:4])
 p &lt;- ggord(ord, iris$Species)
 p</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-1.png" /><!-- --></p>
-<pre class="r"><code>library(ggplot2)
-p + scale_colour_manual(&#39;Groups&#39;, values = c(&#39;purple&#39;, &#39;orange&#39;, &#39;blue&#39;))</code></pre>
+<pre class="r"><code>p &lt;- ggord(ord, iris$Species, cols = c(&#39;purple&#39;, &#39;orange&#39;, &#39;blue&#39;))
+p</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-2.png" /><!-- --></p>
-<pre class="r"><code>p + scale_shape_manual(&#39;Groups&#39;, values = c(1, 2, 3))</code></pre>
+<pre class="r"><code>library(ggplot2)
+p + scale_shape_manual(&#39;Groups&#39;, values = c(1, 2, 3))</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-3.png" /><!-- --></p>
 <pre class="r"><code>p + theme_classic()</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-4.png" /><!-- --></p>

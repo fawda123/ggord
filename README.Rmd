@@ -34,8 +34,10 @@ ord <- prcomp(iris[, 1:4])
 p <- ggord(ord, iris$Species)
 p
 
+p <- ggord(ord, iris$Species, cols = c('purple', 'orange', 'blue'))
+p
+
 library(ggplot2)
-p + scale_colour_manual('Groups', values = c('purple', 'orange', 'blue'))
 p + scale_shape_manual('Groups', values = c(1, 2, 3))
 p + theme_classic()
 p + theme(legend.position = 'top')

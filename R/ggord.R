@@ -7,6 +7,7 @@
 #' @param obs matrix or data frame of axis scores for each observation
 #' @param vecs matrix or data frame of axis scores for each variable
 #' @param axes chr string indicating which axes to plot
+#' @param cols chr string of optional colors for \code{grp_in}
 #' @param addpts optional matrix or data.frame of additional points if constrained ordination is used (e.g., species locations in cca, rda)
 #' @param obslab logical if the row names for the observations in \code{obs} are plotted rather than points
 #' @param ptslab logical if the row names for the additional points (\code{addpts}) in constrained ordination are plotted as text
@@ -51,7 +52,10 @@
 #' p <- ggord(ord, iris$Species)
 #' p
 #'
-#' p + scale_colour_manual('Species', values = c('purple', 'orange', 'blue'))
+#' p <- ggord(ord, iris$Species, cols = c('purple', 'orange', 'blue'))
+#' p
+#'
+#' p + scale_shape_manual('Groups', values = c(1, 2, 3))
 #' p + theme_classic()
 #' p + theme(legend.position = 'top')
 #'
@@ -169,7 +173,7 @@ ggord <- function(...) UseMethod('ggord')
 #' @export
 #'
 #' @method ggord default
-ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab = FALSE,
+ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = NULL, obslab = FALSE,
                       ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE, arrow = 0.4, ext = 1.2,
                       vec_ext = 1, vec_lab = NULL, size = 4, addsize = size/2, addcol = 'blue',
                       addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL, var_sub = NULL,
@@ -241,7 +245,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab =
     }
   }
 
-  # fixed coordiantes if TRUE
+  # fixed coordinates if TRUE
   if(coord_fix)
     p <- p + coord_fixed()
 
@@ -265,6 +269,15 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), addpts = NULL, obslab =
         )
     }
 
+  }
+
+  # set colors if provided
+  if(!is.null(cols) & !is.null(obs$Groups)){
+    if(length(cols) != length(unique(obs$Groups)))
+      stop('col vector must have length equal to unique values in grp_in')
+    p <- p +
+      scale_colour_manual('Groups', values = cols) +
+      scale_fill_manual('Groups', values = cols)
   }
 
   # add vectors
