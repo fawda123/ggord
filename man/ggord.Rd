@@ -2,21 +2,21 @@
 % Please edit documentation in R/ggord.R
 \name{ggord}
 \alias{ggord}
-\alias{ggord.MCA}
-\alias{ggord.PCA}
-\alias{ggord.acm}
-\alias{ggord.ca}
-\alias{ggord.cca}
-\alias{ggord.coa}
 \alias{ggord.default}
-\alias{ggord.dpcoa}
-\alias{ggord.lda}
+\alias{ggord.PCA}
+\alias{ggord.MCA}
 \alias{ggord.mca}
-\alias{ggord.metaMDS}
-\alias{ggord.pca}
+\alias{ggord.acm}
 \alias{ggord.prcomp}
 \alias{ggord.princomp}
+\alias{ggord.metaMDS}
+\alias{ggord.lda}
+\alias{ggord.pca}
+\alias{ggord.coa}
+\alias{ggord.ca}
 \alias{ggord.rda}
+\alias{ggord.cca}
+\alias{ggord.dpcoa}
 \title{Ordination plots with ggplot2}
 \usage{
 ggord(...)
@@ -26,7 +26,8 @@ ggord(...)
   ellipse_pro = 0.95, poly = TRUE, arrow = 0.4, ext = 1.2,
   vec_ext = 1, vec_lab = NULL, size = 4, addsize = size/2,
   addcol = "blue", addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4,
-  xlims = NULL, ylims = NULL, var_sub = NULL, coord_fix = TRUE, ...)
+  xlims = NULL, ylims = NULL, var_sub = NULL, coord_fix = TRUE,
+  parse = FALSE, ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -108,6 +109,8 @@ ggord(...)
 \item{var_sub}{chr string indcating which labels to show.  Regular expression matching is used.}
 
 \item{coord_fix}{logical indicating fixed, equal scaling for axes}
+
+\item{parse}{logical indicating if text labels are parsed}
 
 \item{ord_in}{input ordination object}
 
@@ -251,4 +254,3 @@ ggord(ord, ptslab = TRUE, size = NA, addsize = 5)
 \seealso{
 \code{\link[ggplot2]{ggplot}}
 }
-

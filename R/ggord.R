@@ -29,6 +29,7 @@
 #' @param ylims two numeric values indicating y-axis limits
 #' @param var_sub chr string indcating which labels to show.  Regular expression matching is used.
 #' @param coord_fix logical indicating fixed, equal scaling for axes
+#' @param parse logical indicating if text labels are parsed
 #' @param ... arguments passed to or from other methods
 #'
 #' @details Explained variance of axes for triplots are constrained values.
@@ -177,7 +178,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = N
                       ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE, arrow = 0.4, ext = 1.2,
                       vec_ext = 1, vec_lab = NULL, size = 4, addsize = size/2, addcol = 'blue',
                       addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL, var_sub = NULL,
-                      coord_fix = TRUE, ...){
+                      coord_fix = TRUE, parse = FALSE, ...){
 
   # extend vectors by scale
   vecs <- vecs * vec_ext
@@ -215,9 +216,9 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = N
   # observations as points or text, colour if groups provided
   if(obslab){
     if(!is.null(obs$Groups))
-      p <- p + geom_text(aes_string(colour = 'Groups', label = 'lab'), size = size, alpha = alpha)
+      p <- p + geom_text(aes_string(colour = 'Groups', label = 'lab'), size = size, alpha = alpha, parse = parse)
     else
-      p <- p + geom_text(label = row.names(obs), size = size, alpha = alpha)
+      p <- p + geom_text(label = row.names(obs), size = size, alpha = alpha, parse = parse)
   } else {
     if(!is.null(obs$Groups))
       p <- p + geom_point(aes_string(colour = 'Groups', shape = 'Groups'), size = size, alpha = alpha) +
@@ -290,7 +291,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = N
 
   # add labels
   if(!is.null(txt))
-    p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two'),
+    p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two', parse = parse),
       label = unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))),
       size = txt)
 
