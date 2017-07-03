@@ -238,7 +238,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = N
     if(ptslab){
       p <- p +
         geom_text(data = addpts, aes_string(x = 'one', y = 'two', label = 'lab'),
-          size = addsize, col = addcol, alpha = alpha, parse = TRUE)
+          size = addsize, col = addcol, alpha = alpha, parse = parse)
     } else {
       p <- p +
         geom_point(data = addpts, aes_string(x = 'one', y = 'two'),
@@ -254,6 +254,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = N
   if(!is.null(obs$Groups) & ellipse) {
 
     if(poly){
+
       p <- p + stat_ellipse(
         aes_string(fill = 'Groups', colour = NULL, group = 'Groups'),
         geom = 'polygon',
@@ -261,13 +262,25 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = N
         type = 'norm',
         level = ellipse_pro
         )
+
     } else {
-      p <- p + stat_ellipse(
-        aes_string(colour = 'Groups', group = 'Groups'),
-        alpha = alpha_el,
-        type = 'norm',
-        level = ellipse_pro
-        )
+
+      theta <- c(seq(-pi, pi, length = 50), seq(pi, -pi, length = 50))
+      circle <- cbind(cos(theta), sin(theta))
+
+      ell <- ddply(obs, 'Groups', function(x) {
+        if(nrow(x) <= 2) {
+          return(NULL)
+        }
+        sigma <- var(cbind(x$one, x$two))
+        mu <- c(mean(x$one), mean(x$two))
+        ed <- sqrt(qchisq(ellipse_pro, df = 2))
+        data.frame(sweep(circle %*% chol(sigma) * ed, 2, mu, FUN = '+'))
+      })
+      names(ell)[2:3] <- c('one', 'two')
+
+      p <- p + geom_path(data = ell, aes_string(color = 'Groups', group = 'Groups'), alpha = alpha)
+
     }
 
   }
@@ -291,9 +304,11 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = N
 
   # add labels
   if(!is.null(txt))
-    p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two', parse = parse),
+    p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two'),
       label = unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))),
-      size = txt)
+      size = txt,
+      parse = parse
+      )
 
   return(p)
 
