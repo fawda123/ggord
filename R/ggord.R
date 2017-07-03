@@ -14,6 +14,7 @@
 #' @param ellipse logical if confidence ellipses are shown for each group, method from the ggbiplot package
 #' @param ellipse_pro numeric indicating confidence value for the ellipses
 #' @param poly logical if confidence ellipses are filled polygons, otherwise they are shown as empty ellipses
+#' @param hull logical if convex hull is drawn around points or groups if provided
 #' @param arrow numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows
 #' @param ext numeric indicating scalar distance of the labels from the arrow ends
 #' @param vec_ext numeric indicating a scalar extension for the ordination vectors
@@ -24,7 +25,7 @@
 #' @param addpch numeric indicating point type of the species points if addpts is not \code{NULL}
 #' @param txt numeric indicating size of the text labels for the vectors, use \code{NULL} to suppress labels
 #' @param alpha numeric transparency of points and ellipses from 0 to 1
-#' @param alpha_el numeric transparency for confidence ellipses
+#' @param alpha_el numeric transparency for confidence ellipses, also applies to filled convex hulls
 #' @param xlims two numeric values indicating x-axis limits
 #' @param ylims two numeric values indicating y-axis limits
 #' @param var_sub chr string indcating which labels to show.  Regular expression matching is used.
@@ -175,8 +176,8 @@ ggord <- function(...) UseMethod('ggord')
 #'
 #' @method ggord default
 ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = NULL, obslab = FALSE,
-                      ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE, arrow = 0.4, ext = 1.2,
-                      vec_ext = 1, vec_lab = NULL, size = 4, addsize = size/2, addcol = 'blue',
+                      ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE, hull = FALSE, arrow = 0.4,
+                      ext = 1.2, vec_ext = 1, vec_lab = NULL, size = 4, addsize = size/2, addcol = 'blue',
                       addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL, var_sub = NULL,
                       coord_fix = TRUE, parse = FALSE, ...){
 
@@ -253,33 +254,66 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = N
   # concentration ellipse if there are groups, from ggbiplot
   if(!is.null(obs$Groups) & ellipse) {
 
+    theta <- c(seq(-pi, pi, length = 50), seq(pi, -pi, length = 50))
+    circle <- cbind(cos(theta), sin(theta))
+
+    ell <- ddply(obs, 'Groups', function(x) {
+      if(nrow(x) <= 2) {
+        return(NULL)
+      }
+      sigma <- var(cbind(x$one, x$two))
+      mu <- c(mean(x$one), mean(x$two))
+      ed <- sqrt(qchisq(ellipse_pro, df = 2))
+      data.frame(sweep(circle %*% chol(sigma) * ed, 2, mu, FUN = '+'))
+    })
+    names(ell)[2:3] <- c('one', 'two')
+
+    # get convex hull for ell object, this is a hack to make it work with geom_polygon
+    ell <- ddply(ell, .(Groups), function(x) x[chull(x$one, x$two), ])
+
     if(poly){
 
-      p <- p + stat_ellipse(
-        aes_string(fill = 'Groups', colour = NULL, group = 'Groups'),
-        geom = 'polygon',
-        alpha = alpha_el,
-        type = 'norm',
-        level = ellipse_pro
-        )
+      p <- p + geom_polygon(data = ell, aes(group = Groups, fill = Groups), alpha = alpha_el)
 
     } else {
 
-      theta <- c(seq(-pi, pi, length = 50), seq(pi, -pi, length = 50))
-      circle <- cbind(cos(theta), sin(theta))
+      p <- p + geom_polygon(data = ell, aes_string(color = 'Groups', group = 'Groups'), fill = NA, alpha = alpha)
 
-      ell <- ddply(obs, 'Groups', function(x) {
-        if(nrow(x) <= 2) {
-          return(NULL)
-        }
-        sigma <- var(cbind(x$one, x$two))
-        mu <- c(mean(x$one), mean(x$two))
-        ed <- sqrt(qchisq(ellipse_pro, df = 2))
-        data.frame(sweep(circle %*% chol(sigma) * ed, 2, mu, FUN = '+'))
-      })
-      names(ell)[2:3] <- c('one', 'two')
+    }
 
-      p <- p + geom_path(data = ell, aes_string(color = 'Groups', group = 'Groups'), alpha = alpha)
+  }
+
+  # add convex hull if true
+  if(hull){
+
+    if(!is.null(obs$Groups)){
+
+      # get convex hull
+      chulls <- ddply(obs, .(Groups), function(x) x[chull(x$one, x$two), ])
+
+      if(poly){
+
+        p <- p + geom_polygon(data = chulls, aes(group = Groups, fill = Groups), alpha = alpha_el)
+
+      } else {
+
+        p <- p + geom_polygon(data = chulls, aes(group = Groups, colour = Groups), fill = NA, alpha = alpha)
+
+      }
+
+    } else {
+
+      chulls <- obs[chull(obs$one, obs$two), ]
+
+      if(poly){
+
+        p <- p + geom_polygon(data = chulls, alpha = alpha_el)
+
+      } else {
+
+        p <- p + geom_polygon(data = chulls, alpha = alpha, fill = NA)
+
+      }
 
     }
 

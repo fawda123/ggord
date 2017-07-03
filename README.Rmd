@@ -42,6 +42,14 @@ p + scale_shape_manual('Groups', values = c(1, 2, 3))
 p + theme_classic()
 p + theme(legend.position = 'top')
 
+# transparent ellipses
+p <- ggord(ord, iris$Species, poly = FALSE)
+p
+
+# convex hulls 
+p <- ggord(ord, iris$Species, ellipse = FALSE, hull = TRUE)
+p
+
 # change the vector labels with vec_lab
 new_lab <- list(Sepal.Length = 'SL', Sepal.Width = 'SW', Petal.Width = 'PW',
   Petal.Length = 'PL')
