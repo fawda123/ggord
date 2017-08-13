@@ -124,11 +124,24 @@ $(document).ready(function () {
 <div id="marcus-w.-beck-mbafs2012gmail.com" class="section level4">
 <h4><em>Marcus W. Beck, <a href="mailto:mbafs2012@gmail.com">mbafs2012@gmail.com</a></em></h4>
 <p><a href="https://travis-ci.org/fawda123/ggord"><img src="https://travis-ci.org/fawda123/ggord.png?branch=master" alt="Travis-CI Build Status" /></a></p>
-<p>A simple package for creating ordination plots with ggplot2 (aka reinventing the wheel, see <a href="https://github.com/vqv/ggbiplot">this</a> and <a href="https://github.com/kassambara/factoextra">this</a>). Install the package as follows:</p>
+<p><a href="https://zenodo.org/badge/latestdoi/35334615"><img src="https://zenodo.org/badge/35334615.svg" alt="DOI" /></a></p>
+<p>A simple package for creating ordination plots with ggplot2 (aka reinventing the wheel, see <a href="https://github.com/vqv/ggbiplot">this</a> and <a href="https://github.com/kassambara/factoextra">this</a>).</p>
+</div>
+<div id="installation" class="section level3">
+<h3>Installation</h3>
+<p>Install the package as follows:</p>
 <pre class="r"><code>install.packages(&#39;devtools&#39;)
 library(devtools)
 install_github(&#39;fawda123/ggord&#39;)
 library(ggord)</code></pre>
+</div>
+<div id="citation" class="section level3">
+<h3>Citation</h3>
+<p>Please cite the current release as follows:</p>
+<p>Marcus W. Beck (2017). ggord: Ordination Plots with ggplot2. R package version 1.0.0. <a href="https://zenodo.org/badge/latestdoi/35334615" class="uri">https://zenodo.org/badge/latestdoi/35334615</a></p>
+</div>
+<div id="usage" class="section level3">
+<h3>Usage</h3>
 <p>The following shows some examples of creating biplots using the methods available with ggord. These methods were developed independently from the <a href="https://github.com/vqv/ggbiplot">ggbiplot</a> and <a href="https://github.com/kassambara/factoextra">factoextra</a> packages, though the biplots are practically identical. Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis. Available methods are as follows:</p>
 <pre><code>##  [1] ggord.acm      ggord.ca       ggord.cca      ggord.coa     
 ##  [5] ggord.default  ggord.dpcoa    ggord.lda      ggord.mca     

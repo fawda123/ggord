@@ -12,7 +12,13 @@ output:
 
 [![Travis-CI Build Status](https://travis-ci.org/fawda123/ggord.png?branch=master)](https://travis-ci.org/fawda123/ggord)
 
-A simple package for creating ordination plots with ggplot2 (aka reinventing the wheel, see [this](https://github.com/vqv/ggbiplot) and [this](https://github.com/kassambara/factoextra)).  Install the package as follows:
+[![DOI](https://zenodo.org/badge/35334615.svg)](https://zenodo.org/badge/latestdoi/35334615)
+
+A simple package for creating ordination plots with ggplot2 (aka reinventing the wheel, see [this](https://github.com/vqv/ggbiplot) and [this](https://github.com/kassambara/factoextra)).  
+
+### Installation
+
+Install the package as follows:
 
 ```{r, eval = FALSE}
 install.packages('devtools')
@@ -20,6 +26,14 @@ library(devtools)
 install_github('fawda123/ggord')
 library(ggord)
 ```
+
+### Citation
+
+Please cite the current release as follows:
+
+Marcus W. Beck (2017). ggord: Ordination Plots with ggplot2. R package version 1.0.0. [https://zenodo.org/badge/latestdoi/35334615](https://zenodo.org/badge/latestdoi/35334615)
+
+### Usage
 
 The following shows some examples of creating biplots using the methods available with ggord.  These methods were developed independently from the [ggbiplot](https://github.com/vqv/ggbiplot) and [factoextra](https://github.com/kassambara/factoextra) packages, though the biplots are practically identical.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
 ```{r, echo = FALSE, message = F, warning = F}
