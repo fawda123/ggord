@@ -263,7 +263,7 @@ ggord(ord)
 ```r
 # species points as text
 # suppress site points
-ggord(ord, ptslab = TRUE, size = NA, addsize = 5)
+ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)
 ```
 
 ![](README_files/figure-html/unnamed-chunk-3-23.png)<!-- -->

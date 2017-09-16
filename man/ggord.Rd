@@ -102,7 +102,7 @@ ggord(...)
 
 \item{alpha}{numeric transparency of points and ellipses from 0 to 1}
 
-\item{alpha_el}{numeric transparency for confidence ellipses}
+\item{alpha_el}{numeric transparency for confidence ellipses, also applies to filled convex hulls}
 
 \item{xlims}{two numeric values indicating x-axis limits}
 
@@ -250,7 +250,7 @@ ggord(ord)
 
 # species points as text
 # suppress site points
-ggord(ord, ptslab = TRUE, size = NA, addsize = 5)
+ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)
 
 }
 \seealso{

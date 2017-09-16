@@ -166,7 +166,7 @@
 #'
 #' # species points as text
 #' # suppress site points
-#' ggord(ord, ptslab = TRUE, size = NA, addsize = 5)
+#' ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)
 #'
 ggord <- function(...) UseMethod('ggord')
 
