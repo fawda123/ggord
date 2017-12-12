@@ -8,6 +8,8 @@
 #' @param vecs matrix or data frame of axis scores for each variable
 #' @param axes chr string indicating which axes to plot
 #' @param cols chr string of optional colors for \code{grp_in}
+#' @param facet logical indicating if plot is faceted by groups in \code{grp_in}
+#' @param nfac numeric indicating number of columns if \code{facet = TRUE}
 #' @param addpts optional matrix or data.frame of additional points if constrained ordination is used (e.g., species locations in cca, rda)
 #' @param obslab logical if the row names for the observations in \code{obs} are plotted rather than points
 #' @param ptslab logical if the row names for the additional points (\code{addpts}) in constrained ordination are plotted as text
@@ -65,6 +67,10 @@
 #' new_lab <- list(Sepal.Length = 'SL', Sepal.Width = 'SW', Petal.Width = 'PW',
 #'  Petal.Length = 'PL')
 #' p <- ggord(ord, iris$Species, vec_lab = new_lab)
+#' p
+#'
+#' # faceted by group
+#' p <- ggord(ord, iris$Species, facet = TRUE, nfac = 3)
 #' p
 #'
 #' # principal components analysis with the iris dataset
@@ -175,11 +181,11 @@ ggord <- function(...) UseMethod('ggord')
 #' @export
 #'
 #' @method ggord default
-ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = NULL, obslab = FALSE,
-                      ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE, hull = FALSE, arrow = 0.4,
-                      ext = 1.2, vec_ext = 1, vec_lab = NULL, size = 4, addsize = size/2, addcol = 'blue',
-                      addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL, var_sub = NULL,
-                      coord_fix = TRUE, parse = FALSE, ...){
+ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, facet = FALSE, nfac = NULL, addpts = NULL,
+                          obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE,
+                          hull = FALSE, arrow = 0.4, ext = 1.2, vec_ext = 1, vec_lab = NULL, size = 4,
+                          addsize = size/2, addcol = 'blue', addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4,
+                          xlims = NULL, ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...){
 
   # extend vectors by scale
   vecs <- vecs * vec_ext
@@ -336,10 +342,22 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, addpts = N
       arrow = grid::arrow(length = grid::unit(arrow, "cm"))
     )
 
+  # facet if true and groups
+  nlabs <- 1
+  if(facet & !is.null(obs$Groups)){
+
+    p <- p +
+      facet_wrap(~Groups, ncol = nfac)
+
+    # for labels if facetting
+    nlabs <- length(unique(obs$Groups))
+
+  }
+
   # add labels
   if(!is.null(txt))
     p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two'),
-      label = unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))),
+      label = rep(unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))), nlabs),
       size = txt,
       parse = parse
       )

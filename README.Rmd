@@ -10,9 +10,7 @@ output:
 
 #### *Marcus W. Beck, mbafs2012@gmail.com*
 
-[![Travis-CI Build Status](https://travis-ci.org/fawda123/ggord.png?branch=master)](https://travis-ci.org/fawda123/ggord)
-
-[![DOI](https://zenodo.org/badge/35334615.svg)](https://zenodo.org/badge/latestdoi/35334615)
+[![Travis-CI Build Status](https://travis-ci.org/fawda123/ggord.png?branch=master)](https://travis-ci.org/fawda123/ggord)[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/fawda123/ggord?branch=master&svg=true)](https://ci.appveyor.com/project/fawda123/ggord)[![DOI](https://zenodo.org/badge/35334615.svg)](https://zenodo.org/badge/latestdoi/35334615)
 
 A simple package for creating ordination plots with ggplot2 (aka reinventing the wheel, see [this](https://github.com/vqv/ggbiplot) and [this](https://github.com/kassambara/factoextra)).  
 
@@ -72,6 +70,10 @@ p
 
 # observations as labels from row names
 p <- ggord(ord, iris$Species, obslab = TRUE)
+p
+
+# faceted by group
+p <- ggord(ord, iris$Species, facet = TRUE, nfac = 1)
 p
 
 # principal components analysis with the iris dataset

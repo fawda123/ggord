@@ -5,3 +5,4 @@
 ^README\.html$
 ^README_files/*
 ^\.travis\.yml$
+^appveyor\.yml$
