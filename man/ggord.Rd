@@ -24,7 +24,7 @@ ggord(...)
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), cols = NULL,
   facet = FALSE, nfac = NULL, addpts = NULL, obslab = FALSE,
   ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE,
-  hull = FALSE, arrow = 0.4, ext = 1.2, repel = TRUE, vec_ext = 1,
+  hull = FALSE, arrow = 0.4, ext = 1.2, repel = FALSE, vec_ext = 1,
   vec_lab = NULL, size = 4, addsize = size/2, addcol = "blue",
   addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL,
   ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...)
