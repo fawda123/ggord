@@ -19,6 +19,7 @@
 #' @param hull logical if convex hull is drawn around points or groups if provided
 #' @param arrow numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows
 #' @param ext numeric indicating scalar distance of the labels from the arrow ends
+#' @param repel logical if overlapping text labels on vectors use \code{geom_textrepel} from the ggrepel package
 #' @param vec_ext numeric indicating a scalar extension for the ordination vectors
 #' @param vec_lab list of optional labels for vectors, defaults to names from input data.  The input list must be named using the existing variables in the input data.  Each element of the list will have the desired name change.
 #' @param size numeric indicating size of the observation points
@@ -183,7 +184,7 @@ ggord <- function(...) UseMethod('ggord')
 #' @method ggord default
 ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, facet = FALSE, nfac = NULL, addpts = NULL,
                           obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE,
-                          hull = FALSE, arrow = 0.4, ext = 1.2, vec_ext = 1, vec_lab = NULL, size = 4,
+                          hull = FALSE, arrow = 0.4, ext = 1.2, repel = FALSE, vec_ext = 1, vec_lab = NULL, size = 4,
                           addsize = size/2, addcol = 'blue', addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4,
                           xlims = NULL, ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...){
 
@@ -355,12 +356,29 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, facet = FA
   }
 
   # add labels
-  if(!is.null(txt))
-    p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two'),
-      label = rep(unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))), nlabs),
-      size = txt,
-      parse = parse
+  if(!is.null(txt)){
+
+    # repel overlapping labels
+    if(repel){
+
+      p <- p + ggrepel::geom_text_repel(data = vecs_lab, aes_string(x = 'one', y = 'two'),
+                         label = rep(unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))), nlabs),
+                         size = txt,
+                         parse = parse,
+                         point.padding = NA
       )
+
+    } else {
+
+      p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two'),
+        label = rep(unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))), nlabs),
+        size = txt,
+        parse = parse
+        )
+
+    }
+
+  }
 
   return(p)
 
