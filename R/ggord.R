@@ -22,7 +22,8 @@
 #' @param repel logical if overlapping text labels on vectors use \code{geom_textrepel} from the ggrepel package
 #' @param vec_ext numeric indicating a scalar extension for the ordination vectors
 #' @param vec_lab list of optional labels for vectors, defaults to names from input data.  The input list must be named using the existing variables in the input data.  Each element of the list will have the desired name change.
-#' @param size numeric indicating size of the observation points
+#' @param size numeric indicating size of the observation points or a numeric vector equal in length to the rows in the input data
+#' @param sizelab chr string indicating an alternative legend title for size
 #' @param addsize numeric indicating size of the species points if addpts is not \code{NULL}
 #' @param addcol numeric indicating color of the species points if addpts is not \code{NULL}
 #' @param addpch numeric indicating point type of the species points if addpts is not \code{NULL}
@@ -185,7 +186,7 @@ ggord <- function(...) UseMethod('ggord')
 ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, facet = FALSE, nfac = NULL, addpts = NULL,
                           obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE,
                           hull = FALSE, arrow = 0.4, ext = 1.2, repel = FALSE, vec_ext = 1, vec_lab = NULL, size = 4,
-                          addsize = size/2, addcol = 'blue', addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4,
+                          sizelab = NULL, addsize = size/2, addcol = 'blue', addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4,
                           xlims = NULL, ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...){
 
   # extend vectors by scale
@@ -210,6 +211,19 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, facet = FA
 
   }
 
+  # add size to obs
+  if(length(size) > 1){
+
+    if(length(size) != nrow(obs))
+      stop('size must have length equal to 1 or ', nrow(obs))
+
+    obs$size <- size
+
+    if(is.null(sizelab))
+      sizelab <- 'Size'
+
+  }
+
   ## plots
 
   # individual points
@@ -221,18 +235,42 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, facet = FA
     scale_y_continuous(name = nms[2], limits = ylims) +
     theme_bw()
 
-  # observations as points or text, colour if groups provided
-  if(obslab){
-    if(!is.null(obs$Groups))
-      p <- p + geom_text(aes_string(colour = 'Groups', label = 'lab'), size = size, alpha = alpha, parse = parse)
-    else
-      p <- p + geom_text(label = row.names(obs), size = size, alpha = alpha, parse = parse)
+  # map size as aesthetic if provided
+  if(length(size) > 1){
+
+    # observations as points or text, colour if groups provided
+    if(obslab){
+      if(!is.null(obs$Groups))
+        p <- p + geom_text(aes_string(colour = 'Groups', label = 'lab', size = 'size'), alpha = alpha, parse = parse)
+      else
+        p <- p + geom_text(aes_string(size = 'size'), label = row.names(obs), alpha = alpha, parse = parse)
+    } else {
+      if(!is.null(obs$Groups))
+        p <- p + geom_point(aes_string(colour = 'Groups', shape = 'Groups', size = 'size'), alpha = alpha) +
+          scale_shape_manual('Groups', values = rep(16, length = length(obs$Groups)))
+      else
+        p <- p + geom_point(aes_string(size = 'size'), alpha = alpha)
+    }
+
+    # change size legend title if provided
+    p <- p + guides(size=guide_legend(title = sizelab))
+
   } else {
-    if(!is.null(obs$Groups))
-      p <- p + geom_point(aes_string(colour = 'Groups', shape = 'Groups'), size = size, alpha = alpha) +
-        scale_shape_manual('Groups', values = rep(16, length = length(obs$Groups)))
-    else
-      p <- p + geom_point(size = size, alpha = alpha)
+
+    # observations as points or text, colour if groups provided
+    if(obslab){
+      if(!is.null(obs$Groups))
+        p <- p + geom_text(aes_string(colour = 'Groups', label = 'lab'), size = size, alpha = alpha, parse = parse)
+      else
+        p <- p + geom_text(label = row.names(obs), size = size, alpha = alpha, parse = parse)
+    } else {
+      if(!is.null(obs$Groups))
+        p <- p + geom_point(aes_string(colour = 'Groups', shape = 'Groups'), size = size, alpha = alpha) +
+          scale_shape_manual('Groups', values = rep(16, length = length(obs$Groups)))
+      else
+        p <- p + geom_point(size = size, alpha = alpha)
+    }
+
   }
 
   # add species scores if addpts not null, for triplot

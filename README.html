@@ -20,8 +20,8 @@
 <script src="README_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="README_files/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="README_files/navigation-1.1/tabsets.js"></script>
-<link href="README_files/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="README_files/highlightjs-1.1/highlight.js"></script>
+<link href="README_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="README_files/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -30,10 +30,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -182,16 +184,20 @@ p</code></pre>
 p &lt;- ggord(ord, iris$Species, obslab = TRUE)
 p</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-9.png" /><!-- --></p>
+<pre class="r"><code># map a variable to point sizes
+p &lt;- ggord(ord, grp_in = iris$Species, size = iris$Sepal.Length, sizelab = &#39;Sepal\nlength&#39;)
+p</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-10.png" /><!-- --></p>
 <pre class="r"><code># faceted by group
 p &lt;- ggord(ord, iris$Species, facet = TRUE, nfac = 1)
 p</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-10.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-11.png" /><!-- --></p>
 <pre class="r"><code># principal components analysis with the iris dataset
 # princomp
 ord &lt;- princomp(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-11.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-12.png" /><!-- --></p>
 <pre class="r"><code># principal components analysis with the iris dataset
 # PCA
 library(FactoMineR)
@@ -199,7 +205,7 @@ library(FactoMineR)
 ord &lt;- PCA(iris[, 1:4], graph = FALSE)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-12.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-13.png" /><!-- --></p>
 <pre class="r"><code># principal components analysis with the iris dataset
 # dudi.pca
 library(ade4)
@@ -207,7 +213,7 @@ library(ade4)
 ord &lt;- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-13.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-14.png" /><!-- --></p>
 <pre class="r"><code># multiple correspondence analysis with the tea dataset
 # MCA
 data(tea, package = &#39;FactoMineR&#39;)
@@ -216,7 +222,7 @@ tea &lt;- tea[, c(&#39;Tea&#39;, &#39;sugar&#39;, &#39;price&#39;, &#39;age_Q&#3
 ord &lt;- MCA(tea[, -1], graph = FALSE)
 
 ggord(ord, tea$Tea)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-14.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-15.png" /><!-- --></p>
 <pre class="r"><code># multiple correspondence analysis with the tea dataset
 # mca
 library(MASS)
@@ -224,39 +230,39 @@ library(MASS)
 ord &lt;- mca(tea[, -1])
 
 ggord(ord, tea$Tea)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-15.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-16.png" /><!-- --></p>
 <pre class="r"><code># multiple correspondence analysis with the tea dataset
 # acm
 ord &lt;- dudi.acm(tea[, -1], scannf = FALSE)
 
 ggord(ord, tea$Tea)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-16.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-17.png" /><!-- --></p>
 <pre class="r"><code># nonmetric multidimensional scaling with the iris dataset
 # metaMDS
 library(vegan)
 ord &lt;- metaMDS(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-17.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-18.png" /><!-- --></p>
 <pre class="r"><code># linear discriminant analysis
 # example from lda in MASS package
 ord &lt;- lda(Species ~ ., iris, prior = rep(1, 3)/3)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-18.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-19.png" /><!-- --></p>
 <pre class="r"><code># correspondence analysis
 # dudi.coa
 ord &lt;- dudi.coa(iris[, 1:4], scannf = FALSE, nf = 4)
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-19.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-20.png" /><!-- --></p>
 <pre class="r"><code># correspondence analysis
 # ca
 library(ca)
 ord &lt;- ca(iris[, 1:4])
 
 ggord(ord, iris$Species)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-20.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-21.png" /><!-- --></p>
 <pre class="r"><code># double principle coordinate analysis (DPCoA)
 # dpcoa
 library(ade4)
@@ -266,7 +272,7 @@ dtaxo &lt;- dist.taxo(ecomor$taxo)                    # taxonomic distance betwe
 ord &lt;- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
  
 ggord(ord, grp_in = grp, ellipse = FALSE, arrow = 0.2, txt = 3)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-21.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-22.png" /><!-- --></p>
 <pre class="r"><code>######
 # triplots
 
@@ -277,17 +283,17 @@ data(varechem)
 ord &lt;- rda(varespec, varechem)
 
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-22.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-23.png" /><!-- --></p>
 <pre class="r"><code># canonical correspondence analysis
 # cca from vegan
 ord &lt;- cca(varespec, varechem)
 
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-23.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-24.png" /><!-- --></p>
 <pre class="r"><code># species points as text
 # suppress site points
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-24.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-25.png" /><!-- --></p>
 </div>
 </div>
 
