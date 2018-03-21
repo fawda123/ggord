@@ -147,7 +147,7 @@ library(ggord)</code></pre>
 <pre><code>##  [1] ggord.acm      ggord.ca       ggord.cca      ggord.coa     
 ##  [5] ggord.default  ggord.dpcoa    ggord.lda      ggord.mca     
 ##  [9] ggord.MCA      ggord.metaMDS  ggord.pca      ggord.PCA     
-## [13] ggord.prcomp   ggord.princomp ggord.rda     
+## [13] ggord.ppca     ggord.prcomp   ggord.princomp ggord.rda     
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <pre class="r"><code># principal components analysis with the iris data set
 # prcomp
@@ -273,6 +273,43 @@ ord &lt;- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
  
 ggord(ord, grp_in = grp, ellipse = FALSE, arrow = 0.2, txt = 3)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-22.png" /><!-- --></p>
+<pre class="r"><code># phylogenetic PCA
+# ppca
+library(adephylo)
+library(phylobase)
+library(ape)
+
+data(lizards)
+
+# example from help file, adephylo::ppca
+# original example from JOMBART ET AL 2010
+
+# build a tree and phylo4d object
+liz.tre &lt;- read.tree(tex=lizards$hprA)
+liz.4d &lt;- phylobase::phylo4d(liz.tre, lizards$traits)
+
+# remove duplicated populations
+liz.4d &lt;- phylobase::prune(liz.4d, c(7,14))
+
+
+# correct labels
+lab &lt;- c(&quot;Pa&quot;, &quot;Ph&quot;, &quot;Ll&quot;, &quot;Lmca&quot;, &quot;Lmcy&quot;, &quot;Phha&quot;, &quot;Pha&quot;,
+         &quot;Pb&quot;, &quot;Pm&quot;, &quot;Ae&quot;, &quot;Tt&quot;, &quot;Ts&quot;, &quot;Lviv&quot;, &quot;La&quot;, &quot;Ls&quot;, &quot;Lvir&quot;)
+tipLabels(liz.4d) &lt;- lab
+
+# remove size effect
+dat &lt;- tdata(liz.4d, type=&quot;tip&quot;)
+dat &lt;- log(dat)
+newdat &lt;- data.frame(lapply(dat, function(v) residuals(lm(v~dat$mean.L))))
+rownames(newdat) &lt;- rownames(dat)
+tdata(liz.4d, type=&quot;tip&quot;) &lt;- newdat[,-1] # replace data in the phylo4d object
+
+# create ppca
+liz.ppca &lt;- ppca(liz.4d,scale=FALSE,scannf=FALSE,nfposi=1,nfnega=1, method=&quot;Abouheif&quot;)
+
+# plot
+ggord(liz.ppca)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-23.png" /><!-- --></p>
 <pre class="r"><code>######
 # triplots
 
@@ -283,17 +320,17 @@ data(varechem)
 ord &lt;- rda(varespec, varechem)
 
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-23.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-24.png" /><!-- --></p>
 <pre class="r"><code># canonical correspondence analysis
 # cca from vegan
 ord &lt;- cca(varespec, varechem)
 
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-24.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-25.png" /><!-- --></p>
 <pre class="r"><code># species points as text
 # suppress site points
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-25.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-26.png" /><!-- --></p>
 </div>
 </div>
 

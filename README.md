@@ -1,11 +1,3 @@
----
-output:
-  html_document:
-    keep_md: yes
-    toc: no
-    self_contained: no
----
-
 ## ggord
 
 #### *Marcus W. Beck, mbafs2012@gmail.com*
@@ -40,7 +32,7 @@ The following shows some examples of creating biplots using the methods availabl
 ##  [1] ggord.acm      ggord.ca       ggord.cca      ggord.coa     
 ##  [5] ggord.default  ggord.dpcoa    ggord.lda      ggord.mca     
 ##  [9] ggord.MCA      ggord.metaMDS  ggord.pca      ggord.PCA     
-## [13] ggord.prcomp   ggord.princomp ggord.rda     
+## [13] ggord.ppca     ggord.prcomp   ggord.princomp ggord.rda     
 ## see '?methods' for accessing help and source code
 ```
 
@@ -257,6 +249,47 @@ ggord(ord, grp_in = grp, ellipse = FALSE, arrow = 0.2, txt = 3)
 ![](README_files/figure-html/unnamed-chunk-3-22.png)<!-- -->
 
 ```r
+# phylogenetic PCA
+# ppca
+library(adephylo)
+library(phylobase)
+library(ape)
+
+data(lizards)
+
+# example from help file, adephylo::ppca
+# original example from JOMBART ET AL 2010
+
+# build a tree and phylo4d object
+liz.tre <- read.tree(tex=lizards$hprA)
+liz.4d <- phylobase::phylo4d(liz.tre, lizards$traits)
+
+# remove duplicated populations
+liz.4d <- phylobase::prune(liz.4d, c(7,14))
+
+
+# correct labels
+lab <- c("Pa", "Ph", "Ll", "Lmca", "Lmcy", "Phha", "Pha",
+         "Pb", "Pm", "Ae", "Tt", "Ts", "Lviv", "La", "Ls", "Lvir")
+tipLabels(liz.4d) <- lab
+
+# remove size effect
+dat <- tdata(liz.4d, type="tip")
+dat <- log(dat)
+newdat <- data.frame(lapply(dat, function(v) residuals(lm(v~dat$mean.L))))
+rownames(newdat) <- rownames(dat)
+tdata(liz.4d, type="tip") <- newdat[,-1] # replace data in the phylo4d object
+
+# create ppca
+liz.ppca <- ppca(liz.4d,scale=FALSE,scannf=FALSE,nfposi=1,nfnega=1, method="Abouheif")
+
+# plot
+ggord(liz.ppca)
+```
+
+![](README_files/figure-html/unnamed-chunk-3-23.png)<!-- -->
+
+```r
 ######
 # triplots
 
@@ -269,7 +302,7 @@ ord <- rda(varespec, varechem)
 ggord(ord)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-23.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-24.png)<!-- -->
 
 ```r
 # canonical correspondence analysis
@@ -279,7 +312,7 @@ ord <- cca(varespec, varechem)
 ggord(ord)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-24.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-25.png)<!-- -->
 
 ```r
 # species points as text
@@ -287,5 +320,5 @@ ggord(ord)
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-25.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-26.png)<!-- -->
 

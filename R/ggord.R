@@ -155,6 +155,43 @@
 #'
 #' ggord(ord, grp_in = grp, ellipse = FALSE, arrow = 0.2, txt = 3)
 #'
+#' # phylogenetic PCA
+#' # ppca
+#'
+#' library(adephylo)
+#' library(phylobase)
+#' library(ape)
+#'
+#' data(lizards)
+#'
+#' # example from help file, adephylo::ppca
+#' # original example from JOMBART ET AL 2010
+#'
+#' # build a tree and phylo4d object
+#' liz.tre <- read.tree(tex=lizards$hprA)
+#' liz.4d <- phylobase::phylo4d(liz.tre, lizards$traits)
+#'
+#' # remove duplicated populations
+#' liz.4d <- phylobase::prune(liz.4d, c(7,14))
+#'
+#' # correct labels
+#' lab <- c("Pa", "Ph", "Ll", "Lmca", "Lmcy", "Phha", "Pha",
+#'          "Pb", "Pm", "Ae", "Tt", "Ts", "Lviv", "La", "Ls", "Lvir")
+#' tipLabels(liz.4d) <- lab
+#'
+#' # remove size effect
+#' dat <- tdata(liz.4d, type="tip")
+#' dat <- log(dat)
+#' newdat <- data.frame(lapply(dat, function(v) residuals(lm(v~dat$mean.L))))
+#' rownames(newdat) <- rownames(dat)
+#' tdata(liz.4d, type="tip") <- newdat[,-1] # replace data in the phylo4d object
+#'
+#' # create ppca
+#' liz.ppca <- ppca(liz.4d,scale=FALSE,scannf=FALSE,nfposi=1,nfnega=1, method="Abouheif")
+#'
+#' # plot
+#' ggord(liz.ppca)
+#'
 #' ######
 #' # triplots
 #'
@@ -669,6 +706,39 @@ ggord.ca <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
   # make a nice label for the axes
   axes <- paste0(axes, ' (', round(exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs, axes, ...)
+
+}
+
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord ppca
+ggord.ppca <- function(ord_in, grp_in = NULL, axes = NULL, ...){
+
+  # data to plot
+  obs <- as.data.frame(ord_in$li)
+  vecs <- as.data.frame(ord_in$c1)
+
+  if(is.null(axes)){
+    axes <- gsub('^PC', '',  names(obs))
+  } else {
+    chk <- any(!names(obs) %in% paste0('PC', axes))
+    if(chk) stop('axes not found in input')
+  }
+
+  # axis contribution
+  exp_var <- summary(ord_in, printres = FALSE)$ppca$var[as.numeric(axes)]
+  exp_var <- 100 * exp_var
+
+  # scale the observations and vectors correctly
+  obs$Groups <- grp_in
+
+  # make a nice label for the axes
+  axes <- paste0('PC', axes, ' (', round(exp_var, 2), '%)')
   names(obs)[1:2] <- axes
 
   ggord.default(obs, vecs, axes, ...)
