@@ -22,14 +22,14 @@
 \usage{
 ggord(...)
 
-\method{ggord}{default}(obs, vecs, axes = c("1", "2"), cols = NULL,
-  facet = FALSE, nfac = NULL, addpts = NULL, obslab = FALSE,
-  ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE,
-  hull = FALSE, arrow = 0.4, ext = 1.2, repel = FALSE, vec_ext = 1,
-  vec_lab = NULL, size = 4, sizelab = NULL, addsize = size/2,
-  addcol = "blue", addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4,
-  xlims = NULL, ylims = NULL, var_sub = NULL, coord_fix = TRUE,
-  parse = FALSE, ...)
+\method{ggord}{default}(obs, vecs, axes = c("1", "2"), grp_in = NULL,
+  cols = NULL, facet = FALSE, nfac = NULL, addpts = NULL,
+  obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95,
+  poly = TRUE, hull = FALSE, arrow = 0.4, ext = 1.2, repel = FALSE,
+  vec_ext = 1, vec_lab = NULL, size = 4, sizelab = NULL,
+  addsize = size/2, addcol = "blue", addpch = 19, txt = 4, alpha = 1,
+  alpha_el = 0.4, xlims = NULL, ylims = NULL, var_sub = NULL,
+  coord_fix = TRUE, parse = FALSE, ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -69,6 +69,8 @@ ggord(...)
 \item{vecs}{matrix or data frame of axis scores for each variable}
 
 \item{axes}{chr string indicating which axes to plot}
+
+\item{grp_in}{vector of grouping objects for the biplot, must have the same number of observations as the original matrix used for the ordination}
 
 \item{cols}{chr string of optional colors for \code{grp_in}}
 
@@ -127,8 +129,6 @@ ggord(...)
 \item{parse}{logical indicating if text labels are parsed}
 
 \item{ord_in}{input ordination object}
-
-\item{grp_in}{vector of grouping objects for the biplot, must have the same number of observations as the original matrix used for the ordination}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object that can be further modified

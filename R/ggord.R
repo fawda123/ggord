@@ -220,8 +220,8 @@ ggord <- function(...) UseMethod('ggord')
 #' @export
 #'
 #' @method ggord default
-ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, facet = FALSE, nfac = NULL, addpts = NULL,
-                          obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE,
+ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = NULL, facet = FALSE, nfac = NULL,
+                          addpts = NULL, obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE,
                           hull = FALSE, arrow = 0.4, ext = 1.2, repel = FALSE, vec_ext = 1, vec_lab = NULL, size = 4,
                           sizelab = NULL, addsize = size/2, addcol = 'blue', addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4,
                           xlims = NULL, ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...){
@@ -238,6 +238,9 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), cols = NULL, facet = FA
     vecs_lab$labs <- vec_lab[row.names(vecs_lab)]
   }
   vecs$lab <- row.names(vecs)
+
+  # add groups if grp_in is not null
+  if(!is.null(grp_in)) obs$Groups <- grp_in
 
   # remove vectors for easier viz
   if(!is.null(var_sub)){
