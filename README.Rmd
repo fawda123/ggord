@@ -76,6 +76,10 @@ p
 p <- ggord(ord, grp_in = iris$Species, size = iris$Sepal.Length, sizelab = 'Sepal\nlength')
 p
 
+# change vector scaling, arrow length, line color, size, and type
+p <- ggord(ord, grp_in = iris$Species, arrow = 1, vec_ext = 3, veccol = 'red', veclsz = 1, vectyp = 'dotted')
+p
+
 # faceted by group
 p <- ggord(ord, iris$Species, facet = TRUE, nfac = 1)
 p

@@ -25,7 +25,8 @@ ggord(...)
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), grp_in = NULL,
   cols = NULL, facet = FALSE, nfac = NULL, addpts = NULL,
   obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95,
-  poly = TRUE, hull = FALSE, arrow = 0.4, ext = 1.2, repel = FALSE,
+  poly = TRUE, hull = FALSE, arrow = 0.4, veccol = "black",
+  vectyp = "solid", veclsz = 0.5, ext = 1.2, repel = FALSE,
   vec_ext = 1, vec_lab = NULL, size = 4, sizelab = NULL,
   addsize = size/2, addcol = "blue", addpch = 19, txt = 4, alpha = 1,
   alpha_el = 0.4, xlims = NULL, ylims = NULL, var_sub = NULL,
@@ -93,6 +94,12 @@ ggord(...)
 \item{hull}{logical if convex hull is drawn around points or groups if provided}
 
 \item{arrow}{numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows}
+
+\item{veccol}{chr sting for color of vectors}
+
+\item{vectyp}{chr string for line type of vectors, options are \code{twodash}, \code{solid}, \code{longdash}, \code{dotted}, \code{dotdash}, \code{dashed}, \code{blank}}
+
+\item{veclsz}{numeric for line size on vectors}
 
 \item{ext}{numeric indicating scalar distance of the labels from the arrow ends}
 
