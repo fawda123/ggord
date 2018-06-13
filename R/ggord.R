@@ -244,7 +244,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
   vecs$lab <- row.names(vecs)
 
   # add groups if grp_in is not null
-  if(!is.null(grp_in)) obs$Groups <- grp_in
+  if(!is.null(grp_in)) obs$Groups <- factor(grp_in)
 
   # remove vectors for easier viz
   if(!is.null(var_sub)){
@@ -285,12 +285,12 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
     # observations as points or text, colour if groups provided
     if(obslab){
       if(!is.null(obs$Groups))
-        p <- p + geom_text(aes_string(colour = 'Groups', label = 'lab', size = 'size'), alpha = alpha, parse = parse)
+        p <- p + geom_text(aes_string(group = 'Groups', fill = 'Groups', colour = 'Groups', label = 'lab', size = 'size'), alpha = alpha, parse = parse)
       else
         p <- p + geom_text(aes_string(size = 'size'), label = row.names(obs), alpha = alpha, parse = parse)
     } else {
       if(!is.null(obs$Groups))
-        p <- p + geom_point(aes_string(colour = 'Groups', shape = 'Groups', size = 'size'), alpha = alpha) +
+        p <- p + geom_point(aes_string(group = 'Groups', fill = 'Groups', colour = 'Groups', shape = 'Groups', size = 'size'), alpha = alpha) +
           scale_shape_manual('Groups', values = rep(16, length = length(obs$Groups)))
       else
         p <- p + geom_point(aes_string(size = 'size'), alpha = alpha)
@@ -304,12 +304,12 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
     # observations as points or text, colour if groups provided
     if(obslab){
       if(!is.null(obs$Groups))
-        p <- p + geom_text(aes_string(colour = 'Groups', label = 'lab'), size = size, alpha = alpha, parse = parse)
+        p <- p + geom_text(aes_string(group = 'Groups', fill = 'Groups', colour = 'Groups', label = 'lab'), size = size, alpha = alpha, parse = parse)
       else
         p <- p + geom_text(label = row.names(obs), size = size, alpha = alpha, parse = parse)
     } else {
       if(!is.null(obs$Groups))
-        p <- p + geom_point(aes_string(colour = 'Groups', shape = 'Groups'), size = size, alpha = alpha) +
+        p <- p + geom_point(aes_string(group = 'Groups', fill = 'Groups', colour = 'Groups', shape = 'Groups'), size = size, alpha = alpha) +
           scale_shape_manual('Groups', values = rep(16, length = length(obs$Groups)))
       else
         p <- p + geom_point(size = size, alpha = alpha)
