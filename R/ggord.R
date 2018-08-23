@@ -38,6 +38,7 @@
 #' @param var_sub chr string indcating which labels to show.  Regular expression matching is used.
 #' @param coord_fix logical indicating fixed, equal scaling for axes
 #' @param parse logical indicating if text labels are parsed
+#' @param grp_title chr string for legend title
 #' @param ... arguments passed to or from other methods
 #'
 #' @details Explained variance of axes for triplots are constrained values.
@@ -143,7 +144,6 @@
 #' ggord(ord, iris$Species)
 #'
 #' # correspondence analysis
-#' # ca
 #' library(ca)
 #' ord <- ca(iris[, 1:4])
 #'
@@ -157,6 +157,7 @@
 #' ord <- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
 #'
 #' ggord(ord, grp_in = grp, ellipse = FALSE, arrow = 0.2, txt = 3)
+
 #'
 #' # phylogenetic PCA
 #' # ppca
@@ -228,7 +229,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
                           hull = FALSE, arrow = 0.4, veccol = 'black', vectyp = 'solid', veclsz = 0.5, ext = 1.2,
                           repel = FALSE, vec_ext = 1, vec_lab = NULL, size = 4, sizelab = NULL, addsize = size/2,
                           addcol = 'blue', addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL,
-                          var_sub = NULL, coord_fix = TRUE, parse = FALSE, ...){
+                          var_sub = NULL, coord_fix = TRUE, parse = FALSE, grp_title = 'Groups', ...){
 
   # extend vectors by scale
   vecs <- vecs * vec_ext
@@ -462,6 +463,14 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
     }
 
   }
+
+  # set legend titles to all scales
+  p <- p +
+    guides(
+      fill = guide_legend(title = grp_title),
+      colour = guide_legend(title = grp_title),
+      shape = guide_legend(title = grp_title)
+    )
 
   return(p)
 

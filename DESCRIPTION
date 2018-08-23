@@ -2,7 +2,7 @@ Package: ggord
 Type: Package
 Title: Ordination Plots with ggplot2
 Version: 1.1.1
-Date: 2018-06-13
+Date: 2018-08-23
 Author: Marcus W. Beck [aut, cre]
 Maintainer: Marcus W. Beck <mbafs2012@gmail.com>
 Description: Create ordination biplots with ggplot2. Multiple methods are
@@ -31,4 +31,4 @@ Suggests:
 Authors@R: person(given = "Marcus W.", family = "Beck",
     role = c("aut","cre"),
     email = "mbafs2012@gmail.com")
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

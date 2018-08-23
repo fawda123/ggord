@@ -24,13 +24,14 @@ ggord(...)
 
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), grp_in = NULL,
   cols = NULL, facet = FALSE, nfac = NULL, addpts = NULL,
-  obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95,
-  poly = TRUE, hull = FALSE, arrow = 0.4, veccol = "black",
-  vectyp = "solid", veclsz = 0.5, ext = 1.2, repel = FALSE,
-  vec_ext = 1, vec_lab = NULL, size = 4, sizelab = NULL,
-  addsize = size/2, addcol = "blue", addpch = 19, txt = 4, alpha = 1,
-  alpha_el = 0.4, xlims = NULL, ylims = NULL, var_sub = NULL,
-  coord_fix = TRUE, parse = FALSE, ...)
+  obslab = FALSE, ptslab = FALSE, ellipse = TRUE,
+  ellipse_pro = 0.95, poly = TRUE, hull = FALSE, arrow = 0.4,
+  veccol = "black", vectyp = "solid", veclsz = 0.5, ext = 1.2,
+  repel = FALSE, vec_ext = 1, vec_lab = NULL, size = 4,
+  sizelab = NULL, addsize = size/2, addcol = "blue", addpch = 19,
+  txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL,
+  var_sub = NULL, coord_fix = TRUE, parse = FALSE,
+  grp_title = "Groups", ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -42,7 +43,8 @@ ggord(...)
 
 \method{ggord}{prcomp}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
-\method{ggord}{princomp}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
+\method{ggord}{princomp}(ord_in, grp_in = NULL, axes = c("1", "2"),
+  ...)
 
 \method{ggord}{metaMDS}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -134,6 +136,8 @@ ggord(...)
 \item{coord_fix}{logical indicating fixed, equal scaling for axes}
 
 \item{parse}{logical indicating if text labels are parsed}
+
+\item{grp_title}{chr string for legend title}
 
 \item{ord_in}{input ordination object}
 }
@@ -239,7 +243,6 @@ ord <- dudi.coa(iris[, 1:4], scannf = FALSE, nf = 4)
 ggord(ord, iris$Species)
 
 # correspondence analysis
-# ca
 library(ca)
 ord <- ca(iris[, 1:4])
 
