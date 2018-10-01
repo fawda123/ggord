@@ -26,12 +26,12 @@ ggord(...)
   cols = NULL, facet = FALSE, nfac = NULL, addpts = NULL,
   obslab = FALSE, ptslab = FALSE, ellipse = TRUE,
   ellipse_pro = 0.95, poly = TRUE, hull = FALSE, arrow = 0.4,
-  veccol = "black", vectyp = "solid", veclsz = 0.5, ext = 1.2,
-  repel = FALSE, vec_ext = 1, vec_lab = NULL, size = 4,
-  sizelab = NULL, addsize = size/2, addcol = "blue", addpch = 19,
-  txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL,
-  var_sub = NULL, coord_fix = TRUE, parse = FALSE,
-  grp_title = "Groups", ...)
+  labcol = "black", veccol = "black", vectyp = "solid",
+  veclsz = 0.5, ext = 1.2, repel = FALSE, vec_ext = 1,
+  vec_lab = NULL, size = 4, sizelab = NULL, addsize = size/2,
+  addcol = "blue", addpch = 19, txt = 4, alpha = 1,
+  alpha_el = 0.4, xlims = NULL, ylims = NULL, var_sub = NULL,
+  coord_fix = TRUE, parse = FALSE, grp_title = "Groups", ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -97,7 +97,9 @@ ggord(...)
 
 \item{arrow}{numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows}
 
-\item{veccol}{chr sting for color of vectors}
+\item{labcol}{chr string for color of text labels on vectors}
+
+\item{veccol}{chr string for color of vectors}
 
 \item{vectyp}{chr string for line type of vectors, options are \code{twodash}, \code{solid}, \code{longdash}, \code{dotted}, \code{dotdash}, \code{dashed}, \code{blank}}
 
@@ -105,7 +107,7 @@ ggord(...)
 
 \item{ext}{numeric indicating scalar distance of the labels from the arrow ends}
 
-\item{repel}{logical if overlapping text labels on vectors use \code{geom_textrepel} from the ggrepel package}
+\item{repel}{logical if overlapping text labels on vectors use \code{geom_text_repel} from the ggrepel package}
 
 \item{vec_ext}{numeric indicating a scalar extension for the ordination vectors}
 

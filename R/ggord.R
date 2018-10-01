@@ -18,11 +18,12 @@
 #' @param poly logical if confidence ellipses are filled polygons, otherwise they are shown as empty ellipses
 #' @param hull logical if convex hull is drawn around points or groups if provided
 #' @param arrow numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows
-#' @param veccol chr sting for color of vectors
+#' @param labcol chr string for color of text labels on vectors
+#' @param veccol chr string for color of vectors
 #' @param vectyp chr string for line type of vectors, options are \code{twodash}, \code{solid}, \code{longdash}, \code{dotted}, \code{dotdash}, \code{dashed}, \code{blank}
 #' @param veclsz numeric for line size on vectors
 #' @param ext numeric indicating scalar distance of the labels from the arrow ends
-#' @param repel logical if overlapping text labels on vectors use \code{geom_textrepel} from the ggrepel package
+#' @param repel logical if overlapping text labels on vectors use \code{geom_text_repel} from the ggrepel package
 #' @param vec_ext numeric indicating a scalar extension for the ordination vectors
 #' @param vec_lab list of optional labels for vectors, defaults to names from input data.  The input list must be named using the existing variables in the input data.  Each element of the list will have the desired name change.
 #' @param size numeric indicating size of the observation points or a numeric vector equal in length to the rows in the input data
@@ -226,8 +227,8 @@ ggord <- function(...) UseMethod('ggord')
 #' @method ggord default
 ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = NULL, facet = FALSE, nfac = NULL,
                           addpts = NULL, obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE,
-                          hull = FALSE, arrow = 0.4, veccol = 'black', vectyp = 'solid', veclsz = 0.5, ext = 1.2,
-                          repel = FALSE, vec_ext = 1, vec_lab = NULL, size = 4, sizelab = NULL, addsize = size/2,
+                          hull = FALSE, arrow = 0.4, labcol = 'black', veccol = 'black', vectyp = 'solid', veclsz = 0.5,
+                          ext = 1.2, repel = FALSE, vec_ext = 1, vec_lab = NULL, size = 4, sizelab = NULL, addsize = size/2,
                           addcol = 'blue', addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL,
                           var_sub = NULL, coord_fix = TRUE, parse = FALSE, grp_title = 'Groups', ...){
 
@@ -449,7 +450,8 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
                          label = rep(unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))), nlabs),
                          size = txt,
                          parse = parse,
-                         point.padding = NA
+                         point.padding = NA,
+                         color = labcol
       )
 
     } else {
@@ -457,7 +459,8 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
       p <- p + geom_text(data = vecs_lab, aes_string(x = 'one', y = 'two'),
         label = rep(unlist(lapply(vecs_lab$labs, function(x) as.character(as.expression(x)))), nlabs),
         size = txt,
-        parse = parse
+        parse = parse,
+        color = labcol
         )
 
     }

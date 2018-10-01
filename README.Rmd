@@ -80,6 +80,10 @@ p
 p <- ggord(ord, grp_in = iris$Species, arrow = 1, vec_ext = 3, veccol = 'red', veclsz = 1, vectyp = 'dotted')
 p
 
+# change color of text labels on vectors, use ggrepel to prevent text overlap
+p <- ggord(ord, grp_in = iris$Species, labcol = 'purple', repel = TRUE)
+p
+
 # faceted by group
 p <- ggord(ord, iris$Species, facet = TRUE, nfac = 1)
 p

@@ -1,3 +1,4 @@
+
 ## ggord
 
 #### *Marcus W. Beck, mbafs2012@gmail.com*
@@ -124,12 +125,20 @@ p
 ![](README_files/figure-html/unnamed-chunk-3-11.png)<!-- -->
 
 ```r
+# change color of text labels on vectors, use ggrepel to prevent overlap
+p <- ggord(ord, grp_in = iris$Species, labcol = 'purple', repel = TRUE)
+p
+```
+
+![](README_files/figure-html/unnamed-chunk-3-12.png)<!-- -->
+
+```r
 # faceted by group
 p <- ggord(ord, iris$Species, facet = TRUE, nfac = 1)
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-12.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-13.png)<!-- -->
 
 ```r
 # principal components analysis with the iris dataset
@@ -139,7 +148,7 @@ ord <- princomp(iris[, 1:4])
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-13.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-14.png)<!-- -->
 
 ```r
 # principal components analysis with the iris dataset
@@ -151,7 +160,7 @@ ord <- PCA(iris[, 1:4], graph = FALSE)
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-14.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-15.png)<!-- -->
 
 ```r
 # principal components analysis with the iris dataset
@@ -163,7 +172,7 @@ ord <- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-15.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-16.png)<!-- -->
 
 ```r
 # multiple correspondence analysis with the tea dataset
@@ -176,7 +185,7 @@ ord <- MCA(tea[, -1], graph = FALSE)
 ggord(ord, tea$Tea)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-16.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-17.png)<!-- -->
 
 ```r
 # multiple correspondence analysis with the tea dataset
@@ -188,7 +197,7 @@ ord <- mca(tea[, -1])
 ggord(ord, tea$Tea)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-17.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-18.png)<!-- -->
 
 ```r
 # multiple correspondence analysis with the tea dataset
@@ -198,7 +207,7 @@ ord <- dudi.acm(tea[, -1], scannf = FALSE)
 ggord(ord, tea$Tea)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-18.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-19.png)<!-- -->
 
 ```r
 # nonmetric multidimensional scaling with the iris dataset
@@ -209,7 +218,7 @@ ord <- metaMDS(iris[, 1:4])
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-19.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-20.png)<!-- -->
 
 ```r
 # linear discriminant analysis
@@ -219,7 +228,7 @@ ord <- lda(Species ~ ., iris, prior = rep(1, 3)/3)
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-20.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-21.png)<!-- -->
 
 ```r
 # correspondence analysis
@@ -229,7 +238,7 @@ ord <- dudi.coa(iris[, 1:4], scannf = FALSE, nf = 4)
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-21.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-22.png)<!-- -->
 
 ```r
 # correspondence analysis
@@ -240,7 +249,7 @@ ord <- ca(iris[, 1:4])
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-22.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-23.png)<!-- -->
 
 ```r
 # double principle coordinate analysis (DPCoA)
@@ -254,7 +263,7 @@ ord <- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
 ggord(ord, grp_in = grp, ellipse = FALSE, arrow = 0.2, txt = 3)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-23.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-24.png)<!-- -->
 
 ```r
 # phylogenetic PCA
@@ -295,7 +304,7 @@ liz.ppca <- ppca(liz.4d,scale=FALSE,scannf=FALSE,nfposi=1,nfnega=1, method="Abou
 ggord(liz.ppca)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-24.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-25.png)<!-- -->
 
 ```r
 ######
@@ -310,7 +319,7 @@ ord <- rda(varespec, varechem)
 ggord(ord)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-25.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-26.png)<!-- -->
 
 ```r
 # canonical correspondence analysis
@@ -320,7 +329,7 @@ ord <- cca(varespec, varechem)
 ggord(ord)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-26.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-27.png)<!-- -->
 
 ```r
 # species points as text
@@ -328,5 +337,5 @@ ggord(ord)
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-27.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-28.png)<!-- -->
 
