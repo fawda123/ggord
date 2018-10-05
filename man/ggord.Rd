@@ -25,13 +25,14 @@ ggord(...)
 \method{ggord}{default}(obs, vecs, axes = c("1", "2"), grp_in = NULL,
   cols = NULL, facet = FALSE, nfac = NULL, addpts = NULL,
   obslab = FALSE, ptslab = FALSE, ellipse = TRUE,
-  ellipse_pro = 0.95, poly = TRUE, hull = FALSE, arrow = 0.4,
-  labcol = "black", veccol = "black", vectyp = "solid",
-  veclsz = 0.5, ext = 1.2, repel = FALSE, vec_ext = 1,
-  vec_lab = NULL, size = 4, sizelab = NULL, addsize = size/2,
-  addcol = "blue", addpch = 19, txt = 4, alpha = 1,
-  alpha_el = 0.4, xlims = NULL, ylims = NULL, var_sub = NULL,
-  coord_fix = TRUE, parse = FALSE, grp_title = "Groups", ...)
+  ellipse_pro = 0.95, poly = TRUE, polylntyp = "solid",
+  hull = FALSE, arrow = 0.4, labcol = "black", veccol = "black",
+  vectyp = "solid", veclsz = 0.5, ext = 1.2, repel = FALSE,
+  vec_ext = 1, vec_lab = NULL, size = 4, sizelab = NULL,
+  addsize = size/2, addcol = "blue", addpch = 19, txt = 4,
+  alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL,
+  var_sub = NULL, coord_fix = TRUE, parse = FALSE,
+  grp_title = "Groups", ...)
 
 \method{ggord}{PCA}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -92,6 +93,8 @@ ggord(...)
 \item{ellipse_pro}{numeric indicating confidence value for the ellipses}
 
 \item{poly}{logical if confidence ellipses are filled polygons, otherwise they are shown as empty ellipses}
+
+\item{polylntyp}{chr string for line type of polygon outlines if \code{poly = FALSE}, options are \code{twodash}, \code{solid}, \code{longdash}, \code{dotted}, \code{dotdash}, \code{dashed}, \code{blank}, or alternatively the grouping vector from \code{grp_in} can be used}
 
 \item{hull}{logical if convex hull is drawn around points or groups if provided}
 

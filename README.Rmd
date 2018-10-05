@@ -58,6 +58,10 @@ p + theme(legend.position = 'top')
 p <- ggord(ord, iris$Species, poly = FALSE)
 p
 
+# change linetype for transparent ellipses
+p <- ggord(ord, iris$Species, poly = FALSE, polylntyp = iris$Species)
+p
+
 # convex hulls 
 p <- ggord(ord, iris$Species, ellipse = FALSE, hull = TRUE)
 p

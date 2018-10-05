@@ -16,6 +16,7 @@
 #' @param ellipse logical if confidence ellipses are shown for each group, method from the ggbiplot package
 #' @param ellipse_pro numeric indicating confidence value for the ellipses
 #' @param poly logical if confidence ellipses are filled polygons, otherwise they are shown as empty ellipses
+#' @param polylntyp chr string for line type of polygon outlines if \code{poly = FALSE}, options are \code{twodash}, \code{solid}, \code{longdash}, \code{dotted}, \code{dotdash}, \code{dashed}, \code{blank}, or alternatively the grouping vector from \code{grp_in} can be used
 #' @param hull logical if convex hull is drawn around points or groups if provided
 #' @param arrow numeric indicating length of the arrow heads on the vectors, use \code{NULL} to suppress arrows
 #' @param labcol chr string for color of text labels on vectors
@@ -227,10 +228,10 @@ ggord <- function(...) UseMethod('ggord')
 #' @method ggord default
 ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = NULL, facet = FALSE, nfac = NULL,
                           addpts = NULL, obslab = FALSE, ptslab = FALSE, ellipse = TRUE, ellipse_pro = 0.95, poly = TRUE,
-                          hull = FALSE, arrow = 0.4, labcol = 'black', veccol = 'black', vectyp = 'solid', veclsz = 0.5,
-                          ext = 1.2, repel = FALSE, vec_ext = 1, vec_lab = NULL, size = 4, sizelab = NULL, addsize = size/2,
-                          addcol = 'blue', addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL, ylims = NULL,
-                          var_sub = NULL, coord_fix = TRUE, parse = FALSE, grp_title = 'Groups', ...){
+                          polylntyp = 'solid', hull = FALSE, arrow = 0.4, labcol = 'black', veccol = 'black', vectyp = 'solid',
+                          veclsz = 0.5, ext = 1.2, repel = FALSE, vec_ext = 1, vec_lab = NULL, size = 4, sizelab = NULL,
+                          addsize = size/2, addcol = 'blue', addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL,
+                          ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = FALSE, grp_title = 'Groups', ...){
 
   # extend vectors by scale
   vecs <- vecs * vec_ext
@@ -368,7 +369,11 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
 
     } else {
 
-      p <- p + geom_polygon(data = ell, aes_string(color = 'Groups', group = 'Groups'), fill = NA, alpha = alpha)
+      # setup line type as grp_in or standard
+      if(identical(polylntyp, obs$Groups))
+        p <- p + geom_polygon(data = ell, aes_string(color = 'Groups', group = 'Groups', linetype = 'Groups'), fill = NA, alpha = alpha)
+      else
+        p <- p + geom_polygon(data = ell, aes_string(color = 'Groups', group = 'Groups'), linetype = polylntyp, fill = NA, alpha = alpha)
 
     }
 
@@ -388,7 +393,11 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
 
       } else {
 
-        p <- p + geom_polygon(data = chulls, aes(group = Groups, colour = Groups), fill = NA, alpha = alpha)
+        # setup line type as grp_in or standard
+        if(identical(polylntyp, obs$Groups))
+          p <- p + geom_polygon(data = chulls, aes(group = Groups, colour = Groups, linetype = Groups), fill = NA, alpha = alpha)
+        else
+          p <- p + geom_polygon(data = chulls, aes(group = Groups, colour = Groups), linetype = polylntyp, fill = NA, alpha = alpha)
 
       }
 
@@ -402,7 +411,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
 
       } else {
 
-        p <- p + geom_polygon(data = chulls, alpha = alpha, fill = NA)
+        p <- p + geom_polygon(data = chulls, linetype = polylntyp, alpha = alpha, fill = NA)
 
       }
 
