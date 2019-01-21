@@ -209,6 +209,11 @@
 #'
 #' ggord(ord)
 #'
+#' # distance-based redundancy analysis, from vegan
+#' ord <- capscale(varespec ~ N + P + K + Condition(Al), varechem, dist = "bray")
+#'
+#' ggord(ord)
+#'
 #' # canonical correspondence analysis
 #' # cca from vegan
 #' ord <- cca(varespec, varechem)
@@ -783,6 +788,33 @@ ggord.rda <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
 
   # data to plot
   axes <- paste0('RDA', axes)
+  obs <- data.frame(ord_in$CCA$wa[, axes])
+  obs$Groups <- grp_in
+  addpts <- data.frame(ord_in$CCA$v[, axes])
+
+  # vectors for constraining matrix
+  constr <- data.frame(ord_in$CCA$biplot[, axes])
+
+  # explained variance of constrained axes
+  exp_var <- summary(ord_in)$concont$importance[2, axes]
+
+  # make a nice label for the axes
+  axes <- paste0(axes, ' (', round(100 * exp_var, 2), '%)')
+  names(obs)[1:2] <- axes
+
+  ggord.default(obs, vecs = constr, axes, addpts = addpts, ...)
+
+}
+
+#' @rdname ggord
+#'
+#' @export
+#'
+#' @method ggord capscale
+ggord.capscale <- function(ord_in, grp_in = NULL, axes = c('1', '2'), ...){
+
+  # data to plot
+  axes <- paste0('CAP', axes)
   obs <- data.frame(ord_in$CCA$wa[, axes])
   obs$Groups <- grp_in
   addpts <- data.frame(ord_in$CCA$v[, axes])

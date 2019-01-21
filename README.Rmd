@@ -221,6 +221,11 @@ ord <- rda(varespec, varechem)
 
 ggord(ord)
 
+# distance-based redundancy analysis, from vegan
+ord <- capscale(varespec ~ N + P + K + Condition(Al), varechem, dist = "bray")
+
+ggord(ord)
+
 # canonical correspondence analysis
 # cca from vegan
 ord <- cca(varespec, varechem)

@@ -30,10 +30,11 @@ Marcus W. Beck (2017). ggord: Ordination Plots with ggplot2. R package version 1
 The following shows some examples of creating biplots using the methods available with ggord.  These methods were developed independently from the [ggbiplot](https://github.com/vqv/ggbiplot) and [factoextra](https://github.com/kassambara/factoextra) packages, though the biplots are practically identical.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
 
 ```
-##  [1] ggord.acm      ggord.ca       ggord.cca      ggord.coa     
-##  [5] ggord.default  ggord.dpcoa    ggord.lda      ggord.mca     
-##  [9] ggord.MCA      ggord.metaMDS  ggord.pca      ggord.PCA     
-## [13] ggord.ppca     ggord.prcomp   ggord.princomp ggord.rda     
+##  [1] ggord.acm      ggord.ca       ggord.capscale ggord.cca     
+##  [5] ggord.coa      ggord.default  ggord.dpcoa    ggord.lda     
+##  [9] ggord.mca      ggord.MCA      ggord.metaMDS  ggord.pca     
+## [13] ggord.PCA      ggord.ppca     ggord.prcomp   ggord.princomp
+## [17] ggord.rda     
 ## see '?methods' for accessing help and source code
 ```
 
@@ -330,9 +331,8 @@ ggord(ord)
 ![](README_files/figure-html/unnamed-chunk-3-27.png)<!-- -->
 
 ```r
-# canonical correspondence analysis
-# cca from vegan
-ord <- cca(varespec, varechem)
+# distance-based redundancy analysis, from vegan
+ord <- capscale(varespec ~ N + P + K + Condition(Al), varechem, dist = "bray")
 
 ggord(ord)
 ```
@@ -340,10 +340,20 @@ ggord(ord)
 ![](README_files/figure-html/unnamed-chunk-3-28.png)<!-- -->
 
 ```r
+# canonical correspondence analysis
+# cca from vegan
+ord <- cca(varespec, varechem)
+
+ggord(ord)
+```
+
+![](README_files/figure-html/unnamed-chunk-3-29.png)<!-- -->
+
+```r
 # species points as text
 # suppress site points
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-29.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-30.png)<!-- -->
 
