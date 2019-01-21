@@ -31,10 +31,10 @@ The following shows some examples of creating biplots using the methods availabl
 
 ```
 ##  [1] ggord.acm      ggord.ca       ggord.capscale ggord.cca     
-##  [5] ggord.coa      ggord.default  ggord.dpcoa    ggord.lda     
-##  [9] ggord.mca      ggord.MCA      ggord.metaMDS  ggord.pca     
-## [13] ggord.PCA      ggord.ppca     ggord.prcomp   ggord.princomp
-## [17] ggord.rda     
+##  [5] ggord.coa      ggord.dbrda    ggord.default  ggord.dpcoa   
+##  [9] ggord.lda      ggord.mca      ggord.MCA      ggord.metaMDS 
+## [13] ggord.pca      ggord.PCA      ggord.ppca     ggord.prcomp  
+## [17] ggord.princomp ggord.rda     
 ## see '?methods' for accessing help and source code
 ```
 
@@ -316,14 +316,12 @@ ggord(liz.ppca)
 ![](README_files/figure-html/unnamed-chunk-3-26.png)<!-- -->
 
 ```r
-######
-# triplots
-
-# redundancy analysis
-# rda from vegan
+# distance-based redundancy analysis
+# dbrda from vegan
 data(varespec)
 data(varechem)
-ord <- rda(varespec, varechem)
+
+ord <- dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist = "bray")
 
 ggord(ord)
 ```
@@ -331,13 +329,27 @@ ggord(ord)
 ![](README_files/figure-html/unnamed-chunk-3-27.png)<!-- -->
 
 ```r
-# distance-based redundancy analysis, from vegan
-ord <- capscale(varespec ~ N + P + K + Condition(Al), varechem, dist = "bray")
+######
+# triplots
+
+# redundancy analysis
+# rda from vegan
+ord <- rda(varespec, varechem)
 
 ggord(ord)
 ```
 
 ![](README_files/figure-html/unnamed-chunk-3-28.png)<!-- -->
+
+```r
+# distance-based redundancy analysis
+# capscale from vegan
+ord <- capscale(varespec ~ N + P + K + Condition(Al), varechem, dist = "bray")
+
+ggord(ord)
+```
+
+![](README_files/figure-html/unnamed-chunk-3-29.png)<!-- -->
 
 ```r
 # canonical correspondence analysis
@@ -347,7 +359,7 @@ ord <- cca(varespec, varechem)
 ggord(ord)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-29.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-30.png)<!-- -->
 
 ```r
 # species points as text
@@ -355,5 +367,5 @@ ggord(ord)
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-30.png)<!-- -->
+![](README_files/figure-html/unnamed-chunk-3-31.png)<!-- -->
 

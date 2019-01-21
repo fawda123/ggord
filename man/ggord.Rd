@@ -17,6 +17,7 @@
 \alias{ggord.ppca}
 \alias{ggord.rda}
 \alias{ggord.capscale}
+\alias{ggord.dbrda}
 \alias{ggord.cca}
 \alias{ggord.dpcoa}
 \title{Ordination plots with ggplot2}
@@ -64,6 +65,8 @@ ggord(...)
 
 \method{ggord}{capscale}(ord_in, grp_in = NULL, axes = c("1", "2"),
   ...)
+
+\method{ggord}{dbrda}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
 \method{ggord}{cca}(ord_in, grp_in = NULL, axes = c("1", "2"), ...)
 
@@ -303,18 +306,26 @@ liz.ppca <- ppca(liz.4d,scale=FALSE,scannf=FALSE,nfposi=1,nfnega=1, method="Abou
 # plot
 ggord(liz.ppca)
 
+# distance-based redundancy analysis
+# dbrda from vegan
+data(varespec)
+data(varechem)
+
+ord <- dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist = "bray")
+
+ggord(ord)
+
 ######
 # triplots
 
 # redundancy analysis
 # rda from vegan
-data(varespec)
-data(varechem)
 ord <- rda(varespec, varechem)
 
 ggord(ord)
 
-# distance-based redundancy analysis, from vegan
+# distance-based redundancy analysis
+# capscale from vegan
 ord <- capscale(varespec ~ N + P + K + Condition(Al), varechem, dist = "bray")
 
 ggord(ord)

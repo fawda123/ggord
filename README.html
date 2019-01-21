@@ -148,10 +148,10 @@ library(ggord)</code></pre>
 <h3>Usage</h3>
 <p>The following shows some examples of creating biplots using the methods available with ggord. These methods were developed independently from the <a href="https://github.com/vqv/ggbiplot">ggbiplot</a> and <a href="https://github.com/kassambara/factoextra">factoextra</a> packages, though the biplots are practically identical. Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis. Available methods are as follows:</p>
 <pre><code>##  [1] ggord.acm      ggord.ca       ggord.capscale ggord.cca     
-##  [5] ggord.coa      ggord.default  ggord.dpcoa    ggord.lda     
-##  [9] ggord.mca      ggord.MCA      ggord.metaMDS  ggord.pca     
-## [13] ggord.PCA      ggord.ppca     ggord.prcomp   ggord.princomp
-## [17] ggord.rda     
+##  [5] ggord.coa      ggord.dbrda    ggord.default  ggord.dpcoa   
+##  [9] ggord.lda      ggord.mca      ggord.MCA      ggord.metaMDS 
+## [13] ggord.pca      ggord.PCA      ggord.ppca     ggord.prcomp  
+## [17] ggord.princomp ggord.rda     
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <pre class="r"><code># principal components analysis with the iris data set
 # prcomp
@@ -326,32 +326,40 @@ liz.ppca &lt;- ppca(liz.4d,scale=FALSE,scannf=FALSE,nfposi=1,nfnega=1, method=&q
 # plot
 ggord(liz.ppca)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-26.png" /><!-- --></p>
+<pre class="r"><code># distance-based redundancy analysis
+# dbrda from vegan
+data(varespec)
+data(varechem)
+
+ord &lt;- dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist = &quot;bray&quot;)
+
+ggord(ord)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-27.png" /><!-- --></p>
 <pre class="r"><code>######
 # triplots
 
 # redundancy analysis
 # rda from vegan
-data(varespec)
-data(varechem)
 ord &lt;- rda(varespec, varechem)
 
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-27.png" /><!-- --></p>
-<pre class="r"><code># distance-based redundancy analysis, from vegan
+<p><img src="README_files/figure-html/unnamed-chunk-3-28.png" /><!-- --></p>
+<pre class="r"><code># distance-based redundancy analysis
+# capscale from vegan
 ord &lt;- capscale(varespec ~ N + P + K + Condition(Al), varechem, dist = &quot;bray&quot;)
 
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-28.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-29.png" /><!-- --></p>
 <pre class="r"><code># canonical correspondence analysis
 # cca from vegan
 ord &lt;- cca(varespec, varechem)
 
 ggord(ord)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-29.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-30.png" /><!-- --></p>
 <pre class="r"><code># species points as text
 # suppress site points
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)</code></pre>
-<p><img src="README_files/figure-html/unnamed-chunk-3-30.png" /><!-- --></p>
+<p><img src="README_files/figure-html/unnamed-chunk-3-31.png" /><!-- --></p>
 </div>
 </div>
 
