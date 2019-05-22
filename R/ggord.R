@@ -252,6 +252,8 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
   # tweaks to vecs for plotting
   # create vecs label  from vecs for labels
   names(vecs) <- c('one', 'two')
+  vecs <- vecs[, na.omit(names(vecs))]
+
   vecs_lab <- ext * vecs
   if(is.null(vec_lab)) vecs_lab$labs <- as.character(row.names(vecs_lab))
   else{

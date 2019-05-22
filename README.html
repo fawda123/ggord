@@ -96,6 +96,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -103,14 +106,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -127,7 +190,7 @@ $(document).ready(function () {
 <div id="ggord" class="section level2">
 <h2>ggord</h2>
 <div id="marcus-w.-beck-mbafs2012gmail.com" class="section level4">
-<h4><em>Marcus W. Beck, <a href="mailto:mbafs2012@gmail.com">mbafs2012@gmail.com</a></em></h4>
+<h4><em>Marcus W. Beck, <a href="mailto:mbafs2012@gmail.com" class="email">mbafs2012@gmail.com</a></em></h4>
 <p><a href="https://travis-ci.org/fawda123/ggord"><img src="https://travis-ci.org/fawda123/ggord.png?branch=master" alt="Travis-CI Build Status" /></a><a href="https://ci.appveyor.com/project/fawda123/ggord"><img src="https://ci.appveyor.com/api/projects/status/github/fawda123/ggord?branch=master&amp;svg=true" alt="AppVeyor Build Status" /></a><a href="https://zenodo.org/badge/latestdoi/35334615"><img src="https://zenodo.org/badge/35334615.svg" alt="DOI" /></a></p>
 <p>A simple package for creating ordination plots with ggplot2 (aka reinventing the wheel, see <a href="https://github.com/vqv/ggbiplot">this</a> and <a href="https://github.com/kassambara/factoextra">this</a>).</p>
 </div>
@@ -142,7 +205,7 @@ library(ggord)</code></pre>
 <div id="citation" class="section level3">
 <h3>Citation</h3>
 <p>Please cite the current release as follows:</p>
-<p>Marcus W. Beck (2017). ggord: Ordination Plots with ggplot2. R package version 1.0.0. <a href="https://zenodo.org/badge/latestdoi/35334615" class="uri">https://zenodo.org/badge/latestdoi/35334615</a></p>
+<p>Marcus W. Beck (2017). ggord: Ordination Plots with ggplot2. R package version 1.0.0. <a href="https://zenodo.org/badge/latestdoi/35334615">https://zenodo.org/badge/latestdoi/35334615</a></p>
 </div>
 <div id="usage" class="section level3">
 <h3>Usage</h3>
