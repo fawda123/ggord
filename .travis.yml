@@ -12,6 +12,11 @@ r_packages:
   - ggplot2
   - FactoMineR
 
+addons:
+  apt:
+    packages:
+      - libudunits2-dev
+
 notifications:
   email:
     on_success: change
