@@ -31,4 +31,4 @@ Suggests:
 Authors@R: person(given = "Marcus W.", family = "Beck",
     role = c("aut","cre"),
     email = "mbafs2012@gmail.com")
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
