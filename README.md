@@ -9,9 +9,7 @@ Status](https://travis-ci.org/fawda123/ggord.png?branch=master)](https://travis-
 Status](https://ci.appveyor.com/api/projects/status/github/fawda123/ggord?branch=master&svg=true)](https://ci.appveyor.com/project/fawda123/ggord)
 [![DOI](https://zenodo.org/badge/35334615.svg)](https://zenodo.org/badge/latestdoi/35334615)
 
-A simple package for creating ordination plots with ggplot2 (aka
-reinventing the wheel, see [this](https://github.com/vqv/ggbiplot) and
-[this](https://github.com/kassambara/factoextra)).
+A simple package for creating ordination plots with ggplot2.
 
 ### Installation
 

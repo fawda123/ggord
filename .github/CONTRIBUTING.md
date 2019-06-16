@@ -1,8 +1,6 @@
 # Contributing to ggord
 
-This outlines how to propose a change to ggord. For more detailed
-info about contributing to this, and other tidyverse packages, please see the
-[**development contributing guide**](https://rstd.io/tidy-contrib).
+This outlines how to propose a change to ggord.
 
 ### Fixing typos
 
@@ -32,17 +30,3 @@ your PR.
 *  We use [roxygen2](https://cran.r-project.org/package=roxygen2), with
 [Markdown syntax](https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html), 
 for documentation.  
-*  We use [testthat](https://cran.r-project.org/package=testthat). Contributions
-with test cases included are easier to accept.  
-*  For user-facing changes, add a bullet to the top of `NEWS.md` below the
-current development version header describing the changes made followed by your
-GitHub username, and links to relevant issue(s)/PR(s).
-
-### Code of Conduct
-
-Please note that the ggord project is released with a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this
-project you agree to abide by its terms.
-
-### See tidyverse [development contributing guide](https://rstd.io/tidy-contrib)
-for further details.
