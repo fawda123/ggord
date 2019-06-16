@@ -1,18 +1,23 @@
 
 ## ggord
 
-#### *Marcus W. Beck, mbafs2012@gmail.com*
+#### *Marcus W. Beck, <mbafs2012@gmail.com>*
 
-[![Travis-CI Build Status](https://travis-ci.org/fawda123/ggord.png?branch=master)](https://travis-ci.org/fawda123/ggord)[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/fawda123/ggord?branch=master&svg=true)](https://ci.appveyor.com/project/fawda123/ggord)[![DOI](https://zenodo.org/badge/35334615.svg)](https://zenodo.org/badge/latestdoi/35334615)
+[![Travis-CI Build
+Status](https://travis-ci.org/fawda123/ggord.png?branch=master)](https://travis-ci.org/fawda123/ggord)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/fawda123/ggord?branch=master&svg=true)](https://ci.appveyor.com/project/fawda123/ggord)
+[![DOI](https://zenodo.org/badge/35334615.svg)](https://zenodo.org/badge/latestdoi/35334615)
 
-A simple package for creating ordination plots with ggplot2 (aka reinventing the wheel, see [this](https://github.com/vqv/ggbiplot) and [this](https://github.com/kassambara/factoextra)).  
+A simple package for creating ordination plots with ggplot2 (aka
+reinventing the wheel, see [this](https://github.com/vqv/ggbiplot) and
+[this](https://github.com/kassambara/factoextra)).
 
 ### Installation
 
 Install the package as follows:
 
-
-```r
+``` r
 install.packages('devtools')
 library(devtools)
 install_github('fawda123/ggord')
@@ -23,22 +28,37 @@ library(ggord)
 
 Please cite the current release as follows:
 
-Marcus W. Beck (2017). ggord: Ordination Plots with ggplot2. R package version 1.0.0. [https://zenodo.org/badge/latestdoi/35334615](https://zenodo.org/badge/latestdoi/35334615)
+Marcus W. Beck (2017). ggord: Ordination Plots with ggplot2. R package
+version 1.0.0. <https://zenodo.org/badge/latestdoi/35334615>
+
+### Contrbution and issues
+
+For making contributions to this package, please see the instructions on
+the [contributing](.github/CONTRIBUTING.md) page.
+
+For bugs or feature requests, please follow the instructions
+[here](.github/ISSUE_TEMPLATE.md).
 
 ### Usage
 
-The following shows some examples of creating biplots using the methods available with ggord.  These methods were developed independently from the [ggbiplot](https://github.com/vqv/ggbiplot) and [factoextra](https://github.com/kassambara/factoextra) packages, though the biplots are practically identical.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
+The following shows some examples of creating biplots using the methods
+available with ggord. These methods were developed independently from
+the [ggbiplot](https://github.com/vqv/ggbiplot) and
+[factoextra](https://github.com/kassambara/factoextra) packages, though
+the biplots are practically identical. Most methods are for results from
+principal components analysis, although methods are available for
+nonmetric multidimensional scaling, multiple correspondence analysis,
+correspondence analysis, and linear discriminant analysis. Available
+methods are as follows:
 
-```
-##  [1] ggord.acm      ggord.ca       ggord.capscale ggord.cca     
-##  [5] ggord.coa      ggord.dbrda    ggord.default  ggord.dpcoa   
-##  [9] ggord.lda      ggord.mca      ggord.MCA      ggord.metaMDS 
-## [13] ggord.pca      ggord.PCA      ggord.ppca     ggord.prcomp  
-## [17] ggord.princomp ggord.rda     
-## see '?methods' for accessing help and source code
-```
+    ##  [1] ggord.acm      ggord.ca       ggord.capscale ggord.cca     
+    ##  [5] ggord.coa      ggord.dbrda    ggord.default  ggord.dpcoa   
+    ##  [9] ggord.lda      ggord.mca      ggord.MCA      ggord.metaMDS 
+    ## [13] ggord.pca      ggord.PCA      ggord.ppca     ggord.prcomp  
+    ## [17] ggord.princomp ggord.rda     
+    ## see '?methods' for accessing help and source code
 
-```r
+``` r
 # principal components analysis with the iris data set
 # prcomp
 ord <- prcomp(iris[, 1:4])
@@ -47,59 +67,59 @@ p <- ggord(ord, iris$Species)
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-```r
+``` r
 p <- ggord(ord, iris$Species, cols = c('purple', 'orange', 'blue'))
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
 
-```r
+``` r
 library(ggplot2)
 p + scale_shape_manual('Groups', values = c(1, 2, 3))
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->
 
-```r
+``` r
 p + theme_classic()
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-4.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-4.png)<!-- -->
 
-```r
+``` r
 p + theme(legend.position = 'top')
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-5.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-5.png)<!-- -->
 
-```r
+``` r
 # transparent ellipses
 p <- ggord(ord, iris$Species, poly = FALSE)
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-6.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-6.png)<!-- -->
 
-```r
+``` r
 # change linetype for transparent ellipses
 p <- ggord(ord, iris$Species, poly = FALSE, polylntyp = iris$Species)
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-7.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-7.png)<!-- -->
 
-```r
+``` r
 # convex hulls 
 p <- ggord(ord, iris$Species, ellipse = FALSE, hull = TRUE)
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-8.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-8.png)<!-- -->
 
-```r
+``` r
 # change the vector labels with vec_lab
 new_lab <- list(Sepal.Length = 'SL', Sepal.Width = 'SW', Petal.Width = 'PW',
   Petal.Length = 'PL')
@@ -107,49 +127,49 @@ p <- ggord(ord, iris$Species, vec_lab = new_lab)
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-9.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-9.png)<!-- -->
 
-```r
+``` r
 # observations as labels from row names
 p <- ggord(ord, iris$Species, obslab = TRUE)
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-10.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-10.png)<!-- -->
 
-```r
+``` r
 # map a variable to point sizes
 p <- ggord(ord, grp_in = iris$Species, size = iris$Sepal.Length, sizelab = 'Sepal\nlength')
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-11.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-11.png)<!-- -->
 
-```r
+``` r
 # change vector scaling, arrow length, line color, size, and type
 p <- ggord(ord, grp_in = iris$Species, arrow = 1, vec_ext = 3, veccol = 'red', veclsz = 1, vectyp = 'dotted')
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-12.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-12.png)<!-- -->
 
-```r
+``` r
 # change color of text labels on vectors, use ggrepel to prevent text overlap
 p <- ggord(ord, grp_in = iris$Species, labcol = 'purple', repel = TRUE)
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-13.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-13.png)<!-- -->
 
-```r
+``` r
 # faceted by group
 p <- ggord(ord, iris$Species, facet = TRUE, nfac = 1)
 p
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-14.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-14.png)<!-- -->
 
-```r
+``` r
 # principal components analysis with the iris dataset
 # princomp
 ord <- princomp(iris[, 1:4])
@@ -157,9 +177,9 @@ ord <- princomp(iris[, 1:4])
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-15.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-15.png)<!-- -->
 
-```r
+``` r
 # principal components analysis with the iris dataset
 # PCA
 library(FactoMineR)
@@ -169,9 +189,9 @@ ord <- PCA(iris[, 1:4], graph = FALSE)
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-16.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-16.png)<!-- -->
 
-```r
+``` r
 # principal components analysis with the iris dataset
 # dudi.pca
 library(ade4)
@@ -181,9 +201,9 @@ ord <- dudi.pca(iris[, 1:4], scannf = FALSE, nf = 4)
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-17.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-17.png)<!-- -->
 
-```r
+``` r
 # multiple correspondence analysis with the tea dataset
 # MCA
 data(tea, package = 'FactoMineR')
@@ -194,9 +214,9 @@ ord <- MCA(tea[, -1], graph = FALSE)
 ggord(ord, tea$Tea)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-18.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-18.png)<!-- -->
 
-```r
+``` r
 # multiple correspondence analysis with the tea dataset
 # mca
 library(MASS)
@@ -206,9 +226,9 @@ ord <- mca(tea[, -1])
 ggord(ord, tea$Tea)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-19.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-19.png)<!-- -->
 
-```r
+``` r
 # multiple correspondence analysis with the tea dataset
 # acm
 ord <- dudi.acm(tea[, -1], scannf = FALSE)
@@ -216,9 +236,9 @@ ord <- dudi.acm(tea[, -1], scannf = FALSE)
 ggord(ord, tea$Tea)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-20.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-20.png)<!-- -->
 
-```r
+``` r
 # nonmetric multidimensional scaling with the iris dataset
 # metaMDS
 library(vegan)
@@ -227,9 +247,9 @@ ord <- metaMDS(iris[, 1:4])
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-21.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-21.png)<!-- -->
 
-```r
+``` r
 # linear discriminant analysis
 # example from lda in MASS package
 ord <- lda(Species ~ ., iris, prior = rep(1, 3)/3)
@@ -237,9 +257,9 @@ ord <- lda(Species ~ ., iris, prior = rep(1, 3)/3)
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-22.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-22.png)<!-- -->
 
-```r
+``` r
 # correspondence analysis
 # dudi.coa
 ord <- dudi.coa(iris[, 1:4], scannf = FALSE, nf = 4)
@@ -247,9 +267,9 @@ ord <- dudi.coa(iris[, 1:4], scannf = FALSE, nf = 4)
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-23.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-23.png)<!-- -->
 
-```r
+``` r
 # correspondence analysis
 # ca
 library(ca)
@@ -258,9 +278,9 @@ ord <- ca(iris[, 1:4])
 ggord(ord, iris$Species)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-24.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-24.png)<!-- -->
 
-```r
+``` r
 # double principle coordinate analysis (DPCoA)
 # dpcoa
 library(ade4)
@@ -272,9 +292,9 @@ ord <- dpcoa(data.frame(t(ecomor$habitat)), dtaxo, scan = FALSE, nf = 2)
 ggord(ord, grp_in = grp, ellipse = FALSE, arrow = 0.2, txt = 3)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-25.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-25.png)<!-- -->
 
-```r
+``` r
 # phylogenetic PCA
 # ppca
 library(adephylo)
@@ -313,9 +333,9 @@ liz.ppca <- ppca(liz.4d,scale=FALSE,scannf=FALSE,nfposi=1,nfnega=1, method="Abou
 ggord(liz.ppca)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-26.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-26.png)<!-- -->
 
-```r
+``` r
 # distance-based redundancy analysis
 # dbrda from vegan
 data(varespec)
@@ -326,9 +346,9 @@ ord <- dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist = "bray")
 ggord(ord)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-27.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-27.png)<!-- -->
 
-```r
+``` r
 ######
 # triplots
 
@@ -339,9 +359,9 @@ ord <- rda(varespec, varechem)
 ggord(ord)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-28.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-28.png)<!-- -->
 
-```r
+``` r
 # distance-based redundancy analysis
 # capscale from vegan
 ord <- capscale(varespec ~ N + P + K + Condition(Al), varechem, dist = "bray")
@@ -349,9 +369,9 @@ ord <- capscale(varespec ~ N + P + K + Condition(Al), varechem, dist = "bray")
 ggord(ord)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-29.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-29.png)<!-- -->
 
-```r
+``` r
 # canonical correspondence analysis
 # cca from vegan
 ord <- cca(varespec, varechem)
@@ -359,13 +379,12 @@ ord <- cca(varespec, varechem)
 ggord(ord)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-30.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-30.png)<!-- -->
 
-```r
+``` r
 # species points as text
 # suppress site points
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)
 ```
 
-![](README_files/figure-html/unnamed-chunk-3-31.png)<!-- -->
-
+![](README_files/figure-gfm/unnamed-chunk-3-31.png)<!-- -->
