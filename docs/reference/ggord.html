@@ -8,21 +8,29 @@
 
 <title>Ordination plots with ggplot2 — ggord • ggord</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Ordination plots with ggplot2 — ggord" />
 
+<meta property="og:title" content="Ordination plots with ggplot2 — ggord" />
 <meta property="og:description" content="Create an ordination biplot using ggplot2 including options for selecting axes, group color aesthetics, and selection of variables to plot." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -47,9 +55,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggord</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -71,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -79,9 +88,13 @@
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/fawda123/ggord/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -89,90 +102,117 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Ordination plots with ggplot2</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/fawda123/ggord/blob/master/R/ggord.R'><code>R/ggord.R</code></a></small>
     <div class="hidden name"><code>ggord.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Create an ordination biplot using ggplot2 including options for selecting axes, group color aesthetics, and selection of variables to plot.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>ggord</span>(<span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>ggord</span>(<span class='no'>obs</span>, <span class='no'>vecs</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nfac</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>addpts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>obslab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ptslab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ellipse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>ellipse_pro</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>poly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>polylntyp</span> <span class='kw'>=</span> <span class='st'>"solid"</span>,
-  <span class='kw'>hull</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='fl'>0.4</span>, <span class='kw'>labcol</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>veccol</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>vectyp</span> <span class='kw'>=</span> <span class='st'>"solid"</span>, <span class='kw'>veclsz</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>ext</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>repel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>vec_ext</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>vec_lab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>sizelab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>addsize</span> <span class='kw'>=</span> <span class='no'>size</span>/<span class='fl'>2</span>, <span class='kw'>addcol</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>addpch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>txt</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>alpha_el</span> <span class='kw'>=</span> <span class='fl'>0.4</span>, <span class='kw'>xlims</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylims</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>var_sub</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coord_fix</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>grp_title</span> <span class='kw'>=</span> <span class='st'>"Groups"</span>, <span class='no'>...</span>)
+<span class='fu'>ggord</span>(
+  <span class='no'>obs</span>,
+  <span class='no'>vecs</span>,
+  <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>),
+  <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>nfac</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>addpts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>obslab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ptslab</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ellipse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>ellipse_pro</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>poly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>polylntyp</span> <span class='kw'>=</span> <span class='st'>"solid"</span>,
+  <span class='kw'>hull</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
+  <span class='kw'>labcol</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>veccol</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>vectyp</span> <span class='kw'>=</span> <span class='st'>"solid"</span>,
+  <span class='kw'>veclsz</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>ext</span> <span class='kw'>=</span> <span class='fl'>1.2</span>,
+  <span class='kw'>repel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>vec_ext</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>vec_lab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>sizelab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>addsize</span> <span class='kw'>=</span> <span class='no'>size</span>/<span class='fl'>2</span>,
+  <span class='kw'>addcol</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
+  <span class='kw'>addpch</span> <span class='kw'>=</span> <span class='fl'>19</span>,
+  <span class='kw'>txt</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>alpha_el</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
+  <span class='kw'>xlims</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylims</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>var_sub</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>coord_fix</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>grp_title</span> <span class='kw'>=</span> <span class='st'>"Groups"</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for PCA</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for MCA</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for mca</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for acm</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for prcomp</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for princomp</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>),
-  <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for metaMDS</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for lda</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for pca</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for coa</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for ca</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for ppca</span>
 <span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for rda</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for capscale</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>),
-  <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for dbrda</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for cca</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for dpcoa</span>
-<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)</pre>
-    
+<span class='fu'>ggord</span>(<span class='no'>ord_in</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>), <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -337,36 +377,33 @@
       <td><p>input ordination object</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></code> object that can be further modified</p>
-    
+    <p>A <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></code> object that can be further modified</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Explained variance of axes for triplots are constrained values.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></code></p></div>
-    
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
 
 <span class='co'># principal components analysis with the iris data set</span>
 <span class='co'># prcomp</span>
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/prcomp'>prcomp</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/prcomp.html'>prcomp</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])
 
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)
 <span class='no'>p</span></div><div class='img'><img src='ggord-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>iris</span>$<span class='no'>Species</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'purple'</span>, <span class='st'>'orange'</span>, <span class='st'>'blue'</span>))
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>iris</span>$<span class='no'>Species</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'purple'</span>, <span class='st'>'orange'</span>, <span class='st'>'blue'</span>))
 <span class='no'>p</span></div><div class='img'><img src='ggord-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>p</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>scale_shape_manual</a></span>(<span class='st'>'Groups'</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>))</div><div class='output co'>#&gt; <span class='message'>Scale for 'shape' is already present. Adding another scale for 'shape', which</span>
-#&gt; <span class='message'>will replace the existing scale.</span></div><div class='img'><img src='ggord-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggtheme'>theme_classic</a></span>()</div><div class='img'><img src='ggord-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/theme'>theme</a></span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>'top'</span>)</div><div class='img'><img src='ggord-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_shape_manual</a></span>(<span class='st'>'Groups'</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>))</div><div class='output co'>#&gt; <span class='message'>Scale for 'shape' is already present. Adding another scale for 'shape', which</span>
+#&gt; <span class='message'>will replace the existing scale.</span></div><div class='img'><img src='ggord-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span>()</div><div class='img'><img src='ggord-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>'top'</span>)</div><div class='img'><img src='ggord-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># change the vector labels with vec_lab</span>
-<span class='no'>new_lab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>Sepal.Length</span> <span class='kw'>=</span> <span class='st'>'SL'</span>, <span class='kw'>Sepal.Width</span> <span class='kw'>=</span> <span class='st'>'SW'</span>, <span class='kw'>Petal.Width</span> <span class='kw'>=</span> <span class='st'>'PW'</span>,
+<span class='no'>new_lab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Sepal.Length</span> <span class='kw'>=</span> <span class='st'>'SL'</span>, <span class='kw'>Sepal.Width</span> <span class='kw'>=</span> <span class='st'>'SW'</span>, <span class='kw'>Petal.Width</span> <span class='kw'>=</span> <span class='st'>'PW'</span>,
  <span class='kw'>Petal.Length</span> <span class='kw'>=</span> <span class='st'>'PL'</span>)
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>iris</span>$<span class='no'>Species</span>, <span class='kw'>vec_lab</span> <span class='kw'>=</span> <span class='no'>new_lab</span>)
 <span class='no'>p</span></div><div class='img'><img src='ggord-6.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -375,48 +412,48 @@
 <span class='no'>p</span></div><div class='img'><img src='ggord-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># principal components analysis with the iris dataset</span>
 <span class='co'># princomp</span>
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/princomp'>princomp</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/princomp.html'>princomp</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)</div><div class='img'><img src='ggord-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># principal components analysis with the iris dataset</span>
 <span class='co'># PCA</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>FactoMineR</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>FactoMineR</span>)
 
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/FactoMineR/topics/PCA'>PCA</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>graph</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/FactoMineR/man/PCA.html'>PCA</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>graph</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)</div><div class='img'><img src='ggord-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># principal components analysis with the iris dataset</span>
 <span class='co'># dudi.pca</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ade4</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ade4</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: 'ade4'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:FactoMineR':</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    reconst</span></div><div class='input'>
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/ade4/topics/dudi.pca'>dudi.pca</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>scannf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nf</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ade4/man/dudi.pca.html'>dudi.pca</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>scannf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nf</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)</div><div class='img'><img src='ggord-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># multiple correspondence analysis with the tea dataset</span>
 <span class='co'># MCA</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>tea</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'FactoMineR'</span>)
-<span class='no'>tea</span> <span class='kw'>&lt;-</span> <span class='no'>tea</span>[, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'Tea'</span>, <span class='st'>'sugar'</span>, <span class='st'>'price'</span>, <span class='st'>'age_Q'</span>, <span class='st'>'sex'</span>)]
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>tea</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'FactoMineR'</span>)
+<span class='no'>tea</span> <span class='kw'>&lt;-</span> <span class='no'>tea</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'Tea'</span>, <span class='st'>'sugar'</span>, <span class='st'>'price'</span>, <span class='st'>'age_Q'</span>, <span class='st'>'sex'</span>)]
 
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/FactoMineR/topics/MCA'>MCA</a></span>(<span class='no'>tea</span>[, -<span class='fl'>1</span>], <span class='kw'>graph</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/FactoMineR/man/MCA.html'>MCA</a></span>(<span class='no'>tea</span>[, -<span class='fl'>1</span>], <span class='kw'>graph</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>tea</span>$<span class='no'>Tea</span>)</div><div class='img'><img src='ggord-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># multiple correspondence analysis with the tea dataset</span>
 <span class='co'># mca</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>MASS</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>MASS</span>)
 
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/MASS/topics/mca'>mca</a></span>(<span class='no'>tea</span>[, -<span class='fl'>1</span>])
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/mca.html'>mca</a></span>(<span class='no'>tea</span>[, -<span class='fl'>1</span>])
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>tea</span>$<span class='no'>Tea</span>)</div><div class='img'><img src='ggord-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># multiple correspondence analysis with the tea dataset</span>
 <span class='co'># acm</span>
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/ade4/topics/dudi.acm'>dudi.acm</a></span>(<span class='no'>tea</span>[, -<span class='fl'>1</span>], <span class='kw'>scannf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ade4/man/dudi.acm.html'>dudi.acm</a></span>(<span class='no'>tea</span>[, -<span class='fl'>1</span>], <span class='kw'>scannf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>tea</span>$<span class='no'>Tea</span>)</div><div class='img'><img src='ggord-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># nonmetric multidimensional scaling with the iris dataset</span>
 <span class='co'># metaMDS</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>vegan</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: permute</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: lattice</span></div><div class='output co'>#&gt; <span class='message'>This is vegan 2.5-5</span></div><div class='input'><span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/vegan/topics/metaMDS'>metaMDS</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])</div><div class='output co'>#&gt; Run 0 stress 0.03775523 
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>vegan</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: permute</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: lattice</span></div><div class='output co'>#&gt; <span class='message'>This is vegan 2.5-6</span></div><div class='input'><span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/vegan/man/metaMDS.html'>metaMDS</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])</div><div class='output co'>#&gt; Run 0 stress 0.03775523 
 #&gt; Run 1 stress 0.03775523 
 #&gt; ... Procrustes: rmse 8.400153e-06  max resid 5.751231e-05 
 #&gt; ... Similar to previous best
@@ -456,72 +493,72 @@
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)</div><div class='img'><img src='ggord-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># linear discriminant analysis</span>
 <span class='co'># example from lda in MASS package</span>
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/MASS/topics/lda'>lda</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='no'>iris</span>, <span class='kw'>prior</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>)/<span class='fl'>3</span>)
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lda.html'>lda</a></span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='no'>iris</span>, <span class='kw'>prior</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>)/<span class='fl'>3</span>)
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)</div><div class='img'><img src='ggord-15.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># correspondence analysis</span>
 <span class='co'># dudi.coa</span>
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/ade4/topics/dudi.coa'>dudi.coa</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>scannf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nf</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ade4/man/dudi.coa.html'>dudi.coa</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>scannf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nf</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)</div><div class='img'><img src='ggord-16.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># correspondence analysis</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ca</span>)
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/ca/topics/ca'>ca</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ca</span>)
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ca/man/ca.html'>ca</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)</div><div class='img'><img src='ggord-17.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># double principle coordinate analysis (DPCoA)</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ade4</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ecomor</span>)
-<span class='no'>grp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Bu"</span>, <span class='st'>"Ca"</span>, <span class='st'>"Ch"</span>, <span class='st'>"Pr"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>4</span>)    <span class='co'># sample groups</span>
-<span class='no'>dtaxo</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/ade4/topics/as.taxo'>dist.taxo</a></span>(<span class='no'>ecomor</span>$<span class='no'>taxo</span>)                    <span class='co'># taxonomic distance between species</span>
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/ade4/topics/dpcoa'>dpcoa</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/t'>t</a></span>(<span class='no'>ecomor</span>$<span class='no'>habitat</span>)), <span class='no'>dtaxo</span>, <span class='kw'>scan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nf</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ade4</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ecomor</span>)
+<span class='no'>grp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bu"</span>, <span class='st'>"Ca"</span>, <span class='st'>"Ch"</span>, <span class='st'>"Pr"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>4</span>)    <span class='co'># sample groups</span>
+<span class='no'>dtaxo</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ade4/man/as.taxo.html'>dist.taxo</a></span>(<span class='no'>ecomor</span>$<span class='no'>taxo</span>)                    <span class='co'># taxonomic distance between species</span>
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ade4/man/dpcoa.html'>dpcoa</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='no'>ecomor</span>$<span class='no'>habitat</span>)), <span class='no'>dtaxo</span>, <span class='kw'>scan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nf</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='kw'>grp_in</span> <span class='kw'>=</span> <span class='no'>grp</span>, <span class='kw'>ellipse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>txt</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='img'><img src='ggord-18.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># phylogenetic PCA</span>
 <span class='co'># ppca</span>
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>adephylo</span>)</div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'spdep':</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>adephylo</span>)</div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'spdep':</span>
 #&gt; <span class='message'>  method   from</span>
-#&gt; <span class='message'>  plot.mst ape </span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>phylobase</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ape</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>  plot.mst ape </span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>phylobase</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ape</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: 'ape'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:phylobase':</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    edges</span></div><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>lizards</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>lizards</span>)
 
 <span class='co'># example from help file, adephylo::ppca</span>
 <span class='co'># original example from JOMBART ET AL 2010</span>
 
 <span class='co'># build a tree and phylo4d object</span>
-<span class='no'>liz.tre</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/ape/topics/read.tree'>read.tree</a></span>(<span class='kw'>tex</span><span class='kw'>=</span><span class='no'>lizards</span>$<span class='no'>hprA</span>)
-<span class='no'>liz.4d</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>phylobase</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/phylobase/topics/phylo4d-methods'>phylo4d</a></span>(<span class='no'>liz.tre</span>, <span class='no'>lizards</span>$<span class='no'>traits</span>)
+<span class='no'>liz.tre</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ape/man/read.tree.html'>read.tree</a></span>(<span class='kw'>tex</span><span class='kw'>=</span><span class='no'>lizards</span>$<span class='no'>hprA</span>)
+<span class='no'>liz.4d</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>phylobase</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html'>phylo4d</a></span>(<span class='no'>liz.tre</span>, <span class='no'>lizards</span>$<span class='no'>traits</span>)
 
 <span class='co'># remove duplicated populations</span>
-<span class='no'>liz.4d</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>phylobase</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/phylobase/topics/subset-methods'>prune</a></span>(<span class='no'>liz.4d</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>14</span>))
+<span class='no'>liz.4d</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>phylobase</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/phylobase/man/subset-methods.html'>prune</a></span>(<span class='no'>liz.4d</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>14</span>))
 
 <span class='co'># correct labels</span>
-<span class='no'>lab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Pa"</span>, <span class='st'>"Ph"</span>, <span class='st'>"Ll"</span>, <span class='st'>"Lmca"</span>, <span class='st'>"Lmcy"</span>, <span class='st'>"Phha"</span>, <span class='st'>"Pha"</span>,
+<span class='no'>lab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Pa"</span>, <span class='st'>"Ph"</span>, <span class='st'>"Ll"</span>, <span class='st'>"Lmca"</span>, <span class='st'>"Lmcy"</span>, <span class='st'>"Phha"</span>, <span class='st'>"Pha"</span>,
          <span class='st'>"Pb"</span>, <span class='st'>"Pm"</span>, <span class='st'>"Ae"</span>, <span class='st'>"Tt"</span>, <span class='st'>"Ts"</span>, <span class='st'>"Lviv"</span>, <span class='st'>"La"</span>, <span class='st'>"Ls"</span>, <span class='st'>"Lvir"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/phylobase/topics/labels-methods'>tipLabels</a></span>(<span class='no'>liz.4d</span>) <span class='kw'>&lt;-</span> <span class='no'>lab</span>
+<span class='fu'><a href='https://rdrr.io/pkg/phylobase/man/labels-methods.html'>tipLabels</a></span>(<span class='no'>liz.4d</span>) <span class='kw'>&lt;-</span> <span class='no'>lab</span>
 
 <span class='co'># remove size effect</span>
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/phylobase/topics/tdata-methods'>tdata</a></span>(<span class='no'>liz.4d</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"tip"</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>log</a></span>(<span class='no'>dat</span>)
-<span class='no'>newdat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>dat</span>, <span class='kw'>function</span>(<span class='no'>v</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/residuals'>residuals</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>v</span>~<span class='no'>dat</span>$<span class='no'>mean.L</span>))))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>rownames</a></span>(<span class='no'>newdat</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>rownames</a></span>(<span class='no'>dat</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/phylobase/topics/tdata-methods'>tdata</a></span>(<span class='no'>liz.4d</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"tip"</span>) <span class='kw'>&lt;-</span> <span class='no'>newdat</span>[,-<span class='fl'>1</span>] <span class='co'># replace data in the phylo4d object</span>
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/phylobase/man/tdata-methods.html'>tdata</a></span>(<span class='no'>liz.4d</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"tip"</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>dat</span>)
+<span class='no'>newdat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>dat</span>, <span class='kw'>function</span>(<span class='no'>v</span>) <span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>residuals</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>v</span>~<span class='no'>dat</span>$<span class='no'>mean.L</span>))))
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>newdat</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>dat</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/phylobase/man/tdata-methods.html'>tdata</a></span>(<span class='no'>liz.4d</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"tip"</span>) <span class='kw'>&lt;-</span> <span class='no'>newdat</span>[,-<span class='fl'>1</span>] <span class='co'># replace data in the phylo4d object</span>
 
 <span class='co'># create ppca</span>
-<span class='no'>liz.ppca</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/adephylo/topics/ppca'>ppca</a></span>(<span class='no'>liz.4d</span>,<span class='kw'>scale</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>scannf</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>nfposi</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>nfnega</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Abouheif"</span>)
+<span class='no'>liz.ppca</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/adephylo/man/ppca.html'>ppca</a></span>(<span class='no'>liz.4d</span>,<span class='kw'>scale</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>scannf</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>nfposi</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>nfnega</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Abouheif"</span>)
 
 <span class='co'># plot</span>
 <span class='fu'>ggord</span>(<span class='no'>liz.ppca</span>)</div><div class='output co'>#&gt; <span class='error'>Error in nrow(object@edge): object 'liz.4d' not found</span></div><div class='input'>
 <span class='co'># distance-based redundancy analysis</span>
 <span class='co'># dbrda from vegan</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>varespec</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>varechem</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>varespec</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>varechem</span>)
 
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/vegan/topics/capscale'>dbrda</a></span>(<span class='no'>varespec</span> ~ <span class='no'>N</span> + <span class='no'>P</span> + <span class='no'>K</span> + <span class='fu'>Condition</span>(<span class='no'>Al</span>), <span class='no'>varechem</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"bray"</span>)
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/vegan/man/capscale.html'>dbrda</a></span>(<span class='no'>varespec</span> ~ <span class='no'>N</span> + <span class='no'>P</span> + <span class='no'>K</span> + <span class='fu'>Condition</span>(<span class='no'>Al</span>), <span class='no'>varechem</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"bray"</span>)
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>)</div><div class='img'><img src='ggord-19.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>######</span>
@@ -529,17 +566,17 @@
 
 <span class='co'># redundancy analysis</span>
 <span class='co'># rda from vegan</span>
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/vegan/topics/cca'>rda</a></span>(<span class='no'>varespec</span>, <span class='no'>varechem</span>)
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/vegan/man/cca.html'>rda</a></span>(<span class='no'>varespec</span>, <span class='no'>varechem</span>)
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>)</div><div class='img'><img src='ggord-20.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># distance-based redundancy analysis</span>
 <span class='co'># capscale from vegan</span>
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/vegan/topics/capscale'>capscale</a></span>(<span class='no'>varespec</span> ~ <span class='no'>N</span> + <span class='no'>P</span> + <span class='no'>K</span> + <span class='fu'>Condition</span>(<span class='no'>Al</span>), <span class='no'>varechem</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"bray"</span>)
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/vegan/man/capscale.html'>capscale</a></span>(<span class='no'>varespec</span> ~ <span class='no'>N</span> + <span class='no'>P</span> + <span class='no'>K</span> + <span class='fu'>Condition</span>(<span class='no'>Al</span>), <span class='no'>varechem</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"bray"</span>)
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>)</div><div class='img'><img src='ggord-21.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># canonical correspondence analysis</span>
 <span class='co'># cca from vegan</span>
-<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/vegan/topics/cca'>cca</a></span>(<span class='no'>varespec</span>, <span class='no'>varechem</span>)
+<span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/vegan/man/cca.html'>cca</a></span>(<span class='no'>varespec</span>, <span class='no'>varechem</span>)
 
 <span class='fu'>ggord</span>(<span class='no'>ord</span>)</div><div class='img'><img src='ggord-22.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># species points as text</span>
@@ -547,22 +584,13 @@
 <span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='kw'>ptslab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>addsize</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 24 rows containing missing values (geom_point).</span></div><div class='img'><img src='ggord-23.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -570,13 +598,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
