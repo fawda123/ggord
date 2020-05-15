@@ -110,7 +110,7 @@
 #'
 #' ord <- MCA(tea[, -1], graph = FALSE)
 #'
-#' ggord(ord, tea$Tea)
+#' ggord(ord, tea$Tea, parse = FALSE) # use parse = FALSE for labels with non alphanumeric characters
 #'
 #' # multiple correspondence analysis with the tea dataset
 #' # mca
@@ -118,13 +118,13 @@
 #'
 #' ord <- mca(tea[, -1])
 #'
-#' ggord(ord, tea$Tea)
+#' ggord(ord, tea$Tea, parse = FALSE) # use parse = FALSE for labels with non alphanumeric characters
 #'
 #' # multiple correspondence analysis with the tea dataset
 #' # acm
 #' ord <- dudi.acm(tea[, -1], scannf = FALSE)
 #'
-#' ggord(ord, tea$Tea)
+#' ggord(ord, tea$Tea, parse = FALSE) # use parse = FALSE for labels with non alphanumeric characters
 #'
 #' # nonmetric multidimensional scaling with the iris dataset
 #' # metaMDS

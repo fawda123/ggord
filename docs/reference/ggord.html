@@ -438,19 +438,19 @@
 
 <span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/FactoMineR/man/MCA.html'>MCA</a></span>(<span class='no'>tea</span>[, -<span class='fl'>1</span>], <span class='kw'>graph</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>tea</span>$<span class='no'>Tea</span>)</div><div class='img'><img src='ggord-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>tea</span>$<span class='no'>Tea</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># use parse = FALSE for labels with non alphanumeric characters</span></div><div class='img'><img src='ggord-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># multiple correspondence analysis with the tea dataset</span>
 <span class='co'># mca</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>MASS</span>)
 
 <span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/mca.html'>mca</a></span>(<span class='no'>tea</span>[, -<span class='fl'>1</span>])
 
-<span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>tea</span>$<span class='no'>Tea</span>)</div><div class='img'><img src='ggord-12.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>tea</span>$<span class='no'>Tea</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># use parse = FALSE for labels with non alphanumeric characters</span></div><div class='img'><img src='ggord-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># multiple correspondence analysis with the tea dataset</span>
 <span class='co'># acm</span>
 <span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ade4/man/dudi.acm.html'>dudi.acm</a></span>(<span class='no'>tea</span>[, -<span class='fl'>1</span>], <span class='kw'>scannf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>tea</span>$<span class='no'>Tea</span>)</div><div class='img'><img src='ggord-13.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggord</span>(<span class='no'>ord</span>, <span class='no'>tea</span>$<span class='no'>Tea</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># use parse = FALSE for labels with non alphanumeric characters</span></div><div class='img'><img src='ggord-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># nonmetric multidimensional scaling with the iris dataset</span>
 <span class='co'># metaMDS</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>vegan</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: permute</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: lattice</span></div><div class='output co'>#&gt; <span class='message'>This is vegan 2.5-6</span></div><div class='input'><span class='no'>ord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/vegan/man/metaMDS.html'>metaMDS</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>])</div><div class='output co'>#&gt; Run 0 stress 0.03775523 
