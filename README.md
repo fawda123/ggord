@@ -3,10 +3,8 @@
 
 #### *Marcus W. Beck, <mbafs2012@gmail.com>*
 
-[![Travis-CI Build
-Status](https://travis-ci.org/fawda123/ggord.png?branch=master)](https://travis-ci.org/fawda123/ggord)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/fawda123/ggord?branch=master&svg=true)](https://ci.appveyor.com/project/fawda123/ggord)
+[![R-CMD-check](https://github.com/fawda123/ggord/workflows/R-CMD-check/badge.svg)](https://github.com/fawda123/ggord/actions)
+[![pkgdown](https://github.com/fawda123/ggord/workflows/pkgdown/badge.svg)](https://github.com/fawda123/ggord/actions)
 [![DOI](https://zenodo.org/badge/35334615.svg)](https://zenodo.org/badge/latestdoi/35334615)
 
 A simple package for creating ordination plots with ggplot2.
@@ -49,11 +47,10 @@ nonmetric multidimensional scaling, multiple correspondence analysis,
 correspondence analysis, and linear discriminant analysis. Available
 methods are as follows:
 
-    ##  [1] ggord.acm      ggord.ca       ggord.capscale ggord.cca     
-    ##  [5] ggord.coa      ggord.dbrda    ggord.default  ggord.dpcoa   
-    ##  [9] ggord.lda      ggord.mca      ggord.MCA      ggord.metaMDS 
-    ## [13] ggord.pca      ggord.PCA      ggord.ppca     ggord.prcomp  
-    ## [17] ggord.princomp ggord.rda     
+    ##  [1] ggord.acm      ggord.ca       ggord.capscale ggord.cca      ggord.coa     
+    ##  [6] ggord.dbrda    ggord.default  ggord.dpcoa    ggord.lda      ggord.mca     
+    ## [11] ggord.MCA      ggord.metaMDS  ggord.pca      ggord.PCA      ggord.ppca    
+    ## [16] ggord.prcomp   ggord.princomp ggord.rda     
     ## see '?methods' for accessing help and source code
 
 ``` r
@@ -209,7 +206,7 @@ tea <- tea[, c('Tea', 'sugar', 'price', 'age_Q', 'sex')]
 
 ord <- MCA(tea[, -1], graph = FALSE)
 
-ggord(ord, tea$Tea)
+ggord(ord, tea$Tea, parse = FALSE) # use parse = FALSE for labels with non alphanumeric characters
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-3-18.png)<!-- -->
@@ -221,7 +218,7 @@ library(MASS)
 
 ord <- mca(tea[, -1])
 
-ggord(ord, tea$Tea)
+ggord(ord, tea$Tea, parse = FALSE) # use parse = FALSE for labels with non alphanumeric characters
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-3-19.png)<!-- -->
@@ -231,7 +228,7 @@ ggord(ord, tea$Tea)
 # acm
 ord <- dudi.acm(tea[, -1], scannf = FALSE)
 
-ggord(ord, tea$Tea)
+ggord(ord, tea$Tea, parse = FALSE) # use parse = FALSE for labels with non alphanumeric characters
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-3-20.png)<!-- -->
