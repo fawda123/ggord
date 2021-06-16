@@ -41,6 +41,8 @@
 #' @param coord_fix logical indicating fixed, equal scaling for axes
 #' @param parse logical indicating if text labels are parsed
 #' @param grp_title chr string for legend title
+#' @param force numeric passed to \code{force} argument in \code{geom_text_repel} from the ggrepel package
+#' @param max.overlaps numeric passed to \code{max.overlaps} argument in \code{geom_text_repel} from the ggrepel package
 #' @param ... arguments passed to or from other methods
 #'
 #' @details Explained variance of axes for triplots are constrained values.
@@ -244,7 +246,8 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
                           polylntyp = 'solid', hull = FALSE, arrow = 0.4, labcol = 'black', veccol = 'black', vectyp = 'solid',
                           veclsz = 0.5, ext = 1.2, repel = FALSE, vec_ext = 1, vec_lab = NULL, size = 4, sizelab = NULL,
                           addsize = size/2, addcol = 'blue', addpch = 19, txt = 4, alpha = 1, alpha_el = 0.4, xlims = NULL,
-                          ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = TRUE, grp_title = 'Groups', ...){
+                          ylims = NULL, var_sub = NULL, coord_fix = TRUE, parse = TRUE, grp_title = 'Groups', force = 1,
+                          max.overlaps = 10, ...){
 
   # extend vectors by scale
   vecs <- vecs * vec_ext
@@ -475,7 +478,10 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
                          size = txt,
                          parse = parse,
                          point.padding = NA,
-                         color = labcol
+                         color = labcol,
+                         force = force,
+                         max.overlaps = max.overlaps
+
       )
 
     } else {

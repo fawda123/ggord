@@ -63,6 +63,8 @@ ggord(...)
   coord_fix = TRUE,
   parse = TRUE,
   grp_title = "Groups",
+  force = 1,
+  max.overlaps = 10,
   ...
 )
 
@@ -178,6 +180,10 @@ ggord(...)
 \item{parse}{logical indicating if text labels are parsed}
 
 \item{grp_title}{chr string for legend title}
+
+\item{force}{numeric passed to \code{force} argument in \code{geom_text_repel} from the ggrepel package}
+
+\item{max.overlaps}{numeric passed to \code{max.overlaps} argument in \code{geom_text_repel} from the ggrepel package}
 
 \item{ord_in}{input ordination object}
 }
