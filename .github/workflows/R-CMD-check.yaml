@@ -76,6 +76,7 @@ jobs:
           remotes::install_version("mapview", version = "2.7.8")
           remotes::install_github("fawda123/Jabbrev")
           install.packages('sf')
+          install.packages('adephylo')
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
