@@ -14,12 +14,10 @@ A simple package for creating ordination plots with ggplot2.
 
 ### Installation
 
-Install the package as follows:
+Install the package from [r-universe](https://fawda123.r-universe.dev/):
 
 ```{r, eval = FALSE}
-install.packages('devtools')
-library(devtools)
-install_github('fawda123/ggord')
+install.packages('ggord', repos = 'https://fawda123.r-universe.dev')
 library(ggord)
 ```
 
