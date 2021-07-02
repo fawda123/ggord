@@ -63,11 +63,17 @@ jobs:
           do
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+          - name: Install gdal for macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install gdal
+
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_version("mapview", version = "2.7.8")
           remotes::install_github("fawda123/Jabbrev")
+          install.packages('sf')
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
