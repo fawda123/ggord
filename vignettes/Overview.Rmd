@@ -1,43 +1,26 @@
 ---
-output: github_document
+title: "Overview"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-## ggord
-
-#### *Marcus W. Beck, mbafs2012@gmail.com*
-
-[![R-CMD-check](https://github.com/fawda123/ggord/workflows/R-CMD-check/badge.svg)](https://github.com/fawda123/ggord/actions)
-[![pkgdown](https://github.com/fawda123/ggord/workflows/pkgdown/badge.svg)](https://github.com/fawda123/ggord/actions)
-[![DOI](https://zenodo.org/badge/35334615.svg)](https://zenodo.org/badge/latestdoi/35334615)
-
-A simple package for creating ordination plots with ggplot2.  
-
-### Installation
-
-Install the package from [r-universe](https://fawda123.r-universe.dev/):
-
-```{r, eval = FALSE}
-install.packages('ggord', repos = 'https://fawda123.r-universe.dev')
-library(ggord)
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  comment = "#>"
+)
 ```
-
-### Citation
-
-Please cite the current release as follows:
-
-Marcus W. Beck (2017). ggord: Ordination Plots with ggplot2. R package version 1.0.0. [https://zenodo.org/badge/latestdoi/35334615](https://zenodo.org/badge/latestdoi/35334615)
-
-### Contrbution and issues
-
-For making contributions to this package, please see the instructions on the [contributing](.github/CONTRIBUTING.md) page. 
-
-For bugs or feature requests, please follow the instructions [here](.github/ISSUE_TEMPLATE.md).
 
 ### Usage
 
 The following shows some examples of creating biplots using the methods available with ggord.  These methods were developed independently from the [ggbiplot](https://github.com/vqv/ggbiplot) and [factoextra](https://github.com/kassambara/factoextra) packages, though the biplots are practically identical.  Most methods are for results from principal components analysis, although methods are available for nonmetric multidimensional scaling, multiple correspondence analysis, correspondence analysis, and linear discriminant analysis.  Available methods are as follows:
 ```{r, echo = FALSE, message = F, warning = F}
-devtools::load_all()
+library(ggord)
 methods('ggord')
 ```
 ```{r fig.height = 7, fig.width = 7, message = FALSE, warning = F, results = 'hide'}
@@ -246,4 +229,3 @@ ggord(ord)
 # suppress site points
 ggord(ord, ptslab = TRUE, size = NA, addsize = 5, parse = TRUE)
 ```
-

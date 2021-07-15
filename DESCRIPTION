@@ -20,15 +20,18 @@ Imports:
 Depends:
     R (>= 3.1.1)
 Suggests:
+    knitr,
     ade4,
     adephylo,
-    ape, 
+    ape,
     ca,
     FactoMineR,
     MASS,
     phylobase,
-    vegan
+    vegan,
+    rmarkdown
 Authors@R: person(given = "Marcus W.", family = "Beck",
     role = c("aut","cre"),
     email = "mbafs2012@gmail.com")
 RoxygenNote: 7.1.1
+VignetteBuilder: knitr
