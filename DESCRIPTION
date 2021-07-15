@@ -29,8 +29,7 @@ Suggests:
     MASS,
     phylobase,
     vegan,
-    rmarkdown. 
-    sf
+    rmarkdown
 Authors@R: person(given = "Marcus W.", family = "Beck",
     role = c("aut","cre"),
     email = "mbafs2012@gmail.com")
