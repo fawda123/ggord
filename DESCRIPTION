@@ -30,7 +30,7 @@ Suggests:
     phylobase,
     vegan,
     rmarkdown, 
-    sf
+    sf (== 0.9-8)
 Authors@R: person(given = "Marcus W.", family = "Beck",
     role = c("aut","cre"),
     email = "mbafs2012@gmail.com")
