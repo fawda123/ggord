@@ -32,8 +32,14 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
+      - name: Install gdal
+        run: |
+          brew install gdal
+          brew install udunits
       - name: Install dependencies
         run: |
+          install.packages('remotes')
+          install_version('sf', version = '0.9-8')
           remotes::install_deps(dependencies = TRUE)
           install.packages("pkgdown", type = "binary")
         shell: Rscript {0}

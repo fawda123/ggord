@@ -30,7 +30,7 @@ Please cite the current release as follows:
 Marcus W. Beck (2017). ggord: Ordination Plots with ggplot2. R package
 version 1.0.0. <https://zenodo.org/badge/latestdoi/35334615>
 
-### Contrbution and issues
+### Contribution and issues
 
 For making contributions to this package, please see the instructions on
 the [contributing](.github/CONTRIBUTING.md) page.
