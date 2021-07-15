@@ -2,7 +2,7 @@ Package: ggord
 Type: Package
 Title: Ordination Plots with ggplot2
 Version: 1.1.6
-Date: 2021-06-16
+Date: 2021-07-15
 Author: Marcus W. Beck [aut, cre]
 Maintainer: Marcus W. Beck <mbafs2012@gmail.com>
 Description: Create ordination biplots with ggplot2. Multiple methods are
@@ -29,7 +29,8 @@ Suggests:
     MASS,
     phylobase,
     vegan,
-    rmarkdown
+    rmarkdown, 
+    sf
 Authors@R: person(given = "Marcus W.", family = "Beck",
     role = c("aut","cre"),
     email = "mbafs2012@gmail.com")
