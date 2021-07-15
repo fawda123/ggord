@@ -18,7 +18,7 @@ Imports:
     grid,
     plyr
 Depends:
-    R (>= 3.1.1)
+    R (>= 3.6.3)
 Suggests:
     knitr,
     ade4,
@@ -29,8 +29,7 @@ Suggests:
     MASS,
     phylobase,
     vegan,
-    rmarkdown, 
-    sf (== 0.9-8)
+    rmarkdown
 Authors@R: person(given = "Marcus W.", family = "Beck",
     role = c("aut","cre"),
     email = "mbafs2012@gmail.com")
