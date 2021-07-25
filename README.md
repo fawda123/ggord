@@ -4,10 +4,9 @@
 #### *Marcus W. Beck, <mbafs2012@gmail.com>*
 
 [![R-CMD-check](https://github.com/fawda123/ggord/workflows/R-CMD-check/badge.svg)](https://github.com/fawda123/ggord/actions)
-[![pkgdown](https://github.com/fawda123/ggord/workflows/pkgdown/badge.svg)](https://github.com/fawda123/ggord/actions)
 [![DOI](https://zenodo.org/badge/35334615.svg)](https://zenodo.org/badge/latestdoi/35334615)
 
-A simple package for creating ordination plots with ggplot2.
+A simple package for creating ordination plots with ggplot2. View the website for an overview: <https://fawda123.github.io/ggord>
 
 ### Installation
 
