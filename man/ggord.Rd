@@ -65,6 +65,7 @@ ggord(...)
   grp_title = "Groups",
   force = 1,
   max.overlaps = 10,
+  exp = c(0, 0),
   ...
 )
 
@@ -184,6 +185,8 @@ ggord(...)
 \item{force}{numeric passed to \code{force} argument in \code{geom_text_repel} from the ggrepel package}
 
 \item{max.overlaps}{numeric passed to \code{max.overlaps} argument in \code{geom_text_repel} from the ggrepel package}
+
+\item{exp}{numeric of length two for expanding x and y axes, passed to \code{\link[ggplot2]{scale_y_continuous}} and \code{\link[ggplot2]{scale_y_continuous}}}
 
 \item{ord_in}{input ordination object}
 }
