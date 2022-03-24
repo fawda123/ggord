@@ -13,7 +13,7 @@
 #' @param addpts optional matrix or data.frame of additional points if constrained ordination is used (e.g., species locations in cca, rda)
 #' @param obslab logical if the row names for the observations in \code{obs} are plotted rather than points
 #' @param ptslab logical if the row names for the additional points (\code{addpts}) in constrained ordination are plotted as text
-#' @param ellipse logical if confidence ellipses are shown for each group, method from the ggbiplot package
+#' @param ellipse logical if confidence ellipses are shown for each group, method from the ggbiplot package, at least one group must have more than two observations
 #' @param ellipse_pro numeric indicating confidence value for the ellipses
 #' @param poly logical if confidence ellipses are filled polygons, otherwise they are shown as empty ellipses
 #' @param polylntyp chr string for line type of polygon outlines if \code{poly = FALSE}, options are \code{twodash}, \code{solid}, \code{longdash}, \code{dotted}, \code{dotdash}, \code{dashed}, \code{blank}, or alternatively the grouping vector from \code{grp_in} can be used
@@ -377,6 +377,10 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
       ed <- sqrt(qchisq(ellipse_pro, df = 2))
       data.frame(sweep(circle %*% chol(sigma) * ed, 2, mu, FUN = '+'))
     })
+
+    if(nrow(ell) == 0 & ellipse)
+      stop('Insufficient observations for confidence ellipses, set ellipse = F to plot')
+
     names(ell)[2:3] <- c('one', 'two')
 
     # get convex hull for ell object, this is a hack to make it work with geom_polygon

@@ -126,7 +126,7 @@ ggord(...)
 
 \item{ptslab}{logical if the row names for the additional points (\code{addpts}) in constrained ordination are plotted as text}
 
-\item{ellipse}{logical if confidence ellipses are shown for each group, method from the ggbiplot package}
+\item{ellipse}{logical if confidence ellipses are shown for each group, method from the ggbiplot package, at least one group must have more than two observations}
 
 \item{ellipse_pro}{numeric indicating confidence value for the ellipses}
 
