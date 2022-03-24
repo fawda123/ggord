@@ -1,7 +1,7 @@
 Package: ggord
 Type: Package
 Title: Ordination Plots with ggplot2
-Version: 1.1.6
+Version: 1.1.7
 Date: 2022-03-24
 Author: Marcus W. Beck [aut, cre]
 Maintainer: Marcus W. Beck <mbafs2012@gmail.com>
