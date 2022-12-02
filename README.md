@@ -26,8 +26,8 @@ install.packages('ggord')
 
 Please cite the current release as follows:
 
-Marcus W. Beck (2017). ggord: Ordination Plots with ggplot2. R package
-version 1.0.0. <https://zenodo.org/badge/latestdoi/35334615>
+Marcus W. Beck (2022). ggord: Ordination Plots with ggplot2. R package
+version 1.1.7. <https://zenodo.org/badge/latestdoi/35334615>
 
 ### Contribution and issues
 
