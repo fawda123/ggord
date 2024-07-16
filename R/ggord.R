@@ -50,7 +50,7 @@
 #'
 #' @export
 #'
-#' @import ggplot2 plyr
+#' @import ggplot2
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified
 #'
@@ -368,7 +368,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
     theta <- c(seq(-pi, pi, length = 50), seq(pi, -pi, length = 50))
     circle <- cbind(cos(theta), sin(theta))
 
-    ell <- ddply(obs, 'Groups', function(x) {
+    ell <- plyr::ddply(obs, 'Groups', function(x) {
       if(nrow(x) <= 2) {
         return(NULL)
       }
@@ -384,7 +384,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
     names(ell)[2:3] <- c('one', 'two')
 
     # get convex hull for ell object, this is a hack to make it work with geom_polygon
-    ell <- ddply(ell, .(Groups), function(x) x[chull(x$one, x$two), ])
+    ell <- plyr::ddply(ell, 'Groups', function(x) x[chull(x$one, x$two), ])
 
     if(poly){
 
@@ -408,7 +408,7 @@ ggord.default <- function(obs, vecs, axes = c('1', '2'), grp_in = NULL, cols = N
     if(!is.null(obs$Groups)){
 
       # get convex hull
-      chulls <- ddply(obs, .(Groups), function(x) x[chull(x$one, x$two), ])
+      chulls <- plyr::ddply(obs, 'Groups', function(x) x[chull(x$one, x$two), ])
 
       if(poly){
 
